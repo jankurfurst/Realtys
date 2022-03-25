@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Realtys.Views.RE_EntryPage">
+    
+
+    <StackLayout Margin="{StaticResource PageMargin}">
+        <Label Text="Pojmenování nemovitosti: "/>
+        <Editor Placeholder="Vložte název položky"
+                Text="{Binding Nazev}"
+                HeightRequest="50"/>
+
+        <Label Text="Cena nemovitosti: "/>
+        <Editor Placeholder="Cena nemovitosti"
+                Text="{Binding cenaNemovitosti}"
+                HeightRequest="50"/>
+
+        <Label Text="Měsíční nájem: "/>
+        <Editor Placeholder="Měsíční nájem"
+                Text= "{Binding mesicniNajem}"
+                HeightRequest="50"/>
+
+        <Label Text="Neobsazenost (v měsících): "/>
+        <Editor Placeholder="Neobsazenost (v měsících)"
+                Text="{Binding neobsazenost}"
+                HeightRequest="50"/>
+      
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Text="Save"
+                    Clicked="OnSaveButtonClicked" />
+            <Button 
+                    Text="Delete"
+                    Clicked="OnDeleteButtonClicked" />
+        </Grid>
+    </StackLayout>
+</ContentPage>
