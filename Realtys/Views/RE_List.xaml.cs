@@ -9,7 +9,6 @@ namespace Realtys.Views
     public partial class RE_List : ContentPage
     {
 
-        readonly RealtysDbContext DbContext;
 
         public RE_List()
         {
@@ -21,14 +20,15 @@ namespace Realtys.Views
             base.OnAppearing();
 
             //listView.ItemsSource = await App.Database.GetREs_Async();
-            listView.ItemsSource = DbContext.RealEstates.ToList();
+            var realties = App.DbContext.RealEstates.ToList();
+            listView.ItemsSource = realties;
         }
 
-        async void OnREAddedClicked(object sender, EventArgs e)
+        async void OnAddedClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new RE_EntryPage
             {
-                BindingContext = new RealEstate()
+                BindingContext = new RealEstate(),
             });
         }
 

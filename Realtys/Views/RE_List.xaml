@@ -7,44 +7,13 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="+"
-                     Clicked="OnREAddedClicked" />
+                     Clicked="OnAddedClicked" />
     </ContentPage.ToolbarItems>
 
-    <ListView x:Name="listView"
+    <!--<ListView x:Name="listView"
               ItemSelected="OnListViewItemSelected">
         <ListView.ItemTemplate>
 
-            <DataTemplate>
-                <Grid Height="110" Margin="6">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="110" Height="110">
-                        <Image Source="{Binding Image}"/>
-                    </Border>
-                    
-                </Grid>
-            </DataTemplate>
-
-<!--
-            <TextCell Text="{Binding Nazev}"
-                          TextColor="Black"
-                          Detail="{Binding cistyRocniVynos}"
-                          DetailColor="Green"/>
-       -->         
-            
-        </ListView.ItemTemplate>
-    </ListView>
- 
- <!--   
-    <CollectionView x:Name="listView"
-                    SelectionChanged ="OnListViewItemSelected"
-                    SelectionMode="Single">
-        <CollectionView.ItemsLayout>
-            <GridItemsLayout Span="1" Orientation="Vertical" />
-        </CollectionView.ItemsLayout>
-        <CollectionView.ItemTemplate>
             <DataTemplate>
                 <Frame BackgroundColor="#6FA4EC" Padding="1" CornerRadius="0" BorderColor="Black">
                     <Label FontSize="20" Padding="30,24" TextColor="White">
@@ -63,9 +32,48 @@
                     </Label>
                 </Frame>
             </DataTemplate>
+
+--><!--
+            <TextCell Text="{Binding Nazev}"
+                          TextColor="Black"
+                          Detail="{Binding cistyRocniVynos}"
+                          DetailColor="Green"/>
+       --><!--         
+            
+        </ListView.ItemTemplate>
+    </ListView>-->
+
+
+    <CollectionView x:Name="listView"
+                    SelectionMode="Single"
+                    SelectionChanged="OnListViewItemSelected">
+        <!--SelectionChanged ="OnListViewItemSelected"-->
+        <CollectionView.ItemsLayout>
+            <GridItemsLayout Span="1" Orientation="Vertical" />
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Frame BackgroundColor="#6FA4EC" Padding="1" CornerRadius="0" BorderColor="Black">
+                    <Label FontSize="20" Padding="30,24" TextColor="White">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <FormattedString.Spans>
+                                    <Span Text="{Binding Nazev} "/>
+                                    <Span Text="&#10;"/>
+                                    <Span Text="Čistý roční výnos: "/>
+                                    <Span Text="{Binding cistyRocniVynos}" />
+                                    <Span Text="&#10;"/>
+                                    <Span Text="Pořizovací cena: " />
+                                    <Span Text="{Binding porizovaciCena}" />
+                                </FormattedString.Spans>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Frame>                
+            </DataTemplate>
         </CollectionView.ItemTemplate>
     </CollectionView>
- -->
+ 
 
 
 </ContentPage>

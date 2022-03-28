@@ -31,9 +31,11 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Button Text="Save"
+                    VerticalOptions="Start"
                     Clicked="OnSaveButtonClicked" />
             <Button 
                     Text="Delete"
+                    VerticalOptions="End"
                     Clicked="OnDeleteButtonClicked" />
         </Grid>
     </StackLayout>
