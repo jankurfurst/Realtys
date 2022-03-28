@@ -17,7 +17,7 @@ public static class MauiProgram
 
 		builder.Services.AddDbContext<RealtysDbContext>(options =>
 		   options.UseSqlite("Data source=" + Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Realtys.db"))
-		   ) ;
+		   );
 
 
 		var services = builder.Services.BuildServiceProvider();
@@ -33,6 +33,7 @@ public static class MauiProgram
 
 
 		}
+
 
 		return builder.Build();
 	}

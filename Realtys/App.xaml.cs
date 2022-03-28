@@ -11,11 +11,17 @@ public partial class App : Application
 
     public App()
     {
-        DbContextOptions options = new DbContextOptionsBuilder().UseSqlite(CONNECTION_STRING).Options;
+        DbContextOptions options = new DbContextOptionsBuilder().EnableSensitiveDataLogging().UseSqlite(CONNECTION_STRING).Options;
         DbContext = new RealtysDbContext(options);
+        
 
         InitializeComponent();
 
         MainPage = new AppShell();
+    }
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddDbContext<RealtysDbContext>(options => options.UseSqlite(CONNECTION_STRING));
     }
 }

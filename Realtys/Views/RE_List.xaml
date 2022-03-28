@@ -11,7 +11,7 @@
     </ContentPage.ToolbarItems>
 
     <!--<ListView x:Name="listView"
-              ItemSelected="OnListViewItemSelected">
+              ItemSelected="OnCollectionViewItemSelected">
         <ListView.ItemTemplate>
 
             <DataTemplate>
@@ -45,9 +45,8 @@
 
 
     <CollectionView x:Name="listView"
-                    SelectionMode="Single"
-                    SelectionChanged="OnListViewItemSelected">
-        <!--SelectionChanged ="OnListViewItemSelected"-->
+                    SelectionMode="Single">
+                    <!--SelectionChanged="OnCollectionViewItemSelected"-->
         <CollectionView.ItemsLayout>
             <GridItemsLayout Span="1" Orientation="Vertical" />
         </CollectionView.ItemsLayout>

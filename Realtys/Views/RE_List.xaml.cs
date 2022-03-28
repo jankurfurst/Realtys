@@ -32,7 +32,7 @@ namespace Realtys.Views
             });
         }
 
-        async void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
+        async void OnCollectionViewItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
 
             if (e.SelectedItem != null)

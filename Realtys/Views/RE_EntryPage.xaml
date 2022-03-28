@@ -33,10 +33,10 @@
             <Button Text="Save"
                     VerticalOptions="Start"
                     Clicked="OnSaveButtonClicked" />
-            <Button 
+            <!--<Button 
                     Text="Delete"
                     VerticalOptions="End"
-                    Clicked="OnDeleteButtonClicked" />
+                    Clicked="OnDeleteButtonClicked" />-->
         </Grid>
     </StackLayout>
 </ContentPage>
