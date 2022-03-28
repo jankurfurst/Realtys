@@ -1,9 +1,12 @@
-﻿using Realtys.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Realtys.Models;
 
 namespace Realtys.Database
 {
     public class DatabaseInit
     {
+
+
         public void Initialization(RealtysDbContext realtysDbContext)
         {
             
