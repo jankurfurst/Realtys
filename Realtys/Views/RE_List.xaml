@@ -52,7 +52,7 @@
         </CollectionView.ItemsLayout>
         <CollectionView.ItemTemplate>
             <DataTemplate>
-                <Frame BackgroundColor="#6FA4EC" Padding="1" CornerRadius="0" BorderColor="Black">
+                <Frame BackgroundColor="#6FA4EC"  CornerRadius="0" BorderColor="Black">
                     <Label FontSize="20" Padding="30,24" TextColor="White">
                         <Label.FormattedText>
                             <FormattedString>

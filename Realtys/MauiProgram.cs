@@ -25,7 +25,7 @@ public static class MauiProgram
 		{
 
 			var dbContext = scope.ServiceProvider.GetRequiredService<RealtysDbContext>();
-			dbContext.Database.EnsureDeleted();
+			//dbContext.Database.EnsureDeleted();
 			dbContext.Database.EnsureCreated();
 
 			DatabaseInit dbInit = new();

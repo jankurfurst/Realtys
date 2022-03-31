@@ -6,10 +6,12 @@
        Title="Realtys"
        BackgroundColor="Green">
 
-    <FlyoutItem Title="Seznam">
+    <FlyoutItem Title="Seznam"
+                >
 
         <Tab Route="first"  Title="Seznam" >
-            <ShellContent ContentTemplate="{DataTemplate local:RE_List}"/>
+            <ShellContent ContentTemplate="{DataTemplate local:RE_List}"
+                          />
         </Tab>
 
         <Tab Icon="dotnet_bot.png" Title="Main Page">
@@ -24,8 +26,10 @@
 
         </Tab>
     </FlyoutItem>
-    <FlyoutItem Title="Přidat (does not work)">
-        <ShellContent ContentTemplate="{DataTemplate local:RE_EntryPage}"/>
+    <FlyoutItem Title="Přidat (does not work)"
+                >
+        <ShellContent ContentTemplate="{DataTemplate local:RE_EntryPage}"
+                      />
         
     </FlyoutItem>
 

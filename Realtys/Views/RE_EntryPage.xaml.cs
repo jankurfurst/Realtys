@@ -14,7 +14,8 @@ namespace Realtys.Views
 
         async void OnSaveButtonClicked(object sender, EventArgs e)
         {
-            //var r = (RealEstate)BindingContext;
+            await DisplayAlert("Item Object", "Title property:" + nameof(OnSaveButtonClicked), "OK");
+            var realty = (RealEstate)BindingContext;
             RealEstate r = new RealEstate()
             {
                 ID = 1,
@@ -43,7 +44,7 @@ namespace Realtys.Views
                     await App.DbContext.SaveChangesAsync();
                 }
             }
-            await Navigation.PushAsync(new RE_List());
+            await Shell.Current.GoToAsync("//first");
         }
 
         async void OnDeleteButtonClicked(object sender, EventArgs e)
@@ -60,7 +61,7 @@ namespace Realtys.Views
                 }
 
             }
-            await Navigation.PushAsync(new RE_List());
+            await Shell.Current.GoToAsync("//first");
         }
     }
 }

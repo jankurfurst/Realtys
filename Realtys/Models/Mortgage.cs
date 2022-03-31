@@ -18,6 +18,8 @@ namespace Realtys.Models
         public int pocetLet { get; set; }
         [Required]
         public double splatka { get; set; }
+        [Required]
+        public int RealtyID { get; set; }
 
         //public Mortgage(double urok, double podil, int cena, int pocetLet)
         //{
