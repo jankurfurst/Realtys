@@ -9,9 +9,6 @@ namespace Realtys.Database
 
         public void Initialization(RealtysDbContext realtysDbContext)
         {
-            
-            var can = realtysDbContext.Database.CanConnect();
-
             if (realtysDbContext.RealEstates.Count() == 0)
             {
                 IList<RealEstate> REs = GenerateRealEstates();
@@ -21,26 +18,45 @@ namespace Realtys.Database
                 }
                 realtysDbContext.SaveChanges();
             }
+
+            if (realtysDbContext.Mortgages.Count() == 0)
+            {
+                var realty = realtysDbContext.RealEstates.FirstOrDefault(re => re.cenaNemovitosti == 3000000);
+                IList<Mortgage> mortgages = GenerateMortgages(realty);
+                foreach (var m in mortgages)
+                {
+                    realtysDbContext.Mortgages.Add(m);
+                }
+                realtysDbContext.SaveChanges();
+            }
         }
-        public List<Mortgage> GenerateMortgages()
+        public List<Mortgage> GenerateMortgages(RealEstate r)
         {
+            double urok = 10;//%
+            double podil = 70.0/100.0;
+            double pocatecniDluh = r.cenaNemovitosti * (1 - podil);
+            int pocetLet = 30;
+
+            int pocetMesicu = pocetLet * 12;
+            double i = urok / 100;
+
+            double v = 1 / (1 + i);
+            double splatka = ((i * pocatecniDluh) / (1 - Math.Pow(v, pocetMesicu)));
+
+
             List<Mortgage> mortgages = new List<Mortgage>();
 
             Mortgage p1 = new Mortgage()
             {
-                ID = 0
-
-            };
-            Mortgage p2 = new Mortgage()
-            {
-                ID = 1
-
-            };
-
+                mesicniUrokovaMira = urok,
+                podil = podil,
+                pocatecniDluh = pocatecniDluh,
+                pocetLet = pocetLet,
+                splatka = splatka,
+                RealtyID = r.ID
+        };
 
             mortgages.Add(p1);
-            mortgages.Add(p2);
-
             return mortgages;
         }
 
@@ -51,7 +67,6 @@ namespace Realtys.Database
 
             RealEstate ci1 = new RealEstate()
             {
-                
                 Nazev = "TEST1",
                 mesicniNaklady = 1000,
                 mesicniNajem = 5000,
@@ -62,7 +77,6 @@ namespace Realtys.Database
             };
             RealEstate ci2 = new RealEstate()
             {
-                
                 Nazev = "TEST2",
                 mesicniNaklady = 2000,
                 mesicniNajem = 7000,

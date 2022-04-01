@@ -1,32 +1,57 @@
 ﻿using Realtys.Database;
 using Realtys.Models;
+using Realtys.ViewModels;
 
 namespace Realtys.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RE_EntryPage : ContentPage
-    { 
+    {
+        private readonly RealtysDbContext DbContext;
 
-        public RE_EntryPage()
+        public RE_EntryPage(RealtysDbContext dbContext, RealEstate rs, Mortgage m, EditViewModel viewModel)
         {
             InitializeComponent();
+            DbContext = dbContext;
+            BindingContext = viewModel;
+            ((EditViewModel)BindingContext).RealEstate = rs;
+            ((EditViewModel)BindingContext).Mortgage = m;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            var viewModel = (EditViewModel)BindingContext;
+            
+        }
+
+        async void OnCheckBoxCheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            if (!mortgageGrid.IsVisible)
+            {
+                await DisplayAlert("Přidání úvěru", "Bude přidán úvěr k nemovitosti", "OK");
+                mortgageGrid.IsVisible = e.Value;
+                await Shell.Current.GoToAsync("//Entry");
+            }
+            else
+            {
+                await DisplayAlert("Odebrání úvěru", "Bude odebrán úvěr k nemovitosti", "OK");
+                mortgageGrid.IsVisible = e.Value;
+                await Shell.Current.GoToAsync("//Entry");
+            }
         }
 
         async void OnSaveButtonClicked(object sender, EventArgs e)
         {
-            await DisplayAlert("Item Object", "Title property:" + nameof(OnSaveButtonClicked), "OK");
-            var realty = (RealEstate)BindingContext;
-            RealEstate r = new RealEstate()
-            {
-                ID = 1,
-                Nazev = "Novy",
-                cenaNemovitosti = 55555,
-                mesicniNajem = 44444,
-                neobsazenost = 0
-            };
+            var status = await DisplayAlert("Item Object", "Title property:" + nameof(OnSaveButtonClicked), "OK", "Cancel");
+            if (!status) return;
+
+            var r = ((EditViewModel)BindingContext).RealEstate;
+
             if (r != null)
             {
-                var re = App.DbContext.RealEstates.FirstOrDefault(rs => rs.ID == r.ID);
+                var re = DbContext.RealEstates.FirstOrDefault(rs => rs.ID == r.ID);
 
                 if (re != null)
                 {
@@ -36,12 +61,12 @@ namespace Realtys.Views
                     re.mesicniNajem = r.mesicniNajem;
                     re.neobsazenost = r.neobsazenost;
 
-                    await App.DbContext.SaveChangesAsync();
+                    await DbContext.SaveChangesAsync();
                 }
                 else
                 {
-                    App.DbContext.RealEstates.Add(r);
-                    await App.DbContext.SaveChangesAsync();
+                    DbContext.RealEstates.Add(r);
+                    await DbContext.SaveChangesAsync();
                 }
             }
             await Shell.Current.GoToAsync("//first");
@@ -52,12 +77,12 @@ namespace Realtys.Views
             var r = (RealEstate)BindingContext;
             if (r != null)
             {
-                var re = App.DbContext.RealEstates.FirstOrDefault(rs => rs.ID == r.ID);
+                var re = DbContext.RealEstates.FirstOrDefault(rs => rs.ID == r.ID);
 
                 if (re != null)
                 {
-                    App.DbContext.RealEstates.Remove(re);
-                    await App.DbContext.SaveChangesAsync();
+                    DbContext.RealEstates.Remove(re);
+                    await DbContext.SaveChangesAsync();
                 }
 
             }

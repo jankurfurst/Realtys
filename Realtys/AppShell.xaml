@@ -25,7 +25,8 @@
 
         </Tab>
     </FlyoutItem>
-    <FlyoutItem Title="Přidat">
+    <FlyoutItem Title="Přidat"
+                Route="Entry">
         <ShellContent ContentTemplate="{DataTemplate local:RE_EntryPage}"/>
         
     </FlyoutItem>

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Realtys.Views.DetailPage"
+             Title="Detail"
+             BackgroundColor="White">
+    <StackLayout>
+        <Label x:Name="testLabel1"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" 
+               IsVisible="false">
+            <Label.FormattedText>
+                <FormattedString>
+                    <FormattedString.Spans>
+                        <Span Text="Nazev: "/>
+                        <Span Text="{Binding realEstate.Nazev}" />
+                        <Span Text="&#10;"/>
+                        <Span Text="Cisty vynos: "/>
+                        <Span Text="{Binding CistyVynos}" />
+                        <Span Text="%"/>
+                        <Span Text="&#10;"/>
+                        <Span Text="Pořizovací cena: " />
+                        <Span Text="{Binding porizovaciCena}" />
+                        <Span Text="&#10;"/>
+                        <Span Text="Cisty rocni vynos: " />
+                        <Span Text="{Binding cistyRocniVynos}" />
+                    </FormattedString.Spans>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <Label x:Name="testLabel2"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" 
+               IsVisible="false">
+            <Label.FormattedText>
+                <FormattedString>
+                    <FormattedString.Spans>
+                        <Span Text="Počet let:"/>
+                        <Span Text="{Binding mortgage.pocetLet}"/>
+                        <Span Text="&#10;"/>
+                        <Span Text="Měsíční úroková míra: "/>
+                        <Span Text="{Binding mortgage.mesicniUrokovaMira}" />
+                        <Span Text="&#10;"/>
+                        <Span Text="Měsíční splátka: " />
+                        <Span Text="{Binding mortgage.splatka}" />
+                        <Span Text="&#10;"/>
+                        <Span Text="Podíl: " />
+                        <Span Text="{Binding mortgage.podil}" />
+                    </FormattedString.Spans>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <CheckBox CheckedChanged="OnCheckBoxCheckedChanged" />
+        <CheckBox x:Name="mortgageCheckBox" CheckedChanged="OnCheckBoxCheckedChangedSecond" />
+    </StackLayout>
+</ContentPage>

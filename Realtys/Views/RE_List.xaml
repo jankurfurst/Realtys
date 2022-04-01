@@ -5,10 +5,10 @@
              x:Class="Realtys.Views.RE_List">
    
 
-    <ContentPage.ToolbarItems>
+    <!--<ContentPage.ToolbarItems>
         <ToolbarItem Text="+"
                      Clicked="OnAddedClicked" />
-    </ContentPage.ToolbarItems>
+    </ContentPage.ToolbarItems>-->
 
     <!--<ListView x:Name="listView"
               ItemSelected="OnCollectionViewItemSelected">
@@ -60,8 +60,8 @@
                                 <FormattedString.Spans>
                                     <Span Text="{Binding Nazev} "/>
                                     <Span Text="&#10;"/>
-                                    <Span Text="Čistý roční výnos: "/>
-                                    <Span Text="{Binding cistyRocniVynos}" />
+                                    <Span Text="Naklady za mesic: "/>
+                                    <Span Text="{Binding mesicniNaklady}" />
                                     <Span Text="&#10;"/>
                                     <Span Text="Pořizovací cena: " />
                                     <Span Text="{Binding porizovaciCena}" />

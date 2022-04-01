@@ -1,44 +1,42 @@
 ﻿using Realtys.Database;
 using Realtys.Models;
-
-
+using Realtys.ViewModels;
 
 namespace Realtys.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RE_List : ContentPage
     {
+        private readonly RealtysDbContext DbContext;
+        RE_EntryPage EntryPage;
 
-
-        public RE_List()
+        public RE_List(RealtysDbContext dbContext, RE_EntryPage entryPage)
         {
             InitializeComponent();
+            DbContext = dbContext;
+            EntryPage = entryPage;
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            //listView.ItemsSource = await App.Database.GetREs_Async();
-            var realties = App.DbContext.RealEstates.ToList();
+
+            var realties = DbContext.RealEstates.ToList();
             listView.ItemsSource = realties;
-            //listView.SelectionChanged += OnCollectionViewSelectionChanged;
+            
         }
 
-        async void OnAddedClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new RE_EntryPage
-            {
-                BindingContext = new RealEstate(),
-            });
-        }
 
         async void OnCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var item = e.CurrentSelection.FirstOrDefault();
             if (item != null)
             {
-                await Navigation.PushAsync(new Detail (item as RealEstate));
+                await Navigation.PushAsync(new DetailPage() 
+                { 
+                    BindingContext = new DetailViewModel((item as RealEstate).ID)
+                });
             }
         }
     }

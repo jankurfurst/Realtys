@@ -4,31 +4,65 @@
              x:Class="Realtys.Views.RE_EntryPage">
     
 
-    <StackLayout Margin="{StaticResource PageMargin}">
+    <StackLayout Margin="10">
         <Label Text="Pojmenování nemovitosti: "/>
-        <Editor Placeholder="Vložte název položky"
-                Text="{Binding Nazev}"
-                HeightRequest="50"/>
+        <Entry Placeholder="Vložte název položky"
+               Text="{Binding Nazev}"
+               HeightRequest="50"/>
 
         <Label Text="Cena nemovitosti: "/>
-        <Editor Placeholder="Cena nemovitosti"
-                Text="{Binding cenaNemovitosti}"
-                HeightRequest="50"/>
+        <Entry Keyboard="Numeric" 
+               Placeholder="Cena nemovitosti"
+               Text="{Binding cenaNemovitosti}"
+               HeightRequest="50"/>
 
         <Label Text="Měsíční nájem: "/>
-        <Editor Placeholder="Měsíční nájem"
-                Text= "{Binding mesicniNajem}"
-                HeightRequest="50"/>
+        <Entry Keyboard="Numeric"
+               Placeholder="Měsíční nájem"
+               Text= "{Binding mesicniNajem}"
+               HeightRequest="50"/>
 
         <Label Text="Neobsazenost (v měsících): "/>
-        <Editor Placeholder="Neobsazenost (v měsících)"
-                Text="{Binding neobsazenost}"
-                HeightRequest="50"/>
-      
+        <Entry Keyboard="Numeric"
+               Placeholder="Neobsazenost (v měsících)"
+               Text="{Binding neobsazenost}"
+               HeightRequest="50"/>
+        <Label>Přidat úvěr</Label>
+        <CheckBox CheckedChanged="OnCheckBoxCheckedChanged"/>
+        <Grid x:Name="mortgageGrid"
+              IsVisible="false">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <!--<Label Text="Měsíční úroková míra (v %)"/>-->
+            <Entry x:Name="urok"
+                   Keyboard="Numeric"
+                   Grid.Row="0"
+                   Placeholder="Měsíční úroková míra v %"
+                   HeightRequest="50"/>
+            <Entry x:Name="podil"
+                   Keyboard="Numeric"
+                   Grid.Row="1"
+                   Placeholder="Podíl z ceny nemovitosti v %"
+                   HeightRequest="50"/>
+            <Entry x:Name="pocetLet"
+                   Keyboard="Numeric"
+                   Grid.Row="2"
+                   Placeholder="Počet let"
+                   HeightRequest="50"/>
+        </Grid>
+
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50%" />
-                <ColumnDefinition Width="50%" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Button Text="Save"
                     Grid.Column="0"

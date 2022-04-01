@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Realtys.Database;
+using Realtys.Models;
+using Realtys.ViewModels;
+using Realtys.Views;
 
 namespace Realtys;
 
@@ -18,6 +21,15 @@ public static class MauiProgram
 		builder.Services.AddDbContext<RealtysDbContext>(options =>
 		   options.UseSqlite("Data source=" + Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Realtys.db"))
 		   );
+
+
+		builder.Services.AddSingleton<RealEstate>();
+		builder.Services.AddSingleton<Mortgage>();
+
+		builder.Services.AddSingleton<EditViewModel>();
+		
+		builder.Services.AddSingleton<RE_List>();
+		builder.Services.AddSingleton<RE_EntryPage>();
 
 
 		var services = builder.Services.BuildServiceProvider();

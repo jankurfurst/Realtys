@@ -65,10 +65,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\DetailPage.xaml.cs">
+	    <DependentUpon>DetailPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="AppShell.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Detail.xaml">
+	  <MauiXaml Update="Views\DetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\MainPage.xaml">

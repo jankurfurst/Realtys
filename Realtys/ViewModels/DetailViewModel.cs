@@ -18,11 +18,18 @@ namespace Realtys.ViewModels
             realEstate = App.DbContext.RealEstates.FirstOrDefault(r => r.ID == id);
             mortgage = App.DbContext.Mortgages.FirstOrDefault(m => m.RealtyID == id);
         }
-        
 
-        private int mesicniNakladySHypo;
+
+        private int mesicniNakladySHypo
+        {
+            get
+            {
+                if (mortgage != null) return (int)mortgage.splatka;
+                return 0;                
+            }
+        }
         
-        public int cistyRocniVynos => (realEstate.mesicniNajem - mesicniNakladySHypo) * (12 - realEstate.neobsazenost);
+        public int cistyRocniVynos => (realEstate.mesicniNajem - mesicniNakladySHypo - realEstate.mesicniNaklady) * (12 - realEstate.neobsazenost);
         
         public int porizovaciCena
         {
@@ -43,10 +50,8 @@ namespace Realtys.ViewModels
         public double RocniNavratnost => (porizovaciCena / cistyRocniVynos);
 
 
-        public int CistyVynos()
-        {
-            return (cistyRocniVynos / porizovaciCena);
-        }
+        public double CistyVynos => (porizovaciCena / cistyRocniVynos);
+
 
         /*
         public double Rentabilita()
