@@ -45,8 +45,9 @@
 
 
     <CollectionView x:Name="listView"
-                    SelectionMode="Single">
-                    <!--SelectionChanged="OnCollectionViewItemSelected"-->
+                    SelectionMode="Single"
+                    SelectionChanged="OnCollectionViewSelectionChanged"
+                    >
         <CollectionView.ItemsLayout>
             <GridItemsLayout Span="1" Orientation="Vertical" />
         </CollectionView.ItemsLayout>

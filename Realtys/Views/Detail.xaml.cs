@@ -12,5 +12,6 @@ public partial class Detail : ContentPage
 	async void OnCheckBoxCheckedChanged(object sender, CheckedChangedEventArgs e)
 	{
 		await DisplayAlert(nameof(sender), "Value:" + e.Value, "OK");
+		testLabel.IsVisible = e.Value;
 	}
 }

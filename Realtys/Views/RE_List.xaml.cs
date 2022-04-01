@@ -22,6 +22,7 @@ namespace Realtys.Views
             //listView.ItemsSource = await App.Database.GetREs_Async();
             var realties = App.DbContext.RealEstates.ToList();
             listView.ItemsSource = realties;
+            //listView.SelectionChanged += OnCollectionViewSelectionChanged;
         }
 
         async void OnAddedClicked(object sender, EventArgs e)
@@ -32,15 +33,12 @@ namespace Realtys.Views
             });
         }
 
-        async void OnCollectionViewItemSelected(object sender, SelectedItemChangedEventArgs e)
+        async void OnCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-            if (e.SelectedItem != null)
+            var item = e.CurrentSelection.FirstOrDefault();
+            if (item != null)
             {
-                await Navigation.PushAsync(new RE_EntryPage
-                {
-                    BindingContext = e.SelectedItem as RealEstate
-                });
+                await Navigation.PushAsync(new Detail (item as RealEstate));
             }
         }
     }

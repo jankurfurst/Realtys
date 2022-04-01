@@ -9,9 +9,8 @@
     <FlyoutItem Title="Seznam"
                 >
 
-        <Tab Route="first"  Title="Seznam" >
-            <ShellContent ContentTemplate="{DataTemplate local:RE_List}"
-                          />
+        <Tab Route="first"  Title="Seznam">
+            <ShellContent ContentTemplate="{DataTemplate local:RE_List}"/>
         </Tab>
 
         <Tab Icon="dotnet_bot.png" Title="Main Page">
@@ -26,10 +25,8 @@
 
         </Tab>
     </FlyoutItem>
-    <FlyoutItem Title="Přidat (does not work)"
-                >
-        <ShellContent ContentTemplate="{DataTemplate local:RE_EntryPage}"
-                      />
+    <FlyoutItem Title="Přidat">
+        <ShellContent ContentTemplate="{DataTemplate local:RE_EntryPage}"/>
         
     </FlyoutItem>
 
