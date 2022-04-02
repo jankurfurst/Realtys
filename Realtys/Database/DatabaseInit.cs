@@ -81,7 +81,8 @@ namespace Realtys.Database
                 mesicniNaklady = 2000,
                 mesicniNajem = 7000,
                 cenaNemovitosti = 3000000,
-                neobsazenost = 2
+                neobsazenost = 2,
+                pouzitiHypo = true
 
             };
 
