@@ -24,6 +24,7 @@ namespace Realtys.Views
 
             var realties = DbContext.RealEstates.ToList();
             listView.ItemsSource = realties;
+            listView.SelectedItem = null;
             
         }
 
