@@ -9,13 +9,13 @@ namespace Realtys.Views
     {
         private readonly RealtysDbContext DbContext;
 
-        public RE_EntryPage(RealtysDbContext dbContext, RealEstate rs, Mortgage m, EditViewModel viewModel)
+        public RE_EntryPage(RealtysDbContext dbContext, EditViewModel viewModel)
         {
             InitializeComponent();
             DbContext = dbContext;
             BindingContext = viewModel;
-            ((EditViewModel)BindingContext).RealEstate = rs;
-            ((EditViewModel)BindingContext).Mortgage = m;
+            ((EditViewModel)BindingContext).RealEstate = new RealEstate();
+            ((EditViewModel)BindingContext).Mortgage = new Mortgage();
         }
 
         protected override void OnAppearing()
@@ -23,6 +23,8 @@ namespace Realtys.Views
             base.OnAppearing();
 
             var viewModel = (EditViewModel)BindingContext;
+            viewModel.RealEstate = new RealEstate();
+            viewModel.Mortgage = new Mortgage();
             
         }
 
@@ -36,9 +38,13 @@ namespace Realtys.Views
             }
             else
             {
-                await DisplayAlert("Odebrání úvěru", "Bude odebrán úvěr k nemovitosti", "OK");
-                mortgageGrid.IsVisible = e.Value;
-                await Shell.Current.GoToAsync("//Entry");
+                var check = await DisplayAlert("Odebrání úvěru", "Bude odebrán úvěr k nemovitosti, veškerý vyplněný obsah, bude ztracen!", "OK", "Cancel");
+                if (check == true)
+                {
+                    mortgageGrid.IsVisible = e.Value;
+                    await Shell.Current.GoToAsync("//Entry");
+
+                }
             }
         }
 

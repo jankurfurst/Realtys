@@ -7,25 +7,25 @@
     <StackLayout Margin="10">
         <Label Text="Pojmenování nemovitosti: "/>
         <Entry Placeholder="Vložte název položky"
-               Text="{Binding Nazev}"
+               Text="{Binding RealEstate.Nazev}"
                HeightRequest="50"/>
 
         <Label Text="Cena nemovitosti: "/>
         <Entry Keyboard="Numeric" 
                Placeholder="Cena nemovitosti"
-               Text="{Binding cenaNemovitosti}"
+               Text="{Binding RealEstate.cenaNemovitosti}"
                HeightRequest="50"/>
 
         <Label Text="Měsíční nájem: "/>
         <Entry Keyboard="Numeric"
                Placeholder="Měsíční nájem"
-               Text= "{Binding mesicniNajem}"
+               Text= "{Binding RealEstate.mesicniNajem}"
                HeightRequest="50"/>
 
         <Label Text="Neobsazenost (v měsících): "/>
         <Entry Keyboard="Numeric"
                Placeholder="Neobsazenost (v měsících)"
-               Text="{Binding neobsazenost}"
+               Text="{Binding RealEstate.neobsazenost}"
                HeightRequest="50"/>
         <Label>Přidat úvěr</Label>
         <CheckBox CheckedChanged="OnCheckBoxCheckedChanged"/>

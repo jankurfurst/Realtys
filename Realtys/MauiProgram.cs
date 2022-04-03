@@ -23,13 +23,13 @@ public static class MauiProgram
 		   );
 
 
-		builder.Services.AddSingleton<RealEstate>();
-		builder.Services.AddSingleton<Mortgage>();
+		//builder.Services.AddSingleton<RealEstate>();
+		//builder.Services.AddSingleton<Mortgage>();
 
-		builder.Services.AddSingleton<EditViewModel>();
+		builder.Services.AddTransient<EditViewModel>();
+		builder.Services.AddTransient<RE_EntryPage>();
 		
 		builder.Services.AddSingleton<RE_List>();
-		builder.Services.AddSingleton<RE_EntryPage>();
 
 
 		var services = builder.Services.BuildServiceProvider();
