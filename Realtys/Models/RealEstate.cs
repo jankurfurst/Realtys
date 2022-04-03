@@ -28,6 +28,7 @@ namespace Realtys.Models
         [Required]
         public int neobsazenost { get; set; }
 
-        public bool pouzitiHypo = false;
+        [Required]
+        public bool pouzitiHypo { get; set; }
     }
 }

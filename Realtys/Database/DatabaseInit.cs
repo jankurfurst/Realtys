@@ -46,7 +46,7 @@ namespace Realtys.Database
 
             List<Mortgage> mortgages = new List<Mortgage>();
 
-            Mortgage p1 = new Mortgage()
+            Mortgage m = new Mortgage()
             {
                 mesicniUrokovaMira = urok,
                 podil = podil,
@@ -56,7 +56,7 @@ namespace Realtys.Database
                 RealtyID = r.ID
         };
 
-            mortgages.Add(p1);
+            mortgages.Add(m);
             return mortgages;
         }
 
@@ -65,17 +65,18 @@ namespace Realtys.Database
         {
             List<RealEstate> realEstates = new List<RealEstate>();
 
-            RealEstate ci1 = new RealEstate()
+            RealEstate r1 = new RealEstate()
             {
                 Nazev = "TEST1",
                 mesicniNaklady = 1000,
                 mesicniNajem = 5000,
                 cenaNemovitosti = 1000000,
-                neobsazenost = 0
+                neobsazenost = 0,
+                pouzitiHypo = false
 
 
             };
-            RealEstate ci2 = new RealEstate()
+            RealEstate r2 = new RealEstate()
             {
                 Nazev = "TEST2",
                 mesicniNaklady = 2000,
@@ -87,8 +88,8 @@ namespace Realtys.Database
             };
 
 
-            realEstates.Add(ci1);
-            realEstates.Add(ci2);
+            realEstates.Add(r1);
+            realEstates.Add(r2);
 
 
             return realEstates;

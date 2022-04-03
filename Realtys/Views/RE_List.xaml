@@ -4,46 +4,6 @@
              Title="Realtys List"
              x:Class="Realtys.Views.RE_List">
    
-
-    <!--<ContentPage.ToolbarItems>
-        <ToolbarItem Text="+"
-                     Clicked="OnAddedClicked" />
-    </ContentPage.ToolbarItems>-->
-
-    <!--<ListView x:Name="listView"
-              ItemSelected="OnCollectionViewItemSelected">
-        <ListView.ItemTemplate>
-
-            <DataTemplate>
-                <Frame BackgroundColor="#6FA4EC" Padding="1" CornerRadius="0" BorderColor="Black">
-                    <Label FontSize="20" Padding="30,24" TextColor="White">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <FormattedString.Spans>
-                                    <Span Text="{Binding Nazev} "/>
-                                    <Span Text="&#10;"/>
-                                    <Span Text="Čistý roční výnos: "/>
-                                    <Span Text="{Binding cistyRocniVynos}" />
-                                    <Span Text="&#10;"/>
-                                    <Span Text="Detail" />
-                                </FormattedString.Spans>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                </Frame>
-            </DataTemplate>
-
---><!--
-            <TextCell Text="{Binding Nazev}"
-                          TextColor="Black"
-                          Detail="{Binding cistyRocniVynos}"
-                          DetailColor="Green"/>
-       --><!--         
-            
-        </ListView.ItemTemplate>
-    </ListView>-->
-
-
     <CollectionView x:Name="listView"
                     SelectionMode="Single"
                     SelectionChanged="OnCollectionViewSelectionChanged"
@@ -65,6 +25,9 @@
                                     <Span Text="&#10;"/>
                                     <Span Text="Pořizovací cena: " />
                                     <Span Text="{Binding porizovaciCena}" />
+                                    <Span Text="&#10;"/>
+                                    <Span Text="pouziti uveru: " />
+                                    <Span Text="{Binding pouzitiHypo}" />
                                 </FormattedString.Spans>
                             </FormattedString>
                         </Label.FormattedText>

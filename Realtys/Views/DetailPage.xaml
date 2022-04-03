@@ -5,7 +5,7 @@
              Title="Detail"
              BackgroundColor="White">
     <StackLayout>
-        <Label x:Name="testLabel1"
+        <Label x:Name="realtyDetail"
                VerticalOptions="Center" 
                HorizontalOptions="Center" 
                IsVisible="false">
@@ -28,7 +28,7 @@
                 </FormattedString>
             </Label.FormattedText>
         </Label>
-        <Label x:Name="testLabel2"
+        <Label x:Name="mortgageDetail"
                VerticalOptions="Center" 
                HorizontalOptions="Center" 
                IsVisible="false">
