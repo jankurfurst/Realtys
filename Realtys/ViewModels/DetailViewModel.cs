@@ -35,9 +35,6 @@ namespace Realtys.ViewModels
         {
             get
             {
-                //return realEstate.cenaNemovitosti;
-
-                //pouzit pri pripojeni hypoteky
                 if (mortgage == null) return realEstate.cenaNemovitosti;
                 return (int)(realEstate.cenaNemovitosti - Math.Floor(mortgage.pocatecniDluh));
             }
