@@ -14,18 +14,15 @@ namespace Realtys.Views
             InitializeComponent();
             DbContext = dbContext;
             BindingContext = viewModel;
-            ((EditViewModel)BindingContext).RealEstate = new RealEstate();
-            ((EditViewModel)BindingContext).Mortgage = new Mortgage();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            var viewModel = (EditViewModel)BindingContext;
-            viewModel.RealEstate = new RealEstate();
-            viewModel.Mortgage = new Mortgage();
-            
+            ((EditViewModel)BindingContext).RealEstate = new RealEstate();
+            ((EditViewModel)BindingContext).Mortgage = new Mortgage();
+
         }
 
         async void OnCheckBoxCheckedChanged(object sender, CheckedChangedEventArgs e)
@@ -61,7 +58,7 @@ namespace Realtys.Views
 
                 if (re != null)
                 {
-                    re.Nazev = r.Nazev;
+                    re.Name = r.Name;
                     re.cenaNemovitosti = r.cenaNemovitosti;
                     re.mesicniNaklady = r.mesicniNaklady;
                     re.mesicniNajem = r.mesicniNajem;
@@ -75,6 +72,9 @@ namespace Realtys.Views
                     await DbContext.SaveChangesAsync();
                 }
             }
+            name.Text = "";
+            price.Text = "";
+
             await Shell.Current.GoToAsync("//first");
         }
 

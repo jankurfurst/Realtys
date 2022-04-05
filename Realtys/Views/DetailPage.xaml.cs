@@ -21,6 +21,11 @@ public partial class DetailPage : ContentPage
 			mortgageDetail.IsVisible = false;
 			mortgageCheckBox.IsVisible = false;
         }
+        else
+        {
+			mortgageDetail.IsVisible = false;
+			mortgageCheckBox.IsVisible = true;
+        }
 
 	}
 
@@ -28,11 +33,13 @@ public partial class DetailPage : ContentPage
 	{
 		await DisplayAlert(nameof(sender), "Realty will be shown:" + e.Value, "OK");
 		realtyDetail.IsVisible = e.Value;
+		
 	}
 
 	async void OnCheckBoxCheckedChangedSecond(object sender, CheckedChangedEventArgs e)
 	{
 		await DisplayAlert("Mortgage will be shown", "Value:" + e.Value, "OK");
 		mortgageDetail.IsVisible = e.Value;
+		
 	}
 }
