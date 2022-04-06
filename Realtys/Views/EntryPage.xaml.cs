@@ -51,6 +51,7 @@ namespace Realtys.Views
             if (!status) return;
 
             var r = ((EditViewModel)BindingContext).RealEstate;
+            var m = ((EditViewModel)BindingContext).Mortgage;
 
             if (r != null)
             {
@@ -68,12 +69,27 @@ namespace Realtys.Views
                 }
                 else
                 {
-                    DbContext.RealEstates.Add(r);
-                    await DbContext.SaveChangesAsync();
+                    try
+                    {
+                        DbContext.RealEstates.Add(r);
+                        await DbContext.SaveChangesAsync();
+                    }
+                    catch(Exception ex)
+                    {
+                        await DisplayAlert("Error while saving", "Missing parametr: " + ex.InnerException.Message, "Cancel");
+                    }
                 }
             }
-            nameEntry.Text = "";
-            priceEntry.Text = "";
+            if (addMortgageCheckBox.IsChecked == true )
+            {
+                var check = addMortgageCheckBox.IsChecked;
+            }
+            //Realty entries
+            nameEntry.Text = priceEntry.Text = rentEntry.Text = 
+                expensesEntry.Text = vacancyEntry.Text = string.Empty;
+
+            //Mortgage entries
+            interestEntry.Text = shareEntry.Text = forYearsEntry.Text = string.Empty;
 
             await Shell.Current.GoToAsync("//first");
         }
