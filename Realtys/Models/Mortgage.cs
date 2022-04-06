@@ -9,15 +9,15 @@ namespace Realtys.Models
         [Key]
         public int ID { get; set; }
         [Required]
-        public double mesicniUrokovaMira { get; set; }
+        public double MonthlyInterest { get; set; }
         [Required]
-        public double podil { get; set; }
+        public double Share { get; set; }
         [Required]
-        public double pocatecniDluh { get; set; }
+        public double InitialDebt { get; set; }
         [Required]
-        public int pocetLet { get; set; }
+        public int ForYears { get; set; }
         [Required]
-        public double splatka { get; set; }
+        public double Payment { get; set; }
         [Required]
         public int RealtyID { get; set; }
 

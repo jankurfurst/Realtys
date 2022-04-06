@@ -1,34 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Realtys.Views.RE_EntryPage">
+             x:Class="Realtys.Views.EntryPage">
     
 
     <StackLayout Margin="10">
         <Label Text="Pojmenování nemovitosti: "/>
         <Entry Placeholder="Vložte název položky"
-               Text="{Binding RealEstate.Nazev}"
-               HeightRequest="50"/>
+               Text="{Binding RealEstate.Name}"
+               HeightRequest="50"
+               x:Name="nameEntry"/>
 
         <Label Text="Cena nemovitosti: "/>
         <Entry Keyboard="Numeric" 
                Placeholder="Cena nemovitosti"
-               Text="{Binding RealEstate.cenaNemovitosti}"
-               HeightRequest="50"/>
+               Text="{Binding RealEstate.RealtyPrice}"
+               HeightRequest="50"
+               x:Name="priceEntry"/>
 
         <Label Text="Měsíční nájem: "/>
         <Entry Keyboard="Numeric"
                Placeholder="Měsíční nájem"
-               Text= "{Binding RealEstate.mesicniNajem}"
-               HeightRequest="50"/>
-
+               Text= "{Binding RealEstate.MonthlyRent}"
+               HeightRequest="50"
+               x:Name="rentEntry"/>
+        
+        <Label Text="Měsíční náklady"/>
+        <Entry Keyboard="Numeric"
+               Placeholder="Měsíční náklady"
+               Text="{Binding RealEstate.MonthlyExpenses}"
+               HeightRequest="50"
+               x:Name="expensesEntry"/>
+        
         <Label Text="Neobsazenost (v měsících): "/>
         <Entry Keyboard="Numeric"
                Placeholder="Neobsazenost (v měsících)"
-               Text="{Binding RealEstate.neobsazenost}"
-               HeightRequest="50"/>
+               Text="{Binding RealEstate.Vacancy}"
+               HeightRequest="50"
+               x:Name="vacancyEntry"/>
+        
         <Label>Přidat úvěr</Label>
         <CheckBox CheckedChanged="OnCheckBoxCheckedChanged"/>
+        
         <Grid x:Name="mortgageGrid"
               IsVisible="false">
             <Grid.ColumnDefinitions>
@@ -42,20 +55,23 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <!--<Label Text="Měsíční úroková míra (v %)"/>-->
-            <Entry x:Name="urok"
+            <Entry x:Name="interestEntry"
                    Keyboard="Numeric"
                    Grid.Row="0"
                    Placeholder="Měsíční úroková míra v %"
+                   Text="{Binding Mortgage.MonthlyInterest}"
                    HeightRequest="50"/>
-            <Entry x:Name="podil"
+            <Entry x:Name="shareEntry"
                    Keyboard="Numeric"
                    Grid.Row="1"
                    Placeholder="Podíl z ceny nemovitosti v %"
+                   Text="{Binding Mortgage.Share}"
                    HeightRequest="50"/>
-            <Entry x:Name="pocetLet"
+            <Entry x:Name="forYearsEntry"
                    Keyboard="Numeric"
                    Grid.Row="2"
                    Placeholder="Počet let"
+                   Text="{Binding Mortgage.ForYears}"
                    HeightRequest="50"/>
         </Grid>
 

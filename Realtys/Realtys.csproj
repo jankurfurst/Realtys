@@ -68,6 +68,12 @@
 	  <Compile Update="Views\DetailPage.xaml.cs">
 	    <DependentUpon>DetailPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\EntryPage.xaml.cs">
+	    <DependentUpon>EntryPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ListPage.xaml.cs">
+	    <DependentUpon>ListPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -80,10 +86,10 @@
 	  <MauiXaml Update="Views\MainPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\RE_EntryPage.xaml">
+	  <MauiXaml Update="Views\EntryPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\RE_List.xaml">
+	  <MauiXaml Update="Views\ListPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

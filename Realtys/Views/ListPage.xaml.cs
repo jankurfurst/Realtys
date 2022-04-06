@@ -5,12 +5,12 @@ using Realtys.ViewModels;
 namespace Realtys.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RE_List : ContentPage
+    public partial class ListPage : ContentPage
     {
         private readonly RealtysDbContext DbContext;
-        RE_EntryPage EntryPage;
+        EntryPage EntryPage;
 
-        public RE_List(RealtysDbContext dbContext, RE_EntryPage entryPage)
+        public ListPage(RealtysDbContext dbContext, EntryPage entryPage)
         {
             InitializeComponent();
             DbContext = dbContext;

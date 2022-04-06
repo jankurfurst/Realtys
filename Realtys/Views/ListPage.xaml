@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="Realtys List"
-             x:Class="Realtys.Views.RE_List">
+             x:Class="Realtys.Views.ListPage">
    
     <CollectionView x:Name="listView"
                     SelectionMode="Single"
@@ -18,16 +18,16 @@
                         <Label.FormattedText>
                             <FormattedString>
                                 <FormattedString.Spans>
-                                    <Span Text="{Binding Nazev} "/>
+                                    <Span Text="{Binding Name} "/>
                                     <Span Text="&#10;"/>
                                     <Span Text="Naklady za mesic: "/>
-                                    <Span Text="{Binding mesicniNaklady}" />
+                                    <Span Text="{Binding MonthlyExpenses}" />
                                     <Span Text="&#10;"/>
                                     <Span Text="Pořizovací cena: " />
                                     <Span Text="{Binding porizovaciCena}" />
                                     <Span Text="&#10;"/>
                                     <Span Text="pouziti uveru: " />
-                                    <Span Text="{Binding pouzitiHypo}" />
+                                    <Span Text="{Binding MortgageUsage}" />
                                 </FormattedString.Spans>
                             </FormattedString>
                         </Label.FormattedText>

@@ -10,7 +10,7 @@
                 >
 
         <Tab Route="first"  Title="Seznam">
-            <ShellContent ContentTemplate="{DataTemplate local:RE_List}"/>
+            <ShellContent ContentTemplate="{DataTemplate local:ListPage}"/>
         </Tab>
 
         <Tab Icon="dotnet_bot.png" Title="Main Page">
@@ -27,7 +27,7 @@
     </FlyoutItem>
     <FlyoutItem Title="Přidat"
                 Route="Entry">
-        <ShellContent ContentTemplate="{DataTemplate local:RE_EntryPage}"/>
+        <ShellContent ContentTemplate="{DataTemplate local:EntryPage}"/>
         
     </FlyoutItem>
 

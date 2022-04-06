@@ -21,7 +21,7 @@ namespace Realtys.Database
 
             if (realtysDbContext.Mortgages.Count() == 0)
             {
-                var realty = realtysDbContext.RealEstates.FirstOrDefault(re => re.cenaNemovitosti == 3000000);
+                var realty = realtysDbContext.RealEstates.FirstOrDefault(re => re.RealtyPrice == 3000000);
                 IList<Mortgage> mortgages = GenerateMortgages(realty);
                 foreach (var m in mortgages)
                 {
@@ -32,9 +32,9 @@ namespace Realtys.Database
         }
         public List<Mortgage> GenerateMortgages(RealEstate r)
         {
-            double urok = 10;//%
-            double podil = 70.0/100.0;
-            double pocatecniDluh = r.cenaNemovitosti * (1 - podil);
+            double urok = 4;//%
+            double podil = 80.0/100.0;
+            double pocatecniDluh = r.RealtyPrice * (1 - podil);
             int pocetLet = 30;
 
             int pocetMesicu = pocetLet * 12;
@@ -48,11 +48,11 @@ namespace Realtys.Database
 
             Mortgage m = new Mortgage()
             {
-                mesicniUrokovaMira = urok,
-                podil = podil,
-                pocatecniDluh = pocatecniDluh,
-                pocetLet = pocetLet,
-                splatka = splatka,
+                MonthlyInterest = urok,
+                Share = podil,
+                InitialDebt = pocatecniDluh,
+                ForYears = pocetLet,
+                Payment = splatka,
                 RealtyID = r.ID
         };
 
@@ -67,23 +67,23 @@ namespace Realtys.Database
 
             RealEstate r1 = new RealEstate()
             {
-                Nazev = "TEST1",
-                mesicniNaklady = 1000,
-                mesicniNajem = 5000,
-                cenaNemovitosti = 1000000,
-                neobsazenost = 0,
-                pouzitiHypo = false
+                Name = "TEST1",
+                MonthlyExpenses = 1000,
+                MonthlyRent = 5000,
+                RealtyPrice = 1000000,
+                Vacancy = 0,
+                MortgageUsage = false
 
 
             };
             RealEstate r2 = new RealEstate()
             {
-                Nazev = "TEST2",
-                mesicniNaklady = 2000,
-                mesicniNajem = 7000,
-                cenaNemovitosti = 3000000,
-                neobsazenost = 2,
-                pouzitiHypo = true
+                Name = "TEST2",
+                MonthlyExpenses = 2000,
+                MonthlyRent = 7000,
+                RealtyPrice = 3000000,
+                Vacancy = 2,
+                MortgageUsage = true
 
             };
 

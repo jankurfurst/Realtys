@@ -61,19 +61,19 @@
     <FlyoutItem Title="Seznam">
 
         <Tab Route="first"  Title="Seznam" >
-            <views:RE_List />
+            <views:ListPage />
         </Tab>
 
         
         --><!--<Tab Title="Přidat">
-            <views:RE_EntryPage />
+            <views:EntryPage />
         </Tab>--><!--
         
 
     </FlyoutItem>
     <FlyoutItem Title="Přidat (does not work)">
         <ShellContent>
-            <views:RE_EntryPage />
+            <views:EntryPage />
         </ShellContent>
     </FlyoutItem>
 

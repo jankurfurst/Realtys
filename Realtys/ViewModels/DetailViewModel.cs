@@ -24,30 +24,35 @@ namespace Realtys.ViewModels
         {
             get
             {
-                if (mortgage != null) return (int)mortgage.splatka;
+                if (mortgage != null) return (int)mortgage.Payment;
                 return 0;                
             }
         }
         
-        public int cistyRocniVynos => (realEstate.mesicniNajem - mesicniNakladySHypo - realEstate.mesicniNaklady) * (12 - realEstate.neobsazenost);
+        public int cistyRocniVynos => (realEstate.MonthlyRent - mesicniNakladySHypo - realEstate.MonthlyExpenses) * (12 - realEstate.Vacancy);
         
         public int porizovaciCena
         {
             get
             {
-                if (mortgage == null) return realEstate.cenaNemovitosti;
-                return (int)(realEstate.cenaNemovitosti - Math.Floor(mortgage.pocatecniDluh));
+                if (mortgage == null) return realEstate.RealtyPrice;
+                return (int)(realEstate.RealtyPrice - Math.Floor(mortgage.InitialDebt));
             }
         }
 
         
-        public int HrubyVynos => ((realEstate.mesicniNajem * 12) / porizovaciCena);
+        public int HrubyVynos => ((realEstate.MonthlyRent * 12) / porizovaciCena);
 
         
         public double RocniNavratnost => (porizovaciCena / cistyRocniVynos);
 
 
-        public double CistyVynos => (porizovaciCena / cistyRocniVynos);
+        public double CistyVynos { get
+            {
+                if(cistyRocniVynos == 0) return 0;
+                return (porizovaciCena / cistyRocniVynos);
+            } 
+        } 
 
 
         /*

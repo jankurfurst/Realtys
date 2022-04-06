@@ -5,11 +5,11 @@ using Realtys.ViewModels;
 namespace Realtys.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RE_EntryPage : ContentPage
+    public partial class EntryPage : ContentPage
     {
         private readonly RealtysDbContext DbContext;
 
-        public RE_EntryPage(RealtysDbContext dbContext, EditViewModel viewModel)
+        public EntryPage(RealtysDbContext dbContext, EditViewModel viewModel)
         {
             InitializeComponent();
             DbContext = dbContext;
@@ -59,10 +59,10 @@ namespace Realtys.Views
                 if (re != null)
                 {
                     re.Name = r.Name;
-                    re.cenaNemovitosti = r.cenaNemovitosti;
-                    re.mesicniNaklady = r.mesicniNaklady;
-                    re.mesicniNajem = r.mesicniNajem;
-                    re.neobsazenost = r.neobsazenost;
+                    re.RealtyPrice = r.RealtyPrice;
+                    re.MonthlyExpenses = r.MonthlyExpenses;
+                    re.MonthlyRent = r.MonthlyRent;
+                    re.Vacancy = r.Vacancy;
 
                     await DbContext.SaveChangesAsync();
                 }
@@ -72,8 +72,8 @@ namespace Realtys.Views
                     await DbContext.SaveChangesAsync();
                 }
             }
-            name.Text = "";
-            price.Text = "";
+            nameEntry.Text = "";
+            priceEntry.Text = "";
 
             await Shell.Current.GoToAsync("//first");
         }

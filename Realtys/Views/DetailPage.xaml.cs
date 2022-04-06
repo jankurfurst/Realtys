@@ -16,7 +16,7 @@ public partial class DetailPage : ContentPage
 
 		var viewModel = (DetailViewModel)BindingContext;
 
-		if (viewModel.mortgage == null || viewModel.realEstate.pouzitiHypo == false)
+		if (viewModel.mortgage == null || viewModel.realEstate.MortgageUsage == false)
         {
 			mortgageDetail.IsVisible = false;
 			mortgageCheckBox.IsVisible = false;

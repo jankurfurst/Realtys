@@ -14,21 +14,21 @@ namespace Realtys.Models
 
         [StringLength(255)]
         [Required]
-        public string Nazev { get; set; }
+        public string Name { get; set; }
 
         [Required]
-        public int mesicniNaklady { get; set; }
+        public int MonthlyExpenses { get; set; }
 
         [Required]
-        public int mesicniNajem { get; set; }
+        public int MonthlyRent { get; set; }
 
         [Required]
-        public int cenaNemovitosti { get; set; }
+        public int RealtyPrice { get; set; }
 
         [Required]
-        public int neobsazenost { get; set; }
+        public int Vacancy { get; set; }
 
         [Required]
-        public bool pouzitiHypo { get; set; }
+        public bool MortgageUsage { get; set; }
     }
 }

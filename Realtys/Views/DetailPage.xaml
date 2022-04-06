@@ -4,16 +4,15 @@
              x:Class="Realtys.Views.DetailPage"
              Title="Detail"
              BackgroundColor="White">
-    <StackLayout>
+    <StackLayout Margin="10">
         <Label x:Name="realtyDetail"
                VerticalOptions="Center" 
-               HorizontalOptions="Center" 
-               IsVisible="false">
+               HorizontalOptions="StartAndExpand">
             <Label.FormattedText>
                 <FormattedString>
                     <FormattedString.Spans>
                         <Span Text="Nazev: "/>
-                        <Span Text="{Binding realEstate.Nazev}" />
+                        <Span Text="{Binding realEstate.Name}" />
                         <Span Text="&#10;"/>
                         <Span Text="Cisty vynos: "/>
                         <Span Text="{Binding CistyVynos}" />
@@ -30,27 +29,26 @@
         </Label>
         <Label x:Name="mortgageDetail"
                VerticalOptions="Center" 
-               HorizontalOptions="Center" 
+               HorizontalOptions="StartAndExpand" 
                IsVisible="false">
             <Label.FormattedText>
                 <FormattedString>
                     <FormattedString.Spans>
-                        <Span Text="Počet let:"/>
-                        <Span Text="{Binding mortgage.pocetLet}"/>
+                        <Span Text="Počet let: "/>
+                        <Span Text="{Binding mortgage.ForYears}"/>
                         <Span Text="&#10;"/>
                         <Span Text="Měsíční úroková míra: "/>
-                        <Span Text="{Binding mortgage.mesicniUrokovaMira}" />
+                        <Span Text="{Binding mortgage.MonthlyInterest}" />
                         <Span Text="&#10;"/>
                         <Span Text="Měsíční splátka: " />
-                        <Span Text="{Binding mortgage.splatka}" />
+                        <Span Text="{Binding mortgage.Payment}" />
                         <Span Text="&#10;"/>
                         <Span Text="Podíl: " />
-                        <Span Text="{Binding mortgage.podil}" />
+                        <Span Text="{Binding mortgage.Share}" />
                     </FormattedString.Spans>
                 </FormattedString>
             </Label.FormattedText>
         </Label>
-        <CheckBox CheckedChanged="OnCheckBoxCheckedChanged" />
-        <CheckBox x:Name="mortgageCheckBox" CheckedChanged="OnCheckBoxCheckedChangedSecond" />
+        <CheckBox x:Name="mortgageCheckBox" CheckedChanged="OnCheckBoxCheckedChangedSecond"/>
     </StackLayout>
 </ContentPage>
