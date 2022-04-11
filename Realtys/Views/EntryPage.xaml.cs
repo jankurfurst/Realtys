@@ -9,7 +9,7 @@ namespace Realtys.Views
     {
         private readonly RealtysDbContext DbContext;
 
-        public EntryPage(RealtysDbContext dbContext, EditViewModel viewModel)
+        public EntryPage(RealtysDbContext dbContext, EditCreateViewModel viewModel)
         {
             InitializeComponent();
             DbContext = dbContext;
@@ -20,8 +20,8 @@ namespace Realtys.Views
         {
             base.OnAppearing();
 
-            ((EditViewModel)BindingContext).RealEstate = new RealEstate();
-            ((EditViewModel)BindingContext).Mortgage = new Mortgage();
+            ((EditCreateViewModel)BindingContext).RealEstate = new RealEstate();
+            ((EditCreateViewModel)BindingContext).Mortgage = new Mortgage();
 
         }
 
@@ -50,8 +50,8 @@ namespace Realtys.Views
             var status = await DisplayAlert("Item Object", "Title property:" + nameof(OnSaveButtonClicked), "OK", "Cancel");
             if (!status) return;
 
-            var r = ((EditViewModel)BindingContext).RealEstate;
-            var m = ((EditViewModel)BindingContext).Mortgage;
+            var r = ((EditCreateViewModel)BindingContext).RealEstate;
+            var m = ((EditCreateViewModel)BindingContext).Mortgage;
 
             if (r != null)
             {
@@ -64,6 +64,7 @@ namespace Realtys.Views
                     re.MonthlyExpenses = r.MonthlyExpenses;
                     re.MonthlyRent = r.MonthlyRent;
                     re.Vacancy = r.Vacancy;
+                    re.MortgageUsage = addMortgageCheckBox.IsChecked;
 
                     await DbContext.SaveChangesAsync();
                 }
@@ -80,9 +81,30 @@ namespace Realtys.Views
                     }
                 }
             }
-            if (addMortgageCheckBox.IsChecked == true )
+
+            m.RealtyID = r.ID;
+            if (addMortgageCheckBox.IsChecked == true)
             {
-                var check = addMortgageCheckBox.IsChecked;
+                var mortgage = DbContext.Mortgages.FirstOrDefault(_m => _m.ID == m.ID);
+                if (mortgage != null)
+                {
+                    mortgage.Share = m.Share;
+                    mortgage.RealtyID = r.ID;
+
+                    await DbContext.SaveChangesAsync();
+                }
+                else
+                {
+                    try
+                    {
+                        DbContext.Mortgages.Add(m);
+                        await DbContext.SaveChangesAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        await DisplayAlert("Error while saving", "Missing parametr: " + ex.InnerException.Message, "Cancel");
+                    }
+                }
             }
             //Realty entries
             nameEntry.Text = priceEntry.Text = rentEntry.Text = 
@@ -96,7 +118,8 @@ namespace Realtys.Views
 
         async void OnDeleteButtonClicked(object sender, EventArgs e)
         {
-            var r = (RealEstate)BindingContext;
+            ((EditCreateViewModel)BindingContext).SaveCommand.Execute(null);
+            var r = ((EditCreateViewModel)BindingContext).RealEstate;
             if (r != null)
             {
                 var re = DbContext.RealEstates.FirstOrDefault(rs => rs.ID == r.ID);

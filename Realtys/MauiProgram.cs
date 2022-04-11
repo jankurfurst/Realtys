@@ -26,7 +26,7 @@ public static class MauiProgram
 		//builder.Services.AddSingleton<RealEstate>();
 		//builder.Services.AddSingleton<Mortgage>();
 
-		builder.Services.AddTransient<EditViewModel>();
+		builder.Services.AddTransient<EditCreateViewModel>();
 		builder.Services.AddTransient<EntryPage>();
 		
 		builder.Services.AddSingleton<ListPage>();

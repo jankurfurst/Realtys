@@ -5,7 +5,11 @@
     
 
     <ScrollView Margin="10">
-        <StackLayout>            
+        <StackLayout>
+            <Label  x:Name="errors"
+                    TextColor="Red"
+                    Text="{Binding EditCreateErrors}"/>
+            
             <Label Text="Pojmenování nemovitosti: "/>
             <Entry Placeholder="Vložte název položky"
                    Text="{Binding RealEstate.Name}"
@@ -76,19 +80,20 @@
                        HeightRequest="50"/>
             </Grid>
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+            <Grid ColumnDefinitions="*,*">
                 <Button Text="Save"
+                        Grid.Row="1"
                         Grid.Column="0"
                         VerticalOptions="Start"
-                        Clicked="OnSaveButtonClicked" />
-                <Button 
-                        Text="Delete"
+                        Clicked="OnSaveButtonClicked" 
+                        Command="{Binding SaveCommand}"/>
+                
+                <Button Text="Save2 (was delete)"
                         Grid.Column="1"
-                        Clicked="OnDeleteButtonClicked" />
+                        Grid.Row="1"
+                        Command="{Binding SaveCommand}"
+                        />
+                        <!--Clicked="OnDeleteButtonClicked"-->
             </Grid>
         </StackLayout>
     </ScrollView>

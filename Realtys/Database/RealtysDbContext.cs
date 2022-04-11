@@ -14,20 +14,6 @@ namespace Realtys.Database
         {
         }
 
-       
-
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<RealEstate>().ToTable("RealEstates");
-        //    modelBuilder.Entity<Mortgage>().ToTable("Mortgages");
-
-        //    foreach (var entity in modelBuilder.Model.GetEntityTypes())
-        //    {
-        //        var name = entity.GetTableName();
-        //    }
-
-        //}
-
     }
 }
 

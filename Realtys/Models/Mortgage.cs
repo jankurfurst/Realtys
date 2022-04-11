@@ -18,7 +18,7 @@ namespace Realtys.Models
         public int ForYears { get; set; }
         [Required]
         public double Payment { get; set; }
-        [Required]
+        [ForeignKey(nameof(RealEstate))]
         public int RealtyID { get; set; }
 
         //public Mortgage(double urok, double podil, int cena, int pocetLet)
