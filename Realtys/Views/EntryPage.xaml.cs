@@ -27,6 +27,7 @@ namespace Realtys.Views
 
         async void OnCheckBoxCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
+            addMortgageCheckBox.CheckedChanged -= OnCheckBoxCheckedChanged;
             var viewModel = (EditCreateViewModel)BindingContext;
 
             if (!mortgageGrid.IsVisible)
@@ -40,8 +41,9 @@ namespace Realtys.Views
 
                 if (check)
                 {
-                    addMortgageCheckBox.IsChecked = viewModel.IsMortgageUsed = check;
+                    viewModel.IsMortgageUsed = check;
                 }
+                addMortgageCheckBox.IsChecked = check;
             }
             else
             {
@@ -54,11 +56,13 @@ namespace Realtys.Views
 
                 if (check)
                 {
-                    addMortgageCheckBox.IsChecked = viewModel.IsMortgageUsed = !check;
+                    viewModel.IsMortgageUsed = !check;
                     ((EditCreateViewModel)BindingContext).Mortgage = new Mortgage();
                 }
+                addMortgageCheckBox.IsChecked = !check;
 
             }
+            addMortgageCheckBox.CheckedChanged += OnCheckBoxCheckedChanged;
             await Shell.Current.GoToAsync("//Entry");
         }
 
