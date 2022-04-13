@@ -15,7 +15,7 @@
                         <Span Text="{Binding realEstate.Name}" />
                         <Span Text="&#10;"/>
                         <Span Text="Cisty vynos: "/>
-                        <Span Text="{Binding CistyVynos}" />
+                        <Span Text="{Binding CistyVynos, StringFormat='{0:F2}'}" />
                         <Span Text="%"/>
                         <Span Text="&#10;"/>
                         <Span Text="Pořizovací cena: " />
@@ -41,7 +41,7 @@
                         <Span Text="{Binding mortgage.MonthlyInterest}" />
                         <Span Text="&#10;"/>
                         <Span Text="Měsíční splátka: " />
-                        <Span Text="{Binding mortgage.Payment}" />
+                        <Span Text="{Binding mortgage.Payment, StringFormat='{0:F2}'}" />
                         <Span Text="&#10;"/>
                         <Span Text="Podíl: " />
                         <Span Text="{Binding mortgage.Share}" />

@@ -23,8 +23,8 @@
                                     <Span Text="Naklady za mesic: "/>
                                     <Span Text="{Binding MonthlyExpenses}" />
                                     <Span Text="&#10;"/>
-                                    <Span Text="Pořizovací cena: " />
-                                    <Span Text="{Binding porizovaciCena}" />
+                                    <Span Text="Cena nemovitosti: " />
+                                    <Span Text="{Binding RealtyPrice}" />
                                     <Span Text="&#10;"/>
                                     <Span Text="pouziti uveru: " />
                                     <Span Text="{Binding MortgageUsage}" />

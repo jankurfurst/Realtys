@@ -46,35 +46,34 @@
             
             <Label>Přidat úvěr</Label>
             <CheckBox x:Name="addMortgageCheckBox" CheckedChanged="OnCheckBoxCheckedChanged"/>
-            
+
             <Grid x:Name="mortgageGrid"
-                  IsVisible="false">
+                  IsVisible="{Binding IsMortgageUsed}"
+                  RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <!--<Label Text="Měsíční úroková míra (v %)"/>-->
+
+                <Label Text="Úvěr: " FontSize="Header" Grid.Row="0"/>
+
+                <Label Text="Měsíční úroková míra (v %)" Grid.Row="1"/>
                 <Entry x:Name="interestEntry"
                        Keyboard="Numeric"
-                       Grid.Row="0"
+                       Grid.Row="2"
                        Placeholder="Měsíční úroková míra v %"
                        Text="{Binding Mortgage.MonthlyInterest}"
                        HeightRequest="50"/>
+                <Label Text="Podíl z ceny nemovitosti v %" Grid.Row="3"/>
                 <Entry x:Name="shareEntry"
                        Keyboard="Numeric"
-                       Grid.Row="1"
+                       Grid.Row="4"
                        Placeholder="Podíl z ceny nemovitosti v %"
                        Text="{Binding Mortgage.Share}"
                        HeightRequest="50"/>
+                <Label Text="Počet let" Grid.Row="5"/>
                 <Entry x:Name="forYearsEntry"
                        Keyboard="Numeric"
-                       Grid.Row="2"
+                       Grid.Row="6"
                        Placeholder="Počet let"
                        Text="{Binding Mortgage.ForYears}"
                        HeightRequest="50"/>
