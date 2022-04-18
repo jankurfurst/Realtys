@@ -34,7 +34,7 @@ namespace Realtys.Database
         {
             double urok = 4;//%
             double podil = 80.0/100.0;
-            double pocatecniDluh = r.RealtyPrice * (1 - podil);
+            double pocatecniDluh = (double)(r.RealtyPrice * (1 - podil));
             int pocetLet = 30;
 
             int pocetMesicu = pocetLet * 12;

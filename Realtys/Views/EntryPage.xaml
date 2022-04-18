@@ -83,16 +83,8 @@
                 <Button Text="Save"
                         Grid.Row="1"
                         Grid.Column="0"
-                        VerticalOptions="Start"
-                        Clicked="OnSaveButtonClicked" 
+                        VerticalOptions="Start" 
                         Command="{Binding SaveCommand}"/>
-                
-                <Button Text="Save2 (was delete)"
-                        Grid.Column="1"
-                        Grid.Row="1"
-                        Command="{Binding SaveCommand}"
-                        />
-                        <!--Clicked="OnDeleteButtonClicked"-->
             </Grid>
         </StackLayout>
     </ScrollView>

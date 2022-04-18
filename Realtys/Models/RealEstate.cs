@@ -17,16 +17,16 @@ namespace Realtys.Models
         public string Name { get; set; }
 
         [Required]
-        public int MonthlyExpenses { get; set; }
+        public int? MonthlyExpenses { get; set; }
 
         [Required]
-        public int MonthlyRent { get; set; }
+        public int? MonthlyRent { get; set; }
 
         [Required]
-        public int RealtyPrice { get; set; }
+        public int? RealtyPrice { get; set; }
 
         [Required]
-        public int Vacancy { get; set; }
+        public int? Vacancy { get; set; }
 
         [Required]
         public bool MortgageUsage { get; set; }

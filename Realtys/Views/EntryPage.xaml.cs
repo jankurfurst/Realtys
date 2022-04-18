@@ -68,13 +68,6 @@ namespace Realtys.Views
 
         async void OnSaveButtonClicked(object sender, EventArgs e)
         {
-            var status = await DisplayAlert("Item Object", "Title property:" + nameof(OnSaveButtonClicked), "OK", "Cancel");
-            if (!status) return;
-
-            var viewModel = (EditCreateViewModel)BindingContext;
-            if (viewModel.SaveCommand.CanExecute(null))
-                viewModel.SaveCommand.Execute(null);
-
             
             //var r = ((EditCreateViewModel)BindingContext).RealEstate;
             //var m = ((EditCreateViewModel)BindingContext).Mortgage;

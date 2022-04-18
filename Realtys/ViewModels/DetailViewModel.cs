@@ -29,19 +29,19 @@ namespace Realtys.ViewModels
             }
         }
         
-        public int cistyRocniVynos => (realEstate.MonthlyRent - mesicniNakladySHypo - realEstate.MonthlyExpenses) * (12 - realEstate.Vacancy);
+        public int cistyRocniVynos => (int)((realEstate.MonthlyRent - mesicniNakladySHypo - realEstate.MonthlyExpenses) * (12 - realEstate.Vacancy));
         
         public int porizovaciCena
         {
             get
             {
-                if (mortgage == null) return realEstate.RealtyPrice;
+                if (mortgage == null) return (int)realEstate.RealtyPrice;
                 return (int)(realEstate.RealtyPrice - Math.Floor(mortgage.InitialDebt));
             }
         }
 
         
-        public int HrubyVynos => ((realEstate.MonthlyRent * 12) / porizovaciCena);
+        public int HrubyVynos => ((int)((realEstate.MonthlyRent * 12) / porizovaciCena));
 
         
         public double RocniNavratnost => (porizovaciCena / cistyRocniVynos);

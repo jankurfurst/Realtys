@@ -27,11 +27,11 @@ namespace Realtys.ViewModels
 
         private readonly RealtysDbContext DbContext;
 
-        public string EditCreateErrors 
-        { 
+        public string EditCreateErrors
+        {
             get { return _errors; }
-            set 
-            { 
+            set
+            {
                 _errors = value;
                 OnPropertyChanged(nameof(EditCreateErrors));
             }
@@ -76,7 +76,7 @@ namespace Realtys.ViewModels
         {
             realtyValidation = new RealtyValidations();
             this.RealEstate = new RealEstate();
-            this.Mortgage= new Mortgage();
+            this.Mortgage = new Mortgage();
             DbContext = App.DbContext;
         }
         #endregion
@@ -93,21 +93,45 @@ namespace Realtys.ViewModels
         }
 
 
-        public void ExecuteSaveCommand()
+        public async void ExecuteSaveCommand()
         {
             EditCreateErrors = string.Empty;
 
+            var status = await Shell.Current.DisplayAlert("Uložení záznamu", $"Přejete si aby byl záznam {this.RealEstate.Name} uložen?", "Uložit", "Zrušit");
+            if (!status) return;
+
             var result = realtyValidation.Validate(this.RealEstate);
-            foreach (var error in result.Errors)
-            {
-                EditCreateErrors = EditCreateErrors + error + "\n";
-            }
-            Debug.WriteLine(EditCreateErrors);
+
             if (result.IsValid)
             {
                 EditCreateErrors = string.Empty;
-                //Save Realty
+                //Save Realty to DB
+                this.RealEstate.MortgageUsage = this.IsMortgageUsed; 
+                DbContext.RealEstates.Add(this.RealEstate);
+                await DbContext.SaveChangesAsync();
 
+                //Save Mortgage to DB if used
+                if (IsMortgageUsed)
+                {
+                    this.Mortgage.RealtyID = this.RealEstate.ID;
+                    DbContext.Mortgages.Add(this.Mortgage);
+                    await DbContext.SaveChangesAsync();
+                }
+                                
+                //reseting properties and return to List
+                this.RealEstate = new RealEstate();
+                this.Mortgage = new Mortgage();
+                this.IsMortgageUsed = false;
+
+                await Shell.Current.GoToAsync("//first");
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    EditCreateErrors = EditCreateErrors + error + "\n";
+                }
+                await Shell.Current.DisplayAlert("Chyba při validaci", this.EditCreateErrors, "Zpět");
             }
         }
 
