@@ -8,6 +8,7 @@
 
             <Color x:Key="PrimaryColor">#512bdf</Color>
             <Color x:Key="SecondaryColor">White</Color>
+            <Color x:Key="WindowBackground">DarkGray</Color>
 
             <Style TargetType="Frame">
                 <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}"/>

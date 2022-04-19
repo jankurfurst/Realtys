@@ -4,16 +4,15 @@
        xmlns:local="clr-namespace:Realtys.Views"
        x:Class="Realtys.AppShell"
        Title="Realtys"
-       BackgroundColor="Green">
+       BackgroundColor="{DynamicResource PrimaryColor}">
 
     <FlyoutItem Title="Seznam"
-                >
+                Route="first">
 
-        <Tab Route="first"  Title="Seznam">
-            <ShellContent ContentTemplate="{DataTemplate local:ListPage}"/>
-        </Tab>
+        <ShellContent ContentTemplate="{DataTemplate local:ListPage}"/>
+        
 
-        <Tab Icon="dotnet_bot.png" Title="Main Page">
+        <!--<Tab Icon="dotnet_bot.png" Title="Main Page">
 
             <ShellContent ContentTemplate="{DataTemplate local:MainPage}"/>
 
@@ -23,8 +22,10 @@
 
             <ShellContent ContentTemplate="{DataTemplate local:MainPage}"/>
 
-        </Tab>
+        </Tab>-->
+        
     </FlyoutItem>
+    
     <FlyoutItem Title="Přidat"
                 Route="Entry">
         <ShellContent ContentTemplate="{DataTemplate local:EntryPage}"/>

@@ -2,12 +2,12 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Realtys.Views.DetailPage"
-             Title="Detail"
-             BackgroundColor="White">
+             Title="Detail">
     <StackLayout Margin="10">
         <Label x:Name="realtyDetail"
                VerticalOptions="Center" 
-               HorizontalOptions="StartAndExpand">
+               HorizontalOptions="StartAndExpand"
+               TextColor="{DynamicResource SecondaryColor}">
             <Label.FormattedText>
                 <FormattedString>
                     <FormattedString.Spans>
@@ -30,7 +30,8 @@
         <Label x:Name="mortgageDetail"
                VerticalOptions="Center" 
                HorizontalOptions="StartAndExpand" 
-               IsVisible="false">
+               IsVisible="{Binding realEstate.MortgageUsage}"
+               TextColor="{DynamicResource SecondaryColor}">
             <Label.FormattedText>
                 <FormattedString>
                     <FormattedString.Spans>
@@ -49,6 +50,5 @@
                 </FormattedString>
             </Label.FormattedText>
         </Label>
-        <CheckBox x:Name="mortgageCheckBox" CheckedChanged="OnCheckBoxCheckedChangedSecond"/>
     </StackLayout>
 </ContentPage>

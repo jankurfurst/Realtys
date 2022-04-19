@@ -82,7 +82,7 @@
             <Grid ColumnDefinitions="*,*">
                 <Button Text="Save"
                         Grid.Row="1"
-                        Grid.Column="0"
+                        Grid.Column="1"
                         VerticalOptions="Start" 
                         Command="{Binding SaveCommand}"/>
             </Grid>
