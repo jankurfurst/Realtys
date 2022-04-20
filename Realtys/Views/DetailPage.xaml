@@ -50,5 +50,18 @@
                 </FormattedString>
             </Label.FormattedText>
         </Label>
+        <Grid ColumnDefinitions="*,*">
+            <Button Text="Delete"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    VerticalOptions="Center" 
+                    Command="{Binding DeleteCommand}"/>
+            
+            <Button Text="Edit"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    VerticalOptions="Center" 
+                    Command="{Binding EditCommand}"/>
+        </Grid>
     </StackLayout>
 </ContentPage>

@@ -7,12 +7,10 @@ namespace Realtys.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EntryPage : ContentPage
     {
-        private readonly RealtysDbContext DbContext;
 
-        public EntryPage(RealtysDbContext dbContext, EditCreateViewModel viewModel)
+        public EntryPage(EditCreateViewModel viewModel)
         {
             InitializeComponent();
-            DbContext = dbContext;
             BindingContext = viewModel;
             addMortgageCheckBox.IsChecked = false;
         }
@@ -20,9 +18,6 @@ namespace Realtys.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ((EditCreateViewModel)BindingContext).RealEstate = new RealEstate();
-            ((EditCreateViewModel)BindingContext).Mortgage = new Mortgage();
-            addMortgageCheckBox.IsChecked = false;
         }
 
         async void OnCheckBoxCheckedChanged(object sender, CheckedChangedEventArgs e)
@@ -63,94 +58,7 @@ namespace Realtys.Views
 
             }
             addMortgageCheckBox.CheckedChanged += OnCheckBoxCheckedChanged;
-            await Shell.Current.GoToAsync("//Entry");
         }
 
-        async void OnSaveButtonClicked(object sender, EventArgs e)
-        {
-            
-            //var r = ((EditCreateViewModel)BindingContext).RealEstate;
-            //var m = ((EditCreateViewModel)BindingContext).Mortgage;
-
-            //if (r != null)
-            //{
-            //    var re = DbContext.RealEstates.FirstOrDefault(rs => rs.ID == r.ID);
-
-            //    if (re != null)
-            //    {
-            //        re.Name = r.Name;
-            //        re.RealtyPrice = r.RealtyPrice;
-            //        re.MonthlyExpenses = r.MonthlyExpenses;
-            //        re.MonthlyRent = r.MonthlyRent;
-            //        re.Vacancy = r.Vacancy;
-            //        re.MortgageUsage = addMortgageCheckBox.IsChecked;
-
-            //        await DbContext.SaveChangesAsync();
-            //    }
-            //    else
-            //    {
-            //        try
-            //        {
-            //            DbContext.RealEstates.Add(r);
-            //            await DbContext.SaveChangesAsync();
-            //        }
-            //        catch(Exception ex)
-            //        {
-            //            await DisplayAlert("Error while saving", "Missing parametr: " + ex.InnerException.Message, "Cancel");
-            //        }
-            //    }
-            //}
-
-            //m.RealtyID = r.ID;
-            //if (addMortgageCheckBox.IsChecked == true)
-            //{
-            //    var mortgage = DbContext.Mortgages.FirstOrDefault(_m => _m.ID == m.ID);
-            //    if (mortgage != null)
-            //    {
-            //        mortgage.Share = m.Share;
-            //        mortgage.RealtyID = r.ID;
-
-            //        await DbContext.SaveChangesAsync();
-            //    }
-            //    else
-            //    {
-            //        try
-            //        {
-            //            DbContext.Mortgages.Add(m);
-            //            await DbContext.SaveChangesAsync();
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            await DisplayAlert("Error while saving", "Missing parametr: " + ex.InnerException.Message, "Cancel");
-            //        }
-            //    }
-            //}
-            ////Realty entries
-            //nameEntry.Text = priceEntry.Text = rentEntry.Text = 
-            //    expensesEntry.Text = vacancyEntry.Text = string.Empty;
-
-            ////Mortgage entries
-            //interestEntry.Text = shareEntry.Text = forYearsEntry.Text = string.Empty;
-
-            //await Shell.Current.GoToAsync("//first");
-        }
-
-        async void OnDeleteButtonClicked(object sender, EventArgs e)
-        {
-            ((EditCreateViewModel)BindingContext).SaveCommand.Execute(null);
-            var r = ((EditCreateViewModel)BindingContext).RealEstate;
-            if (r != null)
-            {
-                var re = DbContext.RealEstates.FirstOrDefault(rs => rs.ID == r.ID);
-
-                if (re != null)
-                {
-                    DbContext.RealEstates.Remove(re);
-                    await DbContext.SaveChangesAsync();
-                }
-
-            }
-            await Shell.Current.GoToAsync("//first");
-        }
     }
 }

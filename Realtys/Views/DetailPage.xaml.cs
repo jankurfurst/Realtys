@@ -10,21 +10,4 @@ public partial class DetailPage : ContentPage
 	{
 		InitializeComponent();
 	}
-
-	protected override void OnAppearing()
-	{
-
-		var viewModel = (DetailViewModel)BindingContext;
-
-		//if (viewModel.mortgage == null || viewModel.realEstate.MortgageUsage == false)
-  //      {
-		//	mortgageDetail.IsVisible = false;
-  //      }
-  //      else
-  //      {
-		//	mortgageDetail.IsVisible = true;
-  //      }
-
-	}
-
 }

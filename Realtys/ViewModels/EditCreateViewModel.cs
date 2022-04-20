@@ -105,25 +105,60 @@ namespace Realtys.ViewModels
             if (result.IsValid)
             {
                 EditCreateErrors = string.Empty;
-                //Save Realty to DB
-                this.RealEstate.MortgageUsage = this.IsMortgageUsed; 
-                DbContext.RealEstates.Add(this.RealEstate);
-                await DbContext.SaveChangesAsync();
+
+                var editRealty = DbContext.RealEstates.FirstOrDefault(r => r.ID == this.RealEstate.ID);
+                if (editRealty != null)
+                {
+                    editRealty.Name = this.RealEstate.Name;
+                    editRealty.RealtyPrice = this.RealEstate.RealtyPrice;
+                    editRealty.MonthlyExpenses = this.RealEstate.MonthlyExpenses;
+                    editRealty.MonthlyRent = this.RealEstate.MonthlyRent;
+                    editRealty.Vacancy = this.RealEstate.Vacancy;
+                    editRealty.MortgageUsage = this.IsMortgageUsed;
+
+                    await DbContext.SaveChangesAsync();
+                }
+                else
+                {
+                    //Save Realty to DB
+                    this.RealEstate.MortgageUsage = this.IsMortgageUsed;
+                    DbContext.RealEstates.Add(this.RealEstate);
+                    await DbContext.SaveChangesAsync();
+                }
+
 
                 //Save Mortgage to DB if used
                 if (IsMortgageUsed)
                 {
-                    this.Mortgage.RealtyID = this.RealEstate.ID;
-                    DbContext.Mortgages.Add(this.Mortgage);
-                    await DbContext.SaveChangesAsync();
+                    var mortgage = DbContext.Mortgages.FirstOrDefault(_m => _m.RealtyID == this.RealEstate.ID);
+                    if (mortgage != null)
+                    {
+                        mortgage.Share = this.Mortgage.Share;
+                        mortgage.MonthlyInterest = this.Mortgage.MonthlyInterest;
+                        mortgage.Share = this.Mortgage.Share;
+                        mortgage.InitialDebt = this.Mortgage.InitialDebt;
+                        mortgage.ForYears = this.Mortgage.ForYears;
+                        mortgage.Payment = this.Mortgage.Payment;
+
+                        await DbContext.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        this.Mortgage.RealtyID = this.RealEstate.ID;
+                        DbContext.Mortgages.Add(this.Mortgage);
+                        await DbContext.SaveChangesAsync();
+                    }
+
                 }
-                                
+
                 //reseting properties and return to List
                 this.RealEstate = new RealEstate();
                 this.Mortgage = new Mortgage();
                 this.IsMortgageUsed = false;
 
-                await Shell.Current.GoToAsync("//first");
+                await Shell.Current.GoToAsync("..");
+                //await Shell.Current.Navigation.PopAsync();
+                //await Shell.Current.GoToAsync("//first");
             }
             else
             {
