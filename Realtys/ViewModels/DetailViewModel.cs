@@ -37,7 +37,7 @@ namespace Realtys.ViewModels
             var viewModel = new EditCreateViewModel()
             {
                 RealEstate = realEstate,
-                Mortgage = mortgage,
+                Mortgage = mortgage == null ? new Mortgage() : mortgage,
                 IsMortgageUsed = realEstate.MortgageUsage
             };
             await Shell.Current.Navigation.PushAsync(new EntryPage(viewModel));

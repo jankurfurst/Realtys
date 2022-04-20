@@ -157,8 +157,8 @@ namespace Realtys.ViewModels
                 this.IsMortgageUsed = false;
 
                 await Shell.Current.GoToAsync("..");
-                //await Shell.Current.Navigation.PopAsync();
-                //await Shell.Current.GoToAsync("//first");
+                //await Shell.Current.Navigation.PopToRootAsync();
+                await Shell.Current.GoToAsync("//first");
             }
             else
             {
