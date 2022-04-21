@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Realtys.Validations
 {
-    public class RealtyValidations : AbstractValidator<RealEstate>
+    public class CreateRealtyValidations : AbstractValidator<RealEstate>
     {
-        [Obsolete]
-        public RealtyValidations()
+
+        public CreateRealtyValidations()
         {
             RuleFor(x => x.Name).Custom((name, context) => {
                 if (!string.IsNullOrWhiteSpace(name))

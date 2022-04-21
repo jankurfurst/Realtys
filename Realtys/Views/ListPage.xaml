@@ -9,11 +9,11 @@
                     SelectionChanged="OnCollectionViewSelectionChanged"
                     >
         <CollectionView.ItemsLayout>
-            <GridItemsLayout Span="1" Orientation="Vertical" />
+            <GridItemsLayout Span="1" Orientation="Vertical"/>
         </CollectionView.ItemsLayout>
         <CollectionView.ItemTemplate>
             <DataTemplate>
-                <Frame CornerRadius="0" BorderColor="Black">
+                <Frame CornerRadius="0" BorderColor="Black" VerticalOptions="FillAndExpand">
                     <Label FontSize="20" Padding="30,24" TextColor="White">
                         <Label.FormattedText>
                             <FormattedString>

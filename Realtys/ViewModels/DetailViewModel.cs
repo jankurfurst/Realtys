@@ -18,7 +18,6 @@ namespace Realtys.ViewModels
 
         public Command DeleteCommand => _DeleteCommand ??= new Command(ExecuteDeleteCommand);
 
-        [Obsolete]
         public Command EditCommand => _EditCommand ??= new Command(ExecuteEditCommand);
 
 
@@ -28,7 +27,6 @@ namespace Realtys.ViewModels
             mortgage = App.DbContext.Mortgages.FirstOrDefault(m => m.RealtyID == id);
         }
 
-        [Obsolete]
         private async void ExecuteEditCommand()
         {
             var status = await Shell.Current.DisplayAlert("Editace záznamu", $"Přejete si upravit záznam {this.realEstate.Name}?", "Upravit", "Zrušit");

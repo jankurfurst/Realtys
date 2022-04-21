@@ -16,7 +16,8 @@ namespace Realtys.ViewModels
         #region Fields
         private RealEstate _RealEstate;
         private Mortgage _Mortgage;
-        RealtyValidations realtyValidation;
+        CreateRealtyValidations createRealtyValidation;
+        EditRealtyValidations editRealtyValidation;
         private Command _SaveCommand;
         private string _errors;
         private bool _mortgageUsage;
@@ -71,10 +72,11 @@ namespace Realtys.ViewModels
         #endregion
 
         #region Constructor
-        [Obsolete]
+        
         public EditCreateViewModel()
         {
-            realtyValidation = new RealtyValidations();
+            createRealtyValidation = new CreateRealtyValidations();
+            editRealtyValidation = new EditRealtyValidations();
             this.RealEstate = new RealEstate();
             this.Mortgage = new Mortgage();
             DbContext = App.DbContext;
@@ -100,7 +102,10 @@ namespace Realtys.ViewModels
             var status = await Shell.Current.DisplayAlert("Uložení záznamu", $"Přejete si aby byl záznam {this.RealEstate.Name} uložen?", "Uložit", "Zrušit");
             if (!status) return;
 
-            var result = realtyValidation.Validate(this.RealEstate);
+            var result = (RealEstate.ID == 0)
+                ? createRealtyValidation.Validate(this.RealEstate)
+                : editRealtyValidation.Validate(this.RealEstate);
+
 
             if (result.IsValid)
             {
