@@ -9,13 +9,13 @@ namespace Realtys.Models
         [Key]
         public int ID { get; set; }
         [Required]
-        public double MonthlyInterest { get; set; }
+        public double? MonthlyInterest { get; set; }
         [Required]
-        public double Share { get; set; }
+        public double? Share { get; set; }
         [Required]
         public double InitialDebt { get; set; }
         [Required]
-        public int ForYears { get; set; }
+        public int? ForYears { get; set; }
         [Required]
         public double Payment { get; set; }
         [ForeignKey(nameof(RealEstate))]

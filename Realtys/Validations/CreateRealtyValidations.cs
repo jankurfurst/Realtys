@@ -29,6 +29,14 @@ namespace Realtys.Validations
                 }
             });
 
+            RuleFor(x => x.MonthlyExpenses)
+                .NotNull().WithMessage("Měsíční náklady jsou požadovány.")
+                .GreaterThanOrEqualTo(0).WithMessage("Měsíční náklady musí být vyšší nebo rovny 0.");
+
+            RuleFor(x => x.MonthlyRent)
+                .NotNull().WithMessage("Měsíční nájem je požadován.")
+                .GreaterThanOrEqualTo(0).WithMessage("Měsíční nájem musí být vyšší nebo roven 0.");
+
             RuleFor(x => x.RealtyPrice)
                 .NotNull().WithMessage("Cena nemovitosti je požadována.")
                 .GreaterThanOrEqualTo(0).WithMessage("Cena nemovitosti musí být vyšší nebo rovna 0.");

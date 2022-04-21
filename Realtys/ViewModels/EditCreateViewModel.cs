@@ -18,6 +18,7 @@ namespace Realtys.ViewModels
         private Mortgage _Mortgage;
         CreateRealtyValidations createRealtyValidation;
         EditRealtyValidations editRealtyValidation;
+        MortgageValidations mortgageValidation;
         private Command _SaveCommand;
         private string _errors;
         private bool _mortgageUsage;
@@ -72,11 +73,13 @@ namespace Realtys.ViewModels
         #endregion
 
         #region Constructor
-        
+
         public EditCreateViewModel()
         {
             createRealtyValidation = new CreateRealtyValidations();
             editRealtyValidation = new EditRealtyValidations();
+            mortgageValidation = new MortgageValidations();
+
             this.RealEstate = new RealEstate();
             this.Mortgage = new Mortgage();
             DbContext = App.DbContext;
@@ -106,7 +109,6 @@ namespace Realtys.ViewModels
                 ? createRealtyValidation.Validate(this.RealEstate)
                 : editRealtyValidation.Validate(this.RealEstate);
 
-
             if (result.IsValid)
             {
                 EditCreateErrors = string.Empty;
@@ -131,9 +133,21 @@ namespace Realtys.ViewModels
                     await DbContext.SaveChangesAsync();
                 }
 
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    EditCreateErrors = EditCreateErrors + error + "\n";
+                }
+            }
 
-                //Save Mortgage to DB if used
-                if (IsMortgageUsed)
+            //Save Mortgage to DB if used
+            if (IsMortgageUsed)
+            {
+                var mortResult = mortgageValidation.Validate(Mortgage);
+
+                if (mortResult.IsValid && result.IsValid)
                 {
                     var mortgage = DbContext.Mortgages.FirstOrDefault(_m => _m.RealtyID == this.RealEstate.ID);
                     if (mortgage != null)
@@ -155,6 +169,22 @@ namespace Realtys.ViewModels
                     }
 
                 }
+                else
+                {
+                    foreach (var error in mortResult.Errors)
+                    {
+                        EditCreateErrors = EditCreateErrors + error + "\n";
+                    }
+                }
+
+            }
+
+            if (EditCreateErrors != String.Empty)
+            {
+                await Shell.Current.DisplayAlert("Chyba při validaci", this.EditCreateErrors, "Zpět");
+            }
+            else
+            {
 
                 //reseting properties and return to List
                 this.RealEstate = new RealEstate();
@@ -162,17 +192,9 @@ namespace Realtys.ViewModels
                 this.IsMortgageUsed = false;
 
                 await Shell.Current.GoToAsync("..");
-                //await Shell.Current.Navigation.PopToRootAsync();
                 await Shell.Current.GoToAsync("//first");
             }
-            else
-            {
-                foreach (var error in result.Errors)
-                {
-                    EditCreateErrors = EditCreateErrors + error + "\n";
-                }
-                await Shell.Current.DisplayAlert("Chyba při validaci", this.EditCreateErrors, "Zpět");
-            }
+
         }
 
         #endregion

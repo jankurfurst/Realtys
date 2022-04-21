@@ -8,12 +8,20 @@ using System.Threading.Tasks;
 
 namespace Realtys.Validations
 {
-    internal class EditRealtyValidations : AbstractValidator<RealEstate>
+    public class EditRealtyValidations : AbstractValidator<RealEstate>
     {
 
         public EditRealtyValidations()
         {
             RuleFor(x => x.Name).NotNull().WithMessage("Název nemovitosti je požadován.");
+
+            RuleFor(x => x.MonthlyExpenses)
+               .NotNull().WithMessage("Měsíční náklady jsou požadovány.")
+               .GreaterThanOrEqualTo(0).WithMessage("Měsíční náklady musí být vyšší nebo rovny 0.");
+
+            RuleFor(x => x.MonthlyRent)
+                .NotNull().WithMessage("Měsíční nájem je požadován.")
+                .GreaterThanOrEqualTo(0).WithMessage("Měsíční nájem musí být vyšší nebo roven 0.");
 
             RuleFor(x => x.RealtyPrice)
                 .NotNull().WithMessage("Cena nemovitosti je požadována.")
