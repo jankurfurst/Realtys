@@ -50,57 +50,50 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
-	<ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
-		<!-- Required - WinUI does not yet have buildTransitive for everything -->
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0" />
-		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.0.30" />
+
+	<ItemGroup>
+		<None Remove="Resources\Images\airplane.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Images\airplane.svg" />
+		<PackageReference Include="FluentValidation" Version="10.4.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="FluentValidation" Version="10.4.0" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.3" />
-	  <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.1" />
-	  <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.3" />
+		<Compile Update="Views\DetailPage.xaml.cs">
+			<DependentUpon>DetailPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\EntryPage.xaml.cs">
+			<DependentUpon>EntryPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\ListPage.xaml.cs">
+			<DependentUpon>ListPage.xaml</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\DetailPage.xaml.cs">
-	    <DependentUpon>DetailPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\EntryPage.xaml.cs">
-	    <DependentUpon>EntryPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\ListPage.xaml.cs">
-	    <DependentUpon>ListPage.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Update="AppShell.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\DetailPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\MainPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\EntryPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\ListPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<MauiXaml Update="AppShell.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\DetailPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\MainPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\EntryPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ListPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 	</ItemGroup>
 
 	<PropertyGroup Condition="$(TargetFramework.Contains('-windows'))">
 		<OutputType>WinExe</OutputType>
 		<RuntimeIdentifier>win10-x64</RuntimeIdentifier>
 	</PropertyGroup>
-	
+
 </Project>
