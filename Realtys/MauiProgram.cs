@@ -22,10 +22,6 @@ public static class MauiProgram
 		   options.UseSqlite("Data source=" + Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Realtys.db"))
 		   );
 
-
-		//builder.Services.AddSingleton<RealEstate>();
-		//builder.Services.AddSingleton<Mortgage>();
-
 		builder.Services.AddTransient<EditCreateViewModel>();
 		builder.Services.AddTransient<EntryPage>();
 		
