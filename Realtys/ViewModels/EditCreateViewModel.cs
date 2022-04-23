@@ -176,22 +176,34 @@ namespace Realtys.ViewModels
                 if (mortResult.IsValid && result.IsValid)
                 {
                     var mortgage = DbContext.Mortgages.FirstOrDefault(_m => _m.RealtyID == this.RealEstate.ID);
-                    
-                    //Vytvoření nového záznamu
+
+                    double urok = (double)this.Mortgage.Interest;// %
+                    double podil = (double)this.Mortgage.Share;// %
+                    double pocatecniDluh = (double)(this.RealEstate.RealtyPrice * (podil / 100.0));
+                    int pocetLet = (int)this.Mortgage.ForYears;
+
+                    int pocetMesicu = pocetLet * 12;
+                    double urokova_mira = (urok / 100) / 12;
+
+                    double v = 1 / (1 + urokova_mira);
+                    double splatka = ((urokova_mira * pocatecniDluh) / (1 - Math.Pow(v, pocetMesicu)));
+
+                    //Editace již existujícího záznamu
                     if (mortgage != null)
                     {
-                        mortgage.Share = this.Mortgage.Share;
-                        mortgage.Interest = this.Mortgage.Interest;
-                        mortgage.Share = this.Mortgage.Share;
-                        mortgage.InitialDebt = this.Mortgage.InitialDebt;
-                        mortgage.ForYears = this.Mortgage.ForYears;
-                        mortgage.Payment = this.Mortgage.Payment;
+                        mortgage.Interest = urok;
+                        mortgage.Share = podil;
+                        mortgage.InitialDebt = pocatecniDluh;
+                        mortgage.ForYears = pocetLet;
+                        mortgage.Payment = splatka;
 
                         await DbContext.SaveChangesAsync();
                     }
-                    //Editace již existujícího záznamu
+                    //Vytvoření nového záznamu
                     else
-                    {
+                    {                        
+                        this.Mortgage.InitialDebt = pocatecniDluh;
+                        this.Mortgage.Payment = splatka;
                         this.Mortgage.RealtyID = this.RealEstate.ID;
                         DbContext.Mortgages.Add(this.Mortgage);
                         await DbContext.SaveChangesAsync();
