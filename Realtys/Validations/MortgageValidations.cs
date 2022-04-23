@@ -13,19 +13,16 @@ namespace Realtys.Validations
         public MortgageValidations()
         {
             RuleFor(x => x.Interest)
-                    .NotNull()//.WithMessage("Měsíční náklady jsou požadovány.")
-                    .GreaterThanOrEqualTo(0)//.WithMessage("Měsíční náklady musí být vyšší nebo rovny 0.")
-                    ;
+                    .NotNull().WithMessage("Roční úroková sazba je požadována.")
+                    .InclusiveBetween(0, 100).WithMessage("Roční úroková sazba musí být v rozmezí 0-100.");
 
             RuleFor(x => x.Share)
-                    .NotNull()//.WithMessage("Měsíční nájem je požadován.")
-                    .GreaterThanOrEqualTo(0)//.WithMessage("Měsíční nájem musí být vyšší nebo roven 0.")
-                    ;
+                    .NotNull().WithMessage("Podíl z ceny je požadován.")
+                    .InclusiveBetween(0, 100).WithMessage("Podíl z ceny musí být v rozmezí 0-100.");
 
             RuleFor(x => x.ForYears)
-                    .NotNull()//.WithMessage("Měsíční nájem je požadován.")
-                    .GreaterThanOrEqualTo(0)//.WithMessage("Měsíční nájem musí být vyšší nebo roven 0.")
-                    ;
+                    .NotNull().WithMessage("Počet let je požadován.")
+                    .GreaterThan(0).WithMessage("Počet let musí být víc jak 0.");
 
         }
     }

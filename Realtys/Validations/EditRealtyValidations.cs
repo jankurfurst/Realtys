@@ -29,7 +29,7 @@ namespace Realtys.Validations
 
             RuleFor(x => x.Vacancy)
                 .NotNull().WithMessage("Hodnota neobsazenosti je požadováno (0-12).")
-                .InclusiveBetween(0, 12).WithMessage("Neobsazenost nemovitosti musí být mezi 0 a 12 měsíci.");
+                .InclusiveBetween(0,100).WithMessage("Neobsazenost nemovitosti musí být v rozmezí 0-100.");
 
         }
 
