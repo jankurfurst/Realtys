@@ -23,9 +23,10 @@ namespace Realtys.Views
 
 
             var realties = DbContext.RealEstates.ToList();
+            realties.Reverse();
             listView.ItemsSource = realties;
             listView.SelectedItem = null;
-            
+
         }
 
 

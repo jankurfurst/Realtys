@@ -12,7 +12,7 @@ namespace Realtys.Validations
     {
         public MortgageValidations()
         {
-            RuleFor(x => x.MonthlyInterest)
+            RuleFor(x => x.Interest)
                     .NotNull()//.WithMessage("Měsíční náklady jsou požadovány.")
                     .GreaterThanOrEqualTo(0)//.WithMessage("Měsíční náklady musí být vyšší nebo rovny 0.")
                     ;

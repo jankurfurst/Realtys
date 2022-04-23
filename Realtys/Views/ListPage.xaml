@@ -3,11 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="Realtys List"
              x:Class="Realtys.Views.ListPage">
-   
+
     <CollectionView x:Name="listView"
                     SelectionMode="Single"
-                    SelectionChanged="OnCollectionViewSelectionChanged"
-                    >
+                    SelectionChanged="OnCollectionViewSelectionChanged">
         <CollectionView.ItemsLayout>
             <GridItemsLayout Span="1" Orientation="Vertical"/>
         </CollectionView.ItemsLayout>

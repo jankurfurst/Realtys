@@ -9,7 +9,7 @@ namespace Realtys.Models
         [Key]
         public int ID { get; set; }
         [Required]
-        public double? MonthlyInterest { get; set; }
+        public double? Interest { get; set; }
         [Required]
         public double? Share { get; set; }
         [Required]

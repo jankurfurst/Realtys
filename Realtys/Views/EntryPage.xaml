@@ -56,12 +56,12 @@
 
                 <Label Text="Úvěr: " FontSize="Header" Grid.Row="0"/>
 
-                <Label Text="Měsíční úroková míra (v %)" Grid.Row="1"/>
+                <Label Text="Roční úroková míra (v %)" Grid.Row="1"/>
                 <Entry x:Name="interestEntry"
                        Keyboard="Numeric"
                        Grid.Row="2"
-                       Placeholder="Měsíční úroková míra v %"
-                       Text="{Binding Mortgage.MonthlyInterest}"
+                       Placeholder="Roční úroková míra v %"
+                       Text="{Binding Mortgage.Interest}"
                        HeightRequest="50"/>
                 <Label Text="Podíl z ceny nemovitosti v %" Grid.Row="3"/>
                 <Entry x:Name="shareEntry"

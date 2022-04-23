@@ -12,7 +12,9 @@ namespace Realtys.Views
         {
             InitializeComponent();
             BindingContext = viewModel;
-            addMortgageCheckBox.IsChecked = false;
+            addMortgageCheckBox.CheckedChanged -= OnCheckBoxCheckedChanged;
+            addMortgageCheckBox.IsChecked = viewModel.RealEstate.MortgageUsage;
+            addMortgageCheckBox.CheckedChanged += OnCheckBoxCheckedChanged;
         }
 
         protected override void OnAppearing()

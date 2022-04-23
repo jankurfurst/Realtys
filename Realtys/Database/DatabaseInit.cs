@@ -9,9 +9,9 @@ namespace Realtys.Database
 
         public void Initialization(RealtysDbContext realtysDbContext)
         {
-            if (realtysDbContext.RealEstates.Count() == 0)
+            if (!realtysDbContext.RealEstates.Any())
             {
-                IList<RealEstate> REs = GenerateRealEstates();
+                IList<RealEstate> REs = DatabaseInit.GenerateRealEstates();
                 foreach (var re in REs)
                 {
                     realtysDbContext.RealEstates.Add(re);
@@ -19,7 +19,7 @@ namespace Realtys.Database
                 realtysDbContext.SaveChanges();
             }
 
-            if (realtysDbContext.Mortgages.Count() == 0)
+            if (!realtysDbContext.Mortgages.Any())
             {
                 var realty = realtysDbContext.RealEstates.FirstOrDefault(re => re.RealtyPrice == 3000000);
                 IList<Mortgage> mortgages = GenerateMortgages(realty);
@@ -33,22 +33,22 @@ namespace Realtys.Database
         public List<Mortgage> GenerateMortgages(RealEstate r)
         {
             double urok = 4;//%
-            double podil = 80.0/100.0;
-            double pocatecniDluh = (double)(r.RealtyPrice * (1 - podil));
+            double podil = 80.0;
+            double pocatecniDluh = (double)(r.RealtyPrice * (podil / 100.0));
             int pocetLet = 30;
 
             int pocetMesicu = pocetLet * 12;
-            double i = urok / 100;
+            double urokova_mira = (urok / 100) / 12;
 
-            double v = 1 / (1 + i);
-            double splatka = ((i * pocatecniDluh) / (1 - Math.Pow(v, pocetMesicu)));
+            double v = 1 / (1 + urokova_mira);
+            double splatka = ((urokova_mira * pocatecniDluh) / (1 - Math.Pow(v, pocetMesicu)));
 
 
-            List<Mortgage> mortgages = new List<Mortgage>();
+            List<Mortgage> mortgages = new();
 
-            Mortgage m = new Mortgage()
+            Mortgage m = new()
             {
-                MonthlyInterest = urok,
+                Interest = urok,
                 Share = podil,
                 InitialDebt = pocatecniDluh,
                 ForYears = pocetLet,
@@ -61,11 +61,11 @@ namespace Realtys.Database
         }
 
 
-        public List<RealEstate> GenerateRealEstates()
+        public static List<RealEstate> GenerateRealEstates()
         {
-            List<RealEstate> realEstates = new List<RealEstate>();
+            List<RealEstate> realEstates = new();
 
-            RealEstate r1 = new RealEstate()
+            RealEstate r1 = new()
             {
                 Name = "TEST1",
                 MonthlyExpenses = 1000,
@@ -76,7 +76,7 @@ namespace Realtys.Database
 
 
             };
-            RealEstate r2 = new RealEstate()
+            RealEstate r2 = new()
             {
                 Name = "TEST2",
                 MonthlyExpenses = 2000,
