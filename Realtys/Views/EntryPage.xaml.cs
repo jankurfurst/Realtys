@@ -17,11 +17,6 @@ namespace Realtys.Views
             addMortgageCheckBox.CheckedChanged += OnCheckBoxCheckedChanged;
         }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-        }
-
         async void OnCheckBoxCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             addMortgageCheckBox.CheckedChanged -= OnCheckBoxCheckedChanged;
