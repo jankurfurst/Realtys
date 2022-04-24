@@ -23,10 +23,18 @@
                         <Span Text="&#10;"/>
                         <Span Text="Cisty rocni vynos: " />
                         <Span Text="{Binding cistyRocniVynos}" />
+                        <Span Text="&#10;"/>
+                        <Span Text="Návratnost investice vlastních zdrojů za 1. rok v letech: " />
+                        <Span Text="{Binding RocniNavratnostVlastnichZdroju, StringFormat='{0:F2}'}" />
+                        <Span Text="&#10;"/>
+                        <Span Text="Roční zhodnocení vlastních zdrojů za 1. rok: " />
+                        <Span Text="{Binding RocniZhodnoceniVlastnichZdroju, StringFormat='{0:F2}'}" />
+                        <Span Text=" %" />
                     </FormattedString.Spans>
                 </FormattedString>
             </Label.FormattedText>
         </Label>
+        <Label IsVisible="{Binding realEstate.MortgageUsage}" Text="Úvěr:" FontSize="Subtitle"/>
         <Label x:Name="mortgageDetail"
                VerticalOptions="Center" 
                HorizontalOptions="StartAndExpand" 

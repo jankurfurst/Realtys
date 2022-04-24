@@ -145,6 +145,7 @@ namespace Realtys.ViewModels
                     editRealty.MonthlyExpenses = this.RealEstate.MonthlyExpenses;
                     editRealty.MonthlyRent = this.RealEstate.MonthlyRent;
                     editRealty.Vacancy = this.RealEstate.Vacancy;
+                    editRealty.ForYears = this.RealEstate.ForYears;
                     editRealty.MortgageUsage = this.IsMortgageUsed;
 
                     await DbContext.SaveChangesAsync();
@@ -177,13 +178,13 @@ namespace Realtys.ViewModels
                 {
                     var mortgage = DbContext.Mortgages.FirstOrDefault(_m => _m.RealtyID == this.RealEstate.ID);
 
-                    double urok = (double)this.Mortgage.Interest;// %
+                    double urok_sazba = (double)this.Mortgage.Interest;// %
                     double podil = (double)this.Mortgage.Share;// %
                     double pocatecniDluh = (double)(this.RealEstate.RealtyPrice * (podil / 100.0));
                     int pocetLet = (int)this.Mortgage.ForYears;
 
                     int pocetMesicu = pocetLet * 12;
-                    double urokova_mira = (urok / 100) / 12;
+                    double urokova_mira = (urok_sazba / 100) / 12;
 
                     double v = 1 / (1 + urokova_mira);
                     double splatka = ((urokova_mira * pocatecniDluh) / (1 - Math.Pow(v, pocetMesicu)));
@@ -191,7 +192,7 @@ namespace Realtys.ViewModels
                     //Editace již existujícího záznamu
                     if (mortgage != null)
                     {
-                        mortgage.Interest = urok;
+                        mortgage.Interest = urok_sazba;
                         mortgage.Share = podil;
                         mortgage.InitialDebt = pocatecniDluh;
                         mortgage.ForYears = pocetLet;

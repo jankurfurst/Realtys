@@ -22,7 +22,7 @@ namespace Realtys.Validations
 
             RuleFor(x => x.ForYears)
                     .NotNull().WithMessage("Počet let je požadován.")
-                    .GreaterThan(0).WithMessage("Počet let musí být víc jak 0.");
+                    .GreaterThan(0).WithMessage("Počet let musí být > 0.");
 
         }
     }

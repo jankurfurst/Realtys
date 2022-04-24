@@ -23,7 +23,7 @@
                    HeightRequest="50"
                    x:Name="priceEntry"/>
 
-            <Label Text="Měsíční nájem: "/>
+            <Label Text="Měsíční nájem (očištěn od fondu oprav): "/>
             <Entry Keyboard="Numeric"
                    Placeholder="Měsíční nájem"
                    Text= "{Binding RealEstate.MonthlyRent}"
@@ -36,10 +36,17 @@
                    Text="{Binding RealEstate.MonthlyExpenses}"
                    HeightRequest="50"
                    x:Name="expensesEntry"/>
-            
-            <Label Text="Neobsazenost (v měsících): "/>
+
+            <Label Text="Počet let držení nemovitosti: "/>
             <Entry Keyboard="Numeric"
-                   Placeholder="Neobsazenost (v měsících)"
+                   Placeholder="Počet let držení nemovitosti"
+                   Text="{Binding RealEstate.ForYears}"
+                   HeightRequest="50"
+                   x:Name="realtyForYearsEntry"/>
+            
+            <Label Text="Neobsazenost (v % za 1. rok): "/>
+            <Entry Keyboard="Numeric"
+                   Placeholder="Neobsazenost (v % za 1. rok)"
                    Text="{Binding RealEstate.Vacancy}"
                    HeightRequest="50"
                    x:Name="vacancyEntry"/>
