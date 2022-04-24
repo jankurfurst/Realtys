@@ -15,6 +15,7 @@ namespace Realtys.Views
             InitializeComponent();
             DbContext = dbContext;
             EntryPage = entryPage;
+            listView.SelectionChanged += OnCollectionViewSelectionChanged;
         }
 
         protected override void OnAppearing()

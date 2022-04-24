@@ -6,7 +6,8 @@
 
     <CollectionView x:Name="listView"
                     SelectionMode="Single"
-                    SelectionChanged="OnCollectionViewSelectionChanged">
+                    >
+                    <!--SelectionChanged="OnCollectionViewSelectionChanged"-->
         <CollectionView.ItemsLayout>
             <GridItemsLayout Span="1" Orientation="Vertical"/>
         </CollectionView.ItemsLayout>

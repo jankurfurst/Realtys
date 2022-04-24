@@ -9,6 +9,7 @@ namespace Realtys.ViewModels
         private Command _DeleteCommand;
         private Command _EditCommand;
         #endregion
+
         #region Properties
         public RealEstate realEstate { get; set; }
         public Mortgage mortgage { get; set; }
