@@ -4,8 +4,8 @@
              x:Class="Realtys.Views.EntryPage">
     
 
-    <ScrollView Margin="10">
-        <StackLayout>
+    <ScrollView BackgroundColor="{DynamicResource BackgroundColor}">
+        <StackLayout Margin="10">
             <Label  x:Name="errors"
                     TextColor="Red"
                     Text="{Binding EditCreateErrors}"/>

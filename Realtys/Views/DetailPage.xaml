@@ -3,17 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Realtys.Views.DetailPage"
              Title="Detail">
-    <StackLayout Margin="10">
+
+    <StackLayout  BackgroundColor="#1d1d1d">
+        <Label Margin="10,10,0,0" 
+               Text="{Binding realEstate.Name}" 
+               FontSize="Large"
+               HorizontalTextAlignment="Center"/>
         <Label x:Name="realtyDetail"
+               Margin="10"
                VerticalOptions="Center" 
                HorizontalOptions="StartAndExpand"
                TextColor="{DynamicResource SecondaryColor}">
             <Label.FormattedText>
                 <FormattedString>
                     <FormattedString.Spans>
-                        <Span Text="Název: "/>
-                        <Span Text="{Binding realEstate.Name}" />
-                        <Span Text="&#10;"/>
                         <Span Text="Čistý výnos: "/>
                         <Span Text="{Binding CistyVynos, StringFormat='{0:F2}'}" />
                         <Span Text=" %"/>
@@ -21,8 +24,8 @@
                         <Span Text="Pořizovací cena: " />
                         <Span Text="{Binding porizovaciCena}" />
                         <Span Text="&#10;"/>
-                        <Span Text="Cisty rocni vynos: " />
-                        <Span Text="{Binding cistyRocniVynos}" />
+                        <Span Text="Čisýy roční výnos: " />
+                        <Span Text="{Binding cistyRocniVynos, StringFormat='{0:F2}'}" />
                         <Span Text="&#10;"/>
                         <Span Text="Návratnost investice vlastních zdrojů za 1. rok v letech: " />
                         <Span Text="{Binding RocniNavratnostVlastnichZdroju, StringFormat='{0:F2}'}" />
@@ -34,8 +37,12 @@
                 </FormattedString>
             </Label.FormattedText>
         </Label>
-        <Label IsVisible="{Binding realEstate.MortgageUsage}" Text="Úvěr:" FontSize="Subtitle"/>
-        <Label x:Name="mortgageDetail"
+        <Label Margin="10,0,0,0" 
+               IsVisible="{Binding realEstate.MortgageUsage}" 
+               Text="Úvěr:" 
+               FontSize="Subtitle"/>
+        <Label Margin="10"
+               x:Name="mortgageDetail"
                VerticalOptions="Center" 
                HorizontalOptions="StartAndExpand" 
                IsVisible="{Binding realEstate.MortgageUsage}"

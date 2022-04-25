@@ -2,37 +2,29 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="Realtys List"
-             x:Class="Realtys.Views.ListPage">
+             x:Class="Realtys.Views.ListPage"
+             Shell.TitleColor="{DynamicResource SecondaryColor}">
 
     <CollectionView x:Name="listView"
                     SelectionMode="Single"
-                    >
-                    <!--SelectionChanged="OnCollectionViewSelectionChanged"-->
+                    BackgroundColor="{DynamicResource BackgroundColor}">
+
         <CollectionView.ItemsLayout>
             <GridItemsLayout Span="1" Orientation="Vertical"/>
         </CollectionView.ItemsLayout>
         <CollectionView.ItemTemplate>
             <DataTemplate>
-                <Frame CornerRadius="0" BorderColor="Black" VerticalOptions="FillAndExpand">
-                    <Label FontSize="20" Padding="30,24" TextColor="White">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <FormattedString.Spans>
-                                    <Span Text="{Binding Name} "/>
-                                    <Span Text="&#10;"/>
-                                    <Span Text="Naklady za mesic: "/>
-                                    <Span Text="{Binding MonthlyExpenses}" />
-                                    <Span Text="&#10;"/>
-                                    <Span Text="Cena nemovitosti: " />
-                                    <Span Text="{Binding RealtyPrice}" />
-                                    <Span Text="&#10;"/>
-                                    <Span Text="pouziti uveru: " />
-                                    <Span Text="{Binding MortgageUsage}" />
-                                </FormattedString.Spans>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                </Frame>                
+                <Border >                    
+                    <Grid Padding="10" RowDefinitions="*,*,*,*,*,*,*" BackgroundColor="{DynamicResource PrimaryColor}">
+                        <Label Style="{StaticResource whiteLabel}" Grid.Row="0" Text="{Binding Name}"/>
+                        <Label Style="{StaticResource whiteLabel}" Grid.Row="1" Text="Naklady za mesic: "/>
+                        <Label Style="{StaticResource whiteLabel}" Grid.Row="2" Text="{Binding MonthlyExpenses}"/>
+                        <Label Style="{StaticResource whiteLabel}" Grid.Row="3" Text="Cena nemovitosti: " />
+                        <Label Style="{StaticResource whiteLabel}" Grid.Row="4" Text="{Binding RealtyPrice}" />
+                        <Label Style="{StaticResource whiteLabel}" Grid.Row="5" Text="Použití úvěru: " />
+                        <Label Style="{StaticResource whiteLabel}" Grid.Row="6" Text="{Binding MortgageUsage}" />
+                    </Grid>                
+                </Border>
             </DataTemplate>
         </CollectionView.ItemTemplate>
     </CollectionView>

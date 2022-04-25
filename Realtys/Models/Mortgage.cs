@@ -6,16 +6,52 @@ namespace Realtys.Models
     [Table(nameof(Mortgage))]
     public class Mortgage
     {
+        [NotMapped]
+        private int? forYears;
+        [NotMapped]
+        private double? share;
+        [NotMapped]
+        private double? interest;
+
         [Key]
         public int ID { get; set; }
         [Required]
-        public double? Interest { get; set; }
+        public string Interest
+        {
+            get => interest.ToString();
+            set
+            {
+                double i;
+                if(Double.TryParse(value, out i)) interest = i;
+                else interest = null;
+            }
+        }
+
         [Required]
-        public double? Share { get; set; }
+        public string Share
+        {
+            get => share.ToString();
+            set
+            {
+                double i;
+                if (Double.TryParse(value, out i)) share = i;
+                else share = null;
+            }
+        }
+
         [Required]
         public double InitialDebt { get; set; }
         [Required]
-        public int? ForYears { get; set; }
+        public string ForYears
+        {
+            get => forYears.ToString();
+            set
+            {
+                int i;
+                if (Int32.TryParse(value, out i)) forYears = i;
+                else forYears = null;
+            }
+        }
         [Required]
         public double Payment { get; set; }
         [ForeignKey(nameof(RealEstate))]

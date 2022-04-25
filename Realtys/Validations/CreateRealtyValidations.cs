@@ -13,6 +13,7 @@ namespace Realtys.Validations
 
         public CreateRealtyValidations()
         {
+            //Pravidlo pro Název nemovitosti
             RuleFor(x => x.Name).Custom((name, context) =>
             {
                 if (!string.IsNullOrWhiteSpace(name))
@@ -26,30 +27,80 @@ namespace Realtys.Validations
                 }
                 else
                 {
-                    context.AddFailure("Název nemovitosti je požadován.");
+                    context.AddFailure("Název nemovitosti je povinný údaj.");
                 }
             });
 
-            RuleFor(x => x.MonthlyExpenses)
-                .NotNull().WithMessage("Měsíční náklady jsou požadovány.")
-                .GreaterThanOrEqualTo(0).WithMessage("Měsíční náklady musí být >= 0.");
+            //Pravidlo pro Měsíční náklady
+            RuleFor(x => x.MonthlyExpenses).Custom((value, context) =>
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    context.AddFailure("Měsíční náklady jsou povinný údaj.");
+                }
+                else
+                {
+                    int i;
+                    if (!Int32.TryParse(value, out i) || i < 0) context.AddFailure("Měsíční náklady musí být >= 0.");
+                }
+            });
 
-            RuleFor(x => x.MonthlyRent)
-                .NotNull().WithMessage("Měsíční nájem je požadován.")
-                .GreaterThanOrEqualTo(0).WithMessage("Měsíční nájem musí být >= 0.");
 
-            RuleFor(x => x.RealtyPrice)
-                .NotNull().WithMessage("Cena nemovitosti je požadována.")
-                .GreaterThanOrEqualTo(0).WithMessage("Cena nemovitosti musí být >= 0.");
+            //Pravidlo pro Měsíční nájem
+            RuleFor(x => x.MonthlyRent).Custom((value, context) =>
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    context.AddFailure("Měsíční nájem je povinný údaj.");
+                }
+                else
+                {
+                    int i;
+                    if (!Int32.TryParse(value, out i) || i < 0) context.AddFailure("Měsíční nájem musí být >= 0.");
+                }
+            });
 
-            RuleFor(x => x.Vacancy)
-                .NotNull().WithMessage("Hodnota neobsazenosti je požadováno (0-12).")
-                .InclusiveBetween(0, 100).WithMessage("Neobsazenost nemovitosti musí být v rozmezí 0-100.");
+            //Pravidlo pro Cenu nemovitosti
+            RuleFor(x => x.RealtyPrice).Custom((value, context) =>
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    context.AddFailure("Cena nemovitosti je povinný údaj.");
+                }
+                else
+                {
+                    int i;
+                    if (!Int32.TryParse(value, out i) || i < 0) context.AddFailure("Cena nemovitosti musí být >= 0.");
+                }
+            });
 
-            RuleFor(x => x.ForYears)
-                .NotNull().WithMessage("Počet let, na jak dlouho bude nemovitost držena, je povinný údaj.")
-                .GreaterThan(0).WithMessage("Počet let, na jak dlouho bude nemovitost držena, musí být > 0");
+            //Pravidlo pro Neobsazenost nemovitosti
+            RuleFor(x => x.Vacancy).Custom((value, context) =>
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    context.AddFailure("Hodnota neobsazenosti je povinný údaj.");
+                }
+                else
+                {
+                    double i;
+                    if (!Double.TryParse(value, out i) || i < 0 || i > 100) context.AddFailure("Neobsazenost musí být číslo v rozmezí [0; 100].");
+                }
+            });
 
+            //Pravidlo pro Počet let držení nemovitosti
+            RuleFor(x => x.ForYears).Custom((value, context) =>
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    context.AddFailure("Počet let, na jak dlouho bude nemovitost držena, je povinný údaj.");
+                }
+                else
+                {
+                    int i;
+                    if (!Int32.TryParse(value, out i) || i <= 0) context.AddFailure("Počet let, na jak dlouho bude nemovitost držena, musí být > 0");
+                }
+            });
 
         }
 

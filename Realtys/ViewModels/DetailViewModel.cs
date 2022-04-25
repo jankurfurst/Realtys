@@ -30,7 +30,7 @@ namespace Realtys.ViewModels
         /// <summary>
         /// Čistý výnos v Kč za rok
         /// </summary>
-        public double cistyRocniVynos => (double)((realEstate.MonthlyRent - Mes_splatka_hypo - realEstate.MonthlyExpenses) * (12 * (1 - (double)realEstate.Vacancy/100)));
+        public double cistyRocniVynos => (double)((Int32.Parse(realEstate.MonthlyRent) - Mes_splatka_hypo - Int32.Parse(realEstate.MonthlyExpenses)) * (12 * (1 - Double.Parse(realEstate.Vacancy)/100)));
         
         /// <summary>
         /// Pořizovací cena nemovitosti
@@ -39,8 +39,8 @@ namespace Realtys.ViewModels
         {
             get
             {
-                if (mortgage == null) return (int)realEstate.RealtyPrice;
-                return (int)(realEstate.RealtyPrice - Math.Floor(mortgage.InitialDebt));
+                if (mortgage == null) return Int32.Parse(realEstate.RealtyPrice);
+                return (int)(Int32.Parse(realEstate.RealtyPrice) - Math.Floor(mortgage.InitialDebt));
             }
         }
 
@@ -58,15 +58,15 @@ namespace Realtys.ViewModels
         /// <summary>
         /// Hrubý výnos v % za rok
         /// </summary>
-        public double HrubyVynos => ((double)((realEstate.MonthlyRent * 12.00) / porizovaciCena))*100;
+        public double HrubyVynos => (((Int32.Parse(realEstate.MonthlyRent) * 12.00) / porizovaciCena))*100;
 
         private double VlastniZdroje
         {
             get
             {
-                double neobsazenost = (double)(realEstate.MonthlyRent * 12.00 * realEstate.Vacancy / 100.00);
+                double neobsazenost = (Int32.Parse(realEstate.MonthlyRent) * 12.00 * Double.Parse(realEstate.Vacancy) / 100.00);
                 double prvniRokMesNakladu =
-                    (double)(realEstate.MonthlyExpenses * 12.00
+                    (Int32.Parse(realEstate.MonthlyExpenses) * 12.00
                     + neobsazenost
                     + StredniHodnotaSplatkyUroku * 12);
                 return prvniRokMesNakladu + porizovaciCena;
@@ -85,7 +85,7 @@ namespace Realtys.ViewModels
         {
             get
             {
-                return((double)(VlastniZdroje / ((double)(realEstate.MonthlyRent - StredniHodnotaSplatkyUroku) * 12)));
+                return((double)(VlastniZdroje / ((double)(Int32.Parse(realEstate.MonthlyRent) - StredniHodnotaSplatkyUroku) * 12)));
             }
         }
 
@@ -121,12 +121,12 @@ namespace Realtys.ViewModels
             if (mortgage != null)
             {
                 double aktualniDluh = (double)mortgage.InitialDebt;
-                double mes_urok_sazba = (double)mortgage.Interest / (12 * 100);
-                for (int i = 0; i <= (mortgage.ForYears * 12); i++)
+                double mes_urok_sazba = Double.Parse(mortgage.Interest) / (12 * 100);
+                for (int i = 0; i <= (Int32.Parse(mortgage.ForYears) * 12); i++)
                 {
                     double urok = mes_urok_sazba * aktualniDluh;
                     double umor = Mes_splatka_hypo - urok;
-                    if (i == realEstate.ForYears / 2 * 12)
+                    if (i == Int32.Parse(realEstate.ForYears) / 2 * 12)
                     {
                         StredniHodnotaSplatkyUroku = urok;
                         StredniHodnotaSplatkyJistiny = umor;

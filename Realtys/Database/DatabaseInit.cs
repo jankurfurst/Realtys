@@ -34,7 +34,7 @@ namespace Realtys.Database
         {
             double urok_sazba = 3;//%
             double podil = 80.0;
-            double pocatecniDluh = (double)(r.RealtyPrice * (podil / 100.0));
+            double pocatecniDluh = (double)(Int32.Parse(r.RealtyPrice) * (podil / 100.0));
             int pocetLet = 30;
 
             int pocetMesicu = pocetLet * 12;
@@ -48,10 +48,10 @@ namespace Realtys.Database
 
             Mortgage m = new()
             {
-                Interest = urok_sazba,
-                Share = podil,
+                Interest = urok_sazba.ToString(),
+                Share = podil.ToString(),
                 InitialDebt = pocatecniDluh,
-                ForYears = pocetLet,
+                ForYears = pocetLet.ToString(),
                 Payment = splatka,
                 RealtyID = r.ID
         };
@@ -65,14 +65,20 @@ namespace Realtys.Database
         {
             List<RealEstate> realEstates = new();
 
+            var naklady = 1227;
+            var najem = 7400;
+            var cena = 1600000;
+            var neobsazenost = 3;
+            var pocetLet = 20;
+
             RealEstate r1 = new()
             {
                 Name = "TEST1",
-                MonthlyExpenses = 1227,
-                MonthlyRent = 7400,
-                RealtyPrice = 1600000,
-                Vacancy = 3,
-                ForYears = 20,
+                MonthlyExpenses = naklady.ToString(),
+                MonthlyRent = najem.ToString(),
+                RealtyPrice = cena.ToString(),
+                Vacancy = neobsazenost.ToString(),
+                ForYears = pocetLet.ToString(),
                 MortgageUsage = false
 
 
@@ -80,11 +86,11 @@ namespace Realtys.Database
             RealEstate r2 = new()
             {
                 Name = "TEST2",
-                MonthlyExpenses = 1227,
-                MonthlyRent = 7400,
-                RealtyPrice = 1600000,
-                ForYears= 20,
-                Vacancy = 3,
+                MonthlyExpenses = naklady.ToString(),
+                MonthlyRent = najem.ToString(),
+                RealtyPrice = cena.ToString(),
+                Vacancy = neobsazenost.ToString(),
+                ForYears= pocetLet.ToString(),
                 MortgageUsage = true
 
             };
