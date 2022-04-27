@@ -115,7 +115,7 @@ namespace Realtys.ViewModels
         #region Constructor
         public DetailViewModel(int id)
         {
-            realEstate = App.DbContext.RealEstates.FirstOrDefault(r => r.ID == id);
+            realEstate = App.DbContext.RealEstates.FirstOrDefault(r => r.ID == id); 
             mortgage = App.DbContext.Mortgages.FirstOrDefault(m => m.RealtyID == id);
 
             if (mortgage != null)
@@ -151,8 +151,29 @@ namespace Realtys.ViewModels
 
             var viewModel = new EditCreateViewModel()
             {
-                RealEstate = realEstate,
-                Mortgage = mortgage == null ? new Mortgage() : mortgage,
+                RealEstate = new()
+                {
+                    ID = realEstate.ID,
+                    Name = realEstate.Name,
+                    MonthlyExpenses = realEstate.MonthlyExpenses,
+                    MonthlyRent = realEstate.MonthlyRent,
+                    RealtyPrice = realEstate.RealtyPrice,
+                    Vacancy = realEstate.Vacancy,
+                    ForYears = realEstate.ForYears,
+                    MortgageUsage = realEstate.MortgageUsage
+                },                
+                Mortgage = mortgage == null 
+                ? new Mortgage()
+                : new() 
+                { 
+                    ID = mortgage.ID,
+                    Interest = mortgage.Interest,
+                    InitialDebt = mortgage.InitialDebt,
+                    Payment = mortgage.Payment,
+                    Share = mortgage.Share,
+                    ForYears = mortgage.ForYears,
+                    RealtyID = mortgage.RealtyID
+                },
                 IsMortgageUsed = realEstate.MortgageUsage
             };
             await Shell.Current.Navigation.PushAsync(new EntryPage(viewModel));

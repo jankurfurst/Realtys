@@ -213,7 +213,7 @@ namespace Realtys.ViewModels
 
                 }
                 //Přiřazení error zpráv, pokud vznikly errory při validaci vstupů pro úvěr
-                else
+                else if(!mortResult.IsValid)
                 {
                     EditCreateErrors = EditCreateErrors + "\nVALIDACE ÚVĚRU:\n";
                     foreach (var error in mortResult.Errors)

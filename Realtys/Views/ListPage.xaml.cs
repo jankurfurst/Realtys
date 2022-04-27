@@ -8,13 +8,12 @@ namespace Realtys.Views
     public partial class ListPage : ContentPage
     {
         private readonly RealtysDbContext DbContext;
-        EntryPage EntryPage;
+ 
 
-        public ListPage(RealtysDbContext dbContext, EntryPage entryPage)
+        public ListPage(RealtysDbContext dbContext)
         {
             InitializeComponent();
             DbContext = dbContext;
-            EntryPage = entryPage;
             listView.SelectionChanged += OnCollectionViewSelectionChanged;
         }
 
