@@ -21,8 +21,7 @@ namespace Realtys.Models
             get => interest.ToString();
             set
             {
-                double i;
-                if(Double.TryParse(value, out i)) interest = i;
+                if(Double.TryParse(value, out double i)) interest = i;
                 else interest = null;
             }
         }
@@ -33,8 +32,7 @@ namespace Realtys.Models
             get => share.ToString();
             set
             {
-                double i;
-                if (Double.TryParse(value, out i)) share = i;
+                if (Double.TryParse(value, out double i)) share = i;
                 else share = null;
             }
         }
@@ -47,8 +45,7 @@ namespace Realtys.Models
             get => forYears.ToString();
             set
             {
-                int i;
-                if (Int32.TryParse(value, out i)) forYears = i;
+                if (Int32.TryParse(value, out int i)) forYears = i;
                 else forYears = null;
             }
         }
@@ -57,18 +54,5 @@ namespace Realtys.Models
         [ForeignKey(nameof(RealEstate))]
         public int RealtyID { get; set; }
 
-        //public Mortgage(double urok, double podil, int cena, int pocetLet)
-        //{
-        //    this.mesicniUrokovaMira = urok;
-        //    this.podil = podil / 100;
-        //    pocatecniDluh = cena * (1 - this.podil);
-        //    this.pocetLet = pocetLet;
-
-        //    int pocetMesicu = pocetLet * 12; // pocet mesicu splaceni
-        //    double i = mesicniUrokovaMira / 100; // desetinne cislo
-
-        //    double v = 1 / (1 + i);
-        //    this.splatka = (i * pocatecniDluh) / (1 - Math.Pow(v, pocetMesicu));
-        //}
     }
 }

@@ -21,8 +21,7 @@ namespace Realtys.Validations
                 }
                 else
                 {
-                    double i;
-                    if (!Double.TryParse(value, out i) || i < 1 || i > 100) 
+                    if (!Double.TryParse(value, out double i) || i < 1 || i > 100) 
                         context.AddFailure("Roční úroková sazba musí být v rozmezí 1-100.");
                 }
             });
@@ -36,8 +35,7 @@ namespace Realtys.Validations
                 }
                 else
                 {
-                    double i;
-                    if (!Double.TryParse(value, out i) || i < 1 || i > 100)
+                    if (!Double.TryParse(value, out double i) || i < 1 || i > 100)
                         context.AddFailure("Podíl z ceny nemovitosti musí být v rozmezí 1-100.");
                 }
             });
@@ -51,8 +49,8 @@ namespace Realtys.Validations
                 }
                 else
                 {
-                    int i;
-                    if (!Int32.TryParse(value, out i) || i < 0) context.AddFailure("Počet let splácení úvěru musí být > 0.");
+                    if (!Int32.TryParse(value, out int i) || i < 0)
+                        context.AddFailure("Počet let splácení úvěru musí být > 0.");
                 }
             });
 

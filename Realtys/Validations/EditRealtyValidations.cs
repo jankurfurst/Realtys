@@ -14,7 +14,7 @@ namespace Realtys.Validations
         public EditRealtyValidations()
         {
             //Pravidlo pro Název nemovitosti
-            RuleFor(x => x.Name).NotNull().WithMessage("Název nemovitosti je požadován.");
+            RuleFor(x => x.Name).NotEmpty().WithMessage("Název nemovitosti je požadován.");
 
             //Pravidlo pro Měsíční náklady
             RuleFor(x => x.MonthlyExpenses).Custom((value, context) =>
@@ -25,8 +25,8 @@ namespace Realtys.Validations
                 }
                 else
                 {
-                    int i;
-                    if (!Int32.TryParse(value, out i) || i < 0) context.AddFailure("Měsíční náklady musí být >= 0.");
+                    if (!Int32.TryParse(value, out int i) || i < 0) 
+                        context.AddFailure("Měsíční náklady musí být >= 0.");
                 }
             });
 
@@ -40,8 +40,8 @@ namespace Realtys.Validations
                 }
                 else
                 {
-                    int i;
-                    if (!Int32.TryParse(value, out i) || i < 0) context.AddFailure("Měsíční nájem musí být >= 0.");
+                    if (!Int32.TryParse(value, out int i) || i < 0) 
+                        context.AddFailure("Měsíční nájem musí být >= 0.");
                 }
             });
 
@@ -54,8 +54,8 @@ namespace Realtys.Validations
                 }
                 else
                 {
-                    int i;
-                    if (!Int32.TryParse(value, out i) || i < 0) context.AddFailure("Cena nemovitosti musí být >= 0.");
+                    if (!Int32.TryParse(value, out int i) || i < 0)
+                        context.AddFailure("Cena nemovitosti musí být >= 0.");
                 }
             });
 
@@ -68,8 +68,8 @@ namespace Realtys.Validations
                 }
                 else
                 {
-                    double i;
-                    if (!Double.TryParse(value, out i) || i < 0 || i > 100) context.AddFailure("Neobsazenost musí být číslo v rozmezí [0; 100].");
+                    if (!Double.TryParse(value, out double i) || i < 0 || i > 100)
+                        context.AddFailure("Neobsazenost musí být číslo v rozmezí [0; 100].");
                 }
             });
 
@@ -82,8 +82,8 @@ namespace Realtys.Validations
                 }
                 else
                 {
-                    int i;
-                    if (!Int32.TryParse(value, out i) || i <= 0) context.AddFailure("Počet let, na jak dlouho bude nemovitost držena, musí být > 0");
+                    if (!Int32.TryParse(value, out int i) || i <= 0)
+                        context.AddFailure("Počet let, na jak dlouho bude nemovitost držena, musí být > 0");
                 }
             });
         }

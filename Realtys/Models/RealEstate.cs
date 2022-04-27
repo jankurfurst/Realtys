@@ -45,8 +45,7 @@ namespace Realtys.Models
             get => monthlyExpenses.ToString();
             set
             {
-                int i;
-                if (Int32.TryParse(value, out i)) monthlyExpenses = i;
+                if (Int32.TryParse(value, out int i)) monthlyExpenses = i;
                 else monthlyExpenses = null;
             }
         }
@@ -60,8 +59,7 @@ namespace Realtys.Models
             get => monthlyRent.ToString();
             set
             {
-                int i;
-                if (Int32.TryParse(value, out i)) monthlyRent = i;
+                if (Int32.TryParse(value, out int i)) monthlyRent = i;
                 else monthlyRent = null;
             }
         }
@@ -74,8 +72,7 @@ namespace Realtys.Models
             get => realtyPrice.ToString();
             set
             {
-                int i;
-                if (Int32.TryParse(value, out i)) realtyPrice = i;
+                if (Int32.TryParse(value, out int i)) realtyPrice = i;
                 else realtyPrice = null;
             }
         }
@@ -89,8 +86,7 @@ namespace Realtys.Models
             get => vacancy.ToString();
             set
             {
-                double i;
-                if (Double.TryParse(value, out i)) vacancy = i;
+                if (Double.TryParse(value, out double i)) vacancy = i;
                 else vacancy = null;
             }
         }
@@ -103,9 +99,8 @@ namespace Realtys.Models
         {
             get => forYears.ToString();
             set
-            {
-                int i;
-                if (Int32.TryParse(value, out i)) forYears = i;
+            {                
+                if (Int32.TryParse(value, out int i)) forYears = i;
                 else forYears = null;
             }
         }
