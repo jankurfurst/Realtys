@@ -17,18 +17,19 @@ namespace Realtys.Database
                     realtysDbContext.RealEstates.Add(re);
                 }
                 realtysDbContext.SaveChanges();
+
+                if (!realtysDbContext.Mortgages.Any())
+                {
+                    var realty = realtysDbContext.RealEstates.FirstOrDefault(re => re.Name == "TEST2");
+                    IList<Mortgage> mortgages = GenerateMortgages(realty);
+                    foreach (var m in mortgages)
+                    {
+                        realtysDbContext.Mortgages.Add(m);
+                    }
+                    realtysDbContext.SaveChanges();
+                }
             }
 
-            if (!realtysDbContext.Mortgages.Any())
-            {
-                var realty = realtysDbContext.RealEstates.FirstOrDefault(re => re.Name == "TEST2");
-                IList<Mortgage> mortgages = GenerateMortgages(realty);
-                foreach (var m in mortgages)
-                {
-                    realtysDbContext.Mortgages.Add(m);
-                }
-                realtysDbContext.SaveChanges();
-            }
         }
         public List<Mortgage> GenerateMortgages(RealEstate r)
         {
