@@ -41,7 +41,7 @@ namespace Realtys.Views
             {
                 bool check = await DisplayAlert(
                     "Odebrání úvěru", 
-                    "Bude odebrán úvěr k nemovitosti, veškerý vyplněný obsah, bude ztracen!", 
+                    "Bude odebrán úvěr k nemovitosti, veškerý vyplněný obsah bude ztracen!", 
                     "OK", 
                     "Cancel"
                     );
@@ -49,7 +49,7 @@ namespace Realtys.Views
                 if (check)
                 {
                     viewModel.IsMortgageUsed = !check;
-                    ((EditCreateViewModel)BindingContext).Mortgage = new Mortgage();
+                    viewModel.Mortgage = new Mortgage();
                 }
                 addMortgageCheckBox.IsChecked = !check;
 

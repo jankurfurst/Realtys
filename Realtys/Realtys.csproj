@@ -52,11 +52,6 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
-
-	<ItemGroup>
-		<None Remove="Resources\Images\airplane.svg" />
-	</ItemGroup>
-
 	<ItemGroup>
 		<PackageReference Include="FluentValidation" Version="10.4.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />

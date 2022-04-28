@@ -10,6 +10,7 @@
                     TextColor="Red"
                     Text="{Binding EditCreateErrors}"/>
             
+            <Label Text="Nemovitost: " FontSize="Title"/>
             <Label Text="Pojmenování nemovitosti: "/>
             <Entry Placeholder="Vložte název položky"
                    Text="{Binding RealEstate.Name}"
@@ -50,9 +51,12 @@
                    Text="{Binding RealEstate.Vacancy}"
                    HeightRequest="50"
                    x:Name="vacancyEntry"/>
-            
-            <Label>Přidat úvěr</Label>
-            <CheckBox x:Name="addMortgageCheckBox" CheckedChanged="OnCheckBoxCheckedChanged"/>
+            <Grid ColumnDefinitions="110,auto,*">
+                <Label Grid.Column="0" Padding="0,5,0,0">Přidat úvěr: </Label>
+                <CheckBox x:Name="addMortgageCheckBox" 
+                          CheckedChanged="OnCheckBoxCheckedChanged"
+                          Grid.Column="1"/>
+            </Grid>
 
             <Grid x:Name="mortgageGrid"
                   IsVisible="{Binding IsMortgageUsed}"
@@ -61,7 +65,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Text="Úvěr: " FontSize="Header" Grid.Row="0"/>
+                <Label Text="Úvěr: " FontSize="Title" Grid.Row="0"/>
 
                 <Label Text="Roční úroková míra (v %)" Grid.Row="1"/>
                 <Entry x:Name="interestEntry"

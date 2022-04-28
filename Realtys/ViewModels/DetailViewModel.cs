@@ -28,19 +28,19 @@ namespace Realtys.ViewModels
         }
 
         /// <summary>
-        /// Čistý výnos v Kč za rok
+        /// Roční růst vlastního jmění v Kč za rok
         /// </summary>
-        public double cistyRocniVynos => (double)((Int32.Parse(realEstate.MonthlyRent) - Mes_splatka_hypo - Int32.Parse(realEstate.MonthlyExpenses)) * (12 * (1 - Double.Parse(realEstate.Vacancy)/100)));
+        public double rocniRustVlastnihoJmeni => (double)((Int32.Parse(realEstate.MonthlyRent) - StredniHodnotaSplatkyUroku) * 12);
         
         /// <summary>
         /// Pořizovací cena nemovitosti
         /// </summary>
-        public int porizovaciCena
+        public double porizovaciCena
         {
             get
             {
                 if (mortgage == null) return Int32.Parse(realEstate.RealtyPrice);
-                return (int)(Int32.Parse(realEstate.RealtyPrice) - Math.Floor(mortgage.InitialDebt));
+                return (Int32.Parse(realEstate.RealtyPrice) - mortgage.InitialDebt);
             }
         }
 
@@ -58,7 +58,7 @@ namespace Realtys.ViewModels
         /// <summary>
         /// Hrubý výnos v % za rok
         /// </summary>
-        public double HrubyVynos => (((Int32.Parse(realEstate.MonthlyRent) * 12.00) / porizovaciCena))*100;
+        public double HrubyVynos => ((Int32.Parse(realEstate.MonthlyRent) * 12.00) / (Int32.Parse(realEstate.RealtyPrice)) *100);
 
         private double VlastniZdroje
         {
@@ -76,7 +76,7 @@ namespace Realtys.ViewModels
         /// <summary>
         /// Roční návratnost investice
         /// </summary>
-        public double RocniNavratnost => (porizovaciCena / cistyRocniVynos);
+        public double RocniNavratnost => ((Int32.Parse(realEstate.RealtyPrice) / (Int32.Parse(realEstate.MonthlyRent) * 12)));
 
         /// <summary>
         /// Roční návratnost vlastních zdrojů v letech.
@@ -100,15 +100,6 @@ namespace Realtys.ViewModels
             }
         }
 
-        /// <summary>
-        /// Čistý výnos v % za rok
-        /// </summary>
-        public double CistyVynos { get
-            {
-                if (porizovaciCena == 0) return 0;
-                return (cistyRocniVynos / porizovaciCena)*100;
-            } 
-        }
 
         #endregion
 
