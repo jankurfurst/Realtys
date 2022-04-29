@@ -20,7 +20,7 @@ namespace Realtys.Database
 
                 if (!realtysDbContext.Mortgages.Any())
                 {
-                    var realty = realtysDbContext.RealEstates.FirstOrDefault(re => re.Name == "TEST2");
+                    var realty = realtysDbContext.RealEstates.FirstOrDefault(re => re.ID == 2);
                     IList<Mortgage> mortgages = GenerateMortgages(realty);
                     foreach (var m in mortgages)
                     {
@@ -74,7 +74,7 @@ namespace Realtys.Database
 
             RealEstate r1 = new()
             {
-                Name = "TEST1",
+                Name = "Chata - zelená střecha na svahu",
                 MonthlyExpenses = naklady.ToString(),
                 MonthlyRent = najem.ToString(),
                 RealtyPrice = cena.ToString(),
@@ -86,7 +86,7 @@ namespace Realtys.Database
             };
             RealEstate r2 = new()
             {
-                Name = "TEST2",
+                Name = "Byt - ulice Mokrá 773, Praha",
                 MonthlyExpenses = naklady.ToString(),
                 MonthlyRent = najem.ToString(),
                 RealtyPrice = cena.ToString(),

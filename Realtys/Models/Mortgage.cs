@@ -37,7 +37,7 @@ namespace Realtys.Models
         }
 
         /// <summary>
-        /// Podíl z ceny nemovitsti, pokrytý úvěrem
+        /// Podíl z ceny nemovitosti, pokrytý úvěrem
         /// </summary>
         [Required]
         public string Share
