@@ -45,9 +45,9 @@
                    HeightRequest="50"
                    x:Name="realtyForYearsEntry"/>
             
-            <Label Text="Neobsazenost (v % za 1. rok): "/>
+            <Label Text="Neobsazenost (v %): "/>
             <Entry Keyboard="Numeric"
-                   Placeholder="Neobsazenost (v % za 1. rok)"
+                   Placeholder="Neobsazenost (v %)"
                    Text="{Binding RealEstate.Vacancy}"
                    HeightRequest="50"
                    x:Name="vacancyEntry"/>

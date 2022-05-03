@@ -24,6 +24,9 @@
                         <Span Text="Návratnost investice v letech: "/>
                         <Span Text="{Binding RocniNavratnost, StringFormat='{0:F2}'}" />
                         <Span Text="&#10;"/>
+                        <Span Text="Cena nemovitosti: " />
+                        <Span Text="{Binding realEstate.RealtyPrice}" />
+                        <Span Text=" Kč&#10;"/>
                         <Span Text="Pořizovací cena: " />
                         <Span Text="{Binding porizovaciCena}" />
                         <Span Text=" Kč&#10;"/>
@@ -53,6 +56,9 @@
             <Label.FormattedText>
                 <FormattedString>
                     <FormattedString.Spans>
+                        <Span Text="Počáteční dluh: " />
+                        <Span Text="{Binding mortgage.InitialDebt, StringFormat='{0:F2}'}" />
+                        <Span Text=" Kč&#10;"/>
                         <Span Text="Počet let splácení úvěru: "/>
                         <Span Text="{Binding mortgage.ForYears}"/>
                         <Span Text="&#10;"/>
@@ -61,6 +67,12 @@
                         <Span Text=" % &#10;"/>
                         <Span Text="Měsíční splátka: " />
                         <Span Text="{Binding mortgage.Payment, StringFormat='{0:F2}'}" />
+                        <Span Text=" Kč&#10;"/>
+                        <Span Text="Střední hodnota splátky úroku: " />
+                        <Span Text="{Binding StredniHodnotaSplatkyUroku, StringFormat='{0:F2}'}" />
+                        <Span Text=" Kč&#10;"/>
+                        <Span Text="Střední hodnota splátky jistiny (úmor): " />
+                        <Span Text="{Binding StredniHodnotaSplatkyJistiny, StringFormat='{0:F2}'}" />
                         <Span Text=" Kč&#10;"/>
                         <Span Text="Podíl: " />
                         <Span Text="{Binding mortgage.Share}" />

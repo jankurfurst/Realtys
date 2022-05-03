@@ -47,12 +47,12 @@ namespace Realtys.ViewModels
         /// <summary>
         /// Hodnota splátky úroku v polovině vlastnictví nemovitosti
         /// </summary>
-        private double StredniHodnotaSplatkyUroku { get; set; }
+        public double StredniHodnotaSplatkyUroku { get; set; }
 
         /// <summary>
         /// Hodnota splátky jistiny (úmor) v polovině vlastnictví nemovitosti
         /// </summary>
-        private double StredniHodnotaSplatkyJistiny { get; set; }
+        public double StredniHodnotaSplatkyJistiny { get; set; }
 
 
         /// <summary>
@@ -117,6 +117,7 @@ namespace Realtys.ViewModels
                 {
                     double urok = mes_urok_sazba * aktualniDluh;
                     double umor = Mes_splatka_hypo - urok;
+                    
                     if (i == Int32.Parse(realEstate.ForYears) / 2 * 12)
                     {
                         StredniHodnotaSplatkyUroku = urok;
