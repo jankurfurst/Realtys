@@ -27,8 +27,8 @@
                                 <FormattedString>
                                     <FormattedString.Spans>
                                         <Span Text="Měsíční nájem: "/>
-                                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding MonthlyRent}"/>
-                                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" Kč"/>
+                                        <Span Style="{StaticResource greenSpan}" Text="{Binding MonthlyRent}"/>
+                                        <Span Style="{StaticResource greenSpan}" Text=" Kč"/>
                                     </FormattedString.Spans>
                                 </FormattedString>
                             </Label.FormattedText>
@@ -39,8 +39,8 @@
                                 <FormattedString>
                                     <FormattedString.Spans>
                                         <Span Text="Cena nemovitosti: "/>
-                                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding RealtyPrice}"/>
-                                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" Kč"/>
+                                        <Span Style="{StaticResource greenSpan}" Text="{Binding RealtyPrice}"/>
+                                        <Span Style="{StaticResource greenSpan}" Text=" Kč"/>
                                     </FormattedString.Spans>
                                 </FormattedString>
                             </Label.FormattedText>
@@ -50,7 +50,7 @@
                                 <FormattedString>
                                     <FormattedString.Spans>
                                         <Span Text="Použití úvěru: "/>
-                                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding MortgageUsage, Converter={StaticResource boolToString}}"/>
+                                        <Span Style="{StaticResource greenSpan}" Text="{Binding MortgageUsage, Converter={StaticResource boolToString}}"/>
                                     </FormattedString.Spans>
                                 </FormattedString>
                             </Label.FormattedText>

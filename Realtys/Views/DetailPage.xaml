@@ -4,95 +4,126 @@
              x:Class="Realtys.Views.DetailPage"
              Title="Detail">
 
-    <StackLayout  BackgroundColor="#1d1d1d">
-        <Label Margin="10,10,0,0" 
-               Text="{Binding RealEstate.Name}" 
-               FontSize="Large"
-               HorizontalTextAlignment="Center"/>
-        <Label x:Name="realtyDetail"
-               Margin="10"
-               VerticalOptions="Center" 
-               HorizontalOptions="StartAndExpand"
-               TextColor="{DynamicResource SecondaryColor}">
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span Text="Hrubý výnos: "/>
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding HrubyVynos, StringFormat='{0:F2}'}" />
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" %"/>
-                        <Span Text="&#10;"/>
-                        <Span Text="Návratnost investice v letech: "/>
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding RocniNavratnost, StringFormat='{0:F2}'}" />
-                        <Span Text="&#10;"/>
-                        <Span Text="Cena nemovitosti: " />
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding RealEstate.RealtyPrice}" />
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" Kč&#10;"/>
-                        <Span Text="Pořizovací cena: " />
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding PorizovaciCena}" />
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" Kč&#10;"/>
-                        <Span Text="Roční růst vlastního jmění: " />
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding RocniRustVlastnihoJmeni, StringFormat='{0:F2}'}" />
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" Kč&#10;"/>
-                        <Span Text="Návratnost investice vlastních zdrojů za 1. rok v letech: " />
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding RocniNavratnostVlastnichZdroju, StringFormat='{0:F2}'}" />
-                        <Span Text="&#10;"/>
-                        <Span Text="Roční zhodnocení vlastních zdrojů za 1. rok: " />
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding RocniZhodnoceniVlastnichZdroju, StringFormat='{0:F2}'}" />
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" %" />
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-        <Label Margin="10,0,0,0" 
-               IsVisible="{Binding RealEstate.MortgageUsage}" 
-               Text="Úvěr k nemovitosti:" 
-               FontSize="Subtitle"/>
-        <Label Margin="10"
-               x:Name="mortgageDetail"
-               VerticalOptions="Center" 
-               HorizontalOptions="StartAndExpand" 
-               IsVisible="{Binding RealEstate.MortgageUsage}"
-               TextColor="{DynamicResource SecondaryColor}">
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span Text="Počáteční dluh: " />
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding Mortgage.InitialDebt, StringFormat='{0:F2}'}" />
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" Kč&#10;"/>
-                        <Span Text="Počet let splácení úvěru: "/>
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding Mortgage.ForYears}"/>
-                        <Span Text="&#10;"/>
-                        <Span Text="Roční úroková míra: "/>
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding Mortgage.Interest}" />
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" % &#10;"/>
-                        <Span Text="Měsíční splátka: " />
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding Mortgage.Payment, StringFormat='{0:F2}'}" />
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" Kč&#10;"/>
-                        <Span Text="Střední hodnota splátky úroku: " />
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding StredniHodnotaSplatkyUroku, StringFormat='{0:F2}'}" />
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" Kč&#10;"/>
-                        <Span Text="Střední hodnota splátky jistiny (úmor): " />
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding StredniHodnotaSplatkyJistiny, StringFormat='{0:F2}'}" />
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" Kč&#10;"/>
-                        <Span Text="Podíl: " />
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding Mortgage.Share}" />
-                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" %" />
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-        <Grid ColumnDefinitions="*,*">
-            <Button Text="Delete"
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    VerticalOptions="Center" 
-                    Command="{Binding DeleteCommand}"/>
-            
-            <Button Text="Edit"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    VerticalOptions="Center" 
-                    Command="{Binding EditCommand}"/>
-        </Grid>
-    </StackLayout>
+
+    <ScrollView Padding="10,0,10,50" BackgroundColor="{DynamicResource BackgroundColor}">        
+        <StackLayout  BackgroundColor="{DynamicResource BackgroundColor}">
+            <Label Margin="10,10,0,0" 
+                   Text="{Binding RealEstate.Name}" 
+                   FontSize="Large"
+                   HorizontalTextAlignment="Start"/>
+            <Label x:Name="realtyDetail"
+                   VerticalOptions="Center" 
+                   HorizontalOptions="StartAndExpand"
+                   TextColor="{DynamicResource SecondaryColor}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <FormattedString.Spans>
+                            <Span Style="{StaticResource whiteSpan}" Text="Hrubý výnos: "/>
+                            <Span Style="{StaticResource greenSpan}" Text="{Binding HrubyVynos, StringFormat='{0:F2}'}" />
+                            <Span Style="{StaticResource greenSpan}" Text=" %"/>
+                            <Span Text="&#10;"/>
+                            <Span Style="{StaticResource whiteSpan}" Text="Hrubá návratnost investice v letech: "/>
+                            <Span Style="{StaticResource greenSpan}" Text="{Binding RocniNavratnost, StringFormat='{0:F2}'}" />
+                            <Span Text="&#10;"/>
+                            <Span Style="{StaticResource whiteSpan}" Text="Cena nemovitosti: " />
+                            <Span Style="{StaticResource greenSpan}" Text="{Binding CenaNemovitosti}" />
+                            <Span Style="{StaticResource greenSpan}" Text=" Kč&#10;"/>
+                            <Span Style="{StaticResource whiteSpan}" Text="Pořizovací cena: " />
+                            <Span Style="{StaticResource greenSpan}" Text="{Binding PorizovaciCena}" />
+                            <Span Style="{StaticResource greenSpan}" Text=" Kč&#10;"/>
+                            <Span Style="{StaticResource whiteSpan}" Text="Měsíční nájem: " />
+                            <Span Style="{StaticResource greenSpan}" Text="{Binding MesNajem}" />
+                            <Span Style="{StaticResource greenSpan}" Text=" Kč&#10;"/>
+                            <Span Style="{StaticResource whiteSpan}" Text="Měsíční náklady: " />
+                            <Span Style="{StaticResource greenSpan}" Text="{Binding MesNaklady}" />
+                            <Span Style="{StaticResource greenSpan}" Text=" Kč&#10;"/>
+                            <Span Style="{StaticResource whiteSpan}" Text="Roční růst vlastního jmění: " />
+                            <Span Style="{StaticResource greenSpan}" Text="{Binding RocniRustVlastnihoJmeni, StringFormat='{0:F2}'}" />
+                            <Span Style="{StaticResource greenSpan}" Text=" Kč&#10;"/>
+                            <Span Style="{StaticResource whiteSpan}" Text="Návratnost investice vlastních zdrojů za 1. rok v letech: " />
+                            <Span Style="{StaticResource greenSpan}" Text="{Binding RocniNavratnostVlastnichZdroju, StringFormat='{0:F2}'}" />
+                            <Span Text="&#10;"/>
+                            <Span Style="{StaticResource whiteSpan}" Text="Roční zhodnocení vlastních zdrojů za 1. rok: " />
+                            <Span Style="{StaticResource greenSpan}" Text="{Binding RocniZhodnoceniVlastnichZdroju, StringFormat='{0:F2}'}" />
+                            <Span Style="{StaticResource greenSpan}" Text=" %" />
+                        </FormattedString.Spans>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label Text="Úprava měs. nájmu"
+                   HorizontalOptions="Center"/>
+            <Slider x:Name="rentSlider"
+                    Value="{Binding MesNajem}"
+                    Maximum="100000"
+                    Minimum="0"
+                    ThumbColor="{DynamicResource SecondaryColor}"
+                    MinimumTrackColor="{DynamicResource SecondaryColor}"/>
+            <Label Text="Úprava měs. nákladů"
+                   HorizontalOptions="Center"/>
+            <Slider x:Name="expensesSlider"
+                    Value="{Binding MesNaklady}"
+                    Maximum="20000"
+                    Minimum="0"
+                    Margin="0,0,0,30"
+                    ThumbColor="{DynamicResource SecondaryColor}"
+                    MinimumTrackColor="{DynamicResource SecondaryColor}"/>
+            <Label Margin="10,0,0,0" 
+                   IsVisible="{Binding RealEstate.MortgageUsage}" 
+                   Text="Úvěr k nemovitosti:" 
+                   FontSize="Subtitle"/>
+            <Label Margin="10"
+                   x:Name="mortgageDetail"
+                   VerticalOptions="Center" 
+                   HorizontalOptions="StartAndExpand" 
+                   IsVisible="{Binding RealEstate.MortgageUsage}"
+                   TextColor="{DynamicResource SecondaryColor}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <FormattedString.Spans>
+                            <Span Text="Počáteční dluh: " />
+                            <Span Style="{StaticResource greenSpan}" Text="{Binding PocatecniDluh, StringFormat='{0:F2}'}" />
+                            <Span Style="{StaticResource greenSpan}" Text=" Kč&#10;"/>
+                            <Span Text="Počet let splácení úvěru: "/>
+                            <Span Style="{StaticResource greenSpan}" Text="{Binding PocetLetSplaceni}"/>
+                            <Span Text="&#10;"/>
+                            <Span Text="Roční úroková míra: "/>
+                            <Span Style="{StaticResource greenSpan}" Text="{Binding RocniUrokovaSazba}" />
+                            <Span Style="{StaticResource greenSpan}" Text=" % &#10;"/>
+                            <Span Text="Měsíční splátka: " />
+                            <Span Style="{StaticResource greenSpan}" Text="{Binding SplatkaUveru, StringFormat='{0:F2}'}" />
+                            <Span Style="{StaticResource greenSpan}" Text=" Kč&#10;"/>
+                            <Span Text="Střední hodnota splátky úroku: " />
+                            <Span Style="{StaticResource greenSpan}" Text="{Binding StredniHodnotaSplatkyUroku, StringFormat='{0:F2}'}" />
+                            <Span Style="{StaticResource greenSpan}" Text=" Kč&#10;"/>
+                            <Span Text="Střední hodnota splátky jistiny (úmor): " />
+                            <Span Style="{StaticResource greenSpan}" Text="{Binding StredniHodnotaSplatkyJistiny, StringFormat='{0:F2}'}" />
+                            <Span Style="{StaticResource greenSpan}" Text=" Kč&#10;"/>
+                            <Span Text="Podíl z ceny nemovitosti: " />
+                            <Span Style="{StaticResource greenSpan}" Text="{Binding PodilZCeny}" />
+                            <Span Style="{StaticResource greenSpan}" Text=" %" />
+                        </FormattedString.Spans>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto">
+                <Button Text="Reset Sliders"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="2"
+                        Command="{Binding ResetCommand}"
+                        Margin="5"/>
+                <Button Text="Delete"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        VerticalOptions="Center" 
+                        Command="{Binding DeleteCommand}"
+                        Margin="5"/>
+                
+                <Button Text="Edit"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        VerticalOptions="Center" 
+                        Command="{Binding EditCommand}"/>
+            </Grid>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

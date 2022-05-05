@@ -1,31 +1,76 @@
 ﻿using Realtys.Models;
 using Realtys.Views;
+using System.ComponentModel;
 
 namespace Realtys.ViewModels
 {
-    public class DetailViewModel
+    public class DetailViewModel : INotifyPropertyChanged
     {
         #region Fields
         private Command _DeleteCommand;
         private Command _EditCommand;
+        private Command _ResetCommand;
+        private int cenaNemovitosti;
+        private int mesNajem;
+        private int mesNaklady;
+        private double neobsazenost;
+        private int pocetLetDrzeni;
+
+        public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
         #region Properties
         public RealEstate RealEstate { get; set; }
         public Mortgage Mortgage { get; set; }
 
+        // Properties pro zobrazení údajů nemovitosti
+        public int CenaNemovitosti { get => cenaNemovitosti; set => cenaNemovitosti = value; }
+        public int MesNajem
+        {
+            get => mesNajem;
+            set
+            {
+                mesNajem = value;
+                OnPropertyChanged(nameof(MesNajem));
+                OnPropertyChanged(nameof(RocniRustVlastnihoJmeni));
+                OnPropertyChanged(nameof(HrubyVynos));
+                OnPropertyChanged(nameof(RocniNavratnostVlastnichZdroju));
+                OnPropertyChanged(nameof(RocniZhodnoceniVlastnichZdroju));
+                OnPropertyChanged(nameof(RocniNavratnost));
+            }
+        }
+        public int MesNaklady
+        {
+            get => mesNaklady;
+            set
+            {
+                mesNaklady = value;
+                OnPropertyChanged(nameof(MesNaklady));
+                OnPropertyChanged(nameof(RocniRustVlastnihoJmeni));
+                OnPropertyChanged(nameof(HrubyVynos));
+                OnPropertyChanged(nameof(RocniNavratnostVlastnichZdroju));
+                OnPropertyChanged(nameof(RocniZhodnoceniVlastnichZdroju));
+                OnPropertyChanged(nameof(RocniNavratnost));
+            }
+        }
+        public double Neobsazenost { get => neobsazenost; set => neobsazenost = value; }
+        public int PocetLetDrzeni { get => pocetLetDrzeni; set => pocetLetDrzeni = value; }
+
+        //Properties pro zobrazení údajů úvěru
+        public double RocniUrokovaSazba { get; set; }
+        public double PodilZCeny { get; set; }
+        public int PocetLetSplaceni { get; set; }
+        public double PocatecniDluh { get; set; }
+        public double SplatkaUveru { get; set; }
+
+
+
         public Command DeleteCommand => _DeleteCommand ??= new Command(ExecuteDeleteCommand);
 
         public Command EditCommand => _EditCommand ??= new Command(ExecuteEditCommand);
 
-        private double Mes_splatka_hypo
-        {
-            get
-            {
-                if (Mortgage != null) return Mortgage.Payment;
-                return 0;
-            }
-        }
+        public Command ResetCommand => _ResetCommand ??= new Command(ExecuteResetCommand);
+
 
         /// <summary>
         /// Roční růst vlastního jmění v Kč za rok
@@ -34,7 +79,7 @@ namespace Realtys.ViewModels
         {
             get
             {
-                return (double)((Int32.Parse(RealEstate.MonthlyRent) - StredniHodnotaSplatkyUroku) * 12);
+                return (double)((MesNajem - StredniHodnotaSplatkyUroku) * 12);
             }
         }
 
@@ -45,8 +90,8 @@ namespace Realtys.ViewModels
         {
             get
             {
-                if (Mortgage == null) return Int32.Parse(RealEstate.RealtyPrice);
-                return (Int32.Parse(RealEstate.RealtyPrice) - Mortgage.InitialDebt);
+                if (Mortgage == null) return CenaNemovitosti;
+                return (CenaNemovitosti - PocatecniDluh);
             }
         }
 
@@ -68,7 +113,7 @@ namespace Realtys.ViewModels
         {
             get
             {
-                return ((Int32.Parse(RealEstate.MonthlyRent) * 12.00) / (Int32.Parse(RealEstate.RealtyPrice)) * 100);
+                return ((MesNajem * 12.00) / (CenaNemovitosti) * 100);
             }
         }
 
@@ -76,9 +121,9 @@ namespace Realtys.ViewModels
         {
             get
             {
-                double neobsazenost = (Int32.Parse(RealEstate.MonthlyRent) * 12.00 * Double.Parse(RealEstate.Vacancy) / 100.00);
+                double neobsazenost = (MesNajem * 12.00 * Neobsazenost / 100.00);
                 double prvniRokMesNakladu =
-                    (Int32.Parse(RealEstate.MonthlyExpenses) * 12.00
+                    (MesNaklady * 12.00
                     + neobsazenost
                     + StredniHodnotaSplatkyUroku * 12);
                 return prvniRokMesNakladu + PorizovaciCena;
@@ -88,10 +133,12 @@ namespace Realtys.ViewModels
         /// <summary>
         /// Roční návratnost investice
         /// </summary>
-        public double RocniNavratnost {
+        public double RocniNavratnost
+        {
             get
             {
-                return ((Int32.Parse(RealEstate.RealtyPrice) / (Int32.Parse(RealEstate.MonthlyRent) * 12)));
+                if (MesNajem == 0) return double.PositiveInfinity;
+                return ((CenaNemovitosti / (MesNajem * 12.0)));
             }
         }
 
@@ -102,7 +149,7 @@ namespace Realtys.ViewModels
         {
             get
             {
-                return((double)(VlastniZdroje / ((double)(Int32.Parse(RealEstate.MonthlyRent) - StredniHodnotaSplatkyUroku) * 12)));
+                return ((double)(VlastniZdroje / ((double)(MesNajem - StredniHodnotaSplatkyUroku) * 12)));
             }
         }
 
@@ -113,7 +160,7 @@ namespace Realtys.ViewModels
         {
             get
             {
-                return Math.Pow(RocniNavratnostVlastnichZdroju, -1)*100;
+                return Math.Pow(RocniNavratnostVlastnichZdroju, -1) * 100;
             }
         }
 
@@ -123,19 +170,31 @@ namespace Realtys.ViewModels
         #region Constructor
         public DetailViewModel(int id)
         {
-            RealEstate = App.DbContext.RealEstates.FirstOrDefault(r => r.ID == id); 
+            RealEstate = App.DbContext.RealEstates.FirstOrDefault(r => r.ID == id);
             Mortgage = App.DbContext.Mortgages.FirstOrDefault(m => m.RealtyID == id);
+            
+            CenaNemovitosti = Int32.Parse(RealEstate.RealtyPrice);
+            MesNajem = Int32.Parse(RealEstate.MonthlyRent);
+            MesNaklady = Int32.Parse(RealEstate.MonthlyExpenses);
+            Neobsazenost = Double.Parse(RealEstate.Vacancy);
+            PocetLetDrzeni = Int32.Parse(RealEstate.ForYears);
 
             if (Mortgage != null)
             {
-                double aktualniDluh = (double)Mortgage.InitialDebt;
-                double mes_urok_sazba = Double.Parse(Mortgage.Interest) / (12 * 100);
-                for (int i = 0; i <= (Int32.Parse(Mortgage.ForYears) * 12); i++)
+                RocniUrokovaSazba = Double.Parse(Mortgage.Interest);
+                PodilZCeny = Double.Parse(Mortgage.Share);
+                PocetLetSplaceni = Int32.Parse(Mortgage.ForYears);
+                PocatecniDluh = Mortgage.InitialDebt;
+                SplatkaUveru = Mortgage.Payment;
+
+                double aktualniDluh = PocatecniDluh;
+                double mes_urok_sazba = RocniUrokovaSazba / (12 * 100);
+                for (int i = 0; i <= (PocetLetSplaceni * 12); i++)
                 {
                     double urok = mes_urok_sazba * aktualniDluh;
-                    double umor = Mes_splatka_hypo - urok;
-                    
-                    if (i == Int32.Parse(RealEstate.ForYears) / 2 * 12)
+                    double umor = SplatkaUveru - urok;
+
+                    if (i == PocetLetDrzeni / 2 * 12)
                     {
                         StredniHodnotaSplatkyUroku = urok;
                         StredniHodnotaSplatkyJistiny = umor;
@@ -149,10 +208,33 @@ namespace Realtys.ViewModels
                 StredniHodnotaSplatkyUroku = 0;
                 StredniHodnotaSplatkyJistiny = 0;
             }
+
+
         }
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Metoda pro použití OnPropertyChanged
+        /// </summary>
+        /// <param name="name">Název property</param>
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        private void ExecuteResetCommand()
+        {
+            MesNajem = Int32.Parse(RealEstate.MonthlyRent);
+            MesNaklady = Int32.Parse(RealEstate.MonthlyExpenses);
+        }
+
         private async void ExecuteEditCommand()
         {
             var status = await Shell.Current.DisplayAlert("Editace záznamu", $"Přejete si upravit záznam {this.RealEstate.Name}?", "Upravit", "Zrušit");
@@ -170,11 +252,11 @@ namespace Realtys.ViewModels
                     Vacancy = RealEstate.Vacancy,
                     ForYears = RealEstate.ForYears,
                     MortgageUsage = RealEstate.MortgageUsage
-                },                
-                Mortgage = Mortgage == null 
+                },
+                Mortgage = Mortgage == null
                 ? new Mortgage()
-                : new() 
-                { 
+                : new()
+                {
                     ID = Mortgage.ID,
                     Interest = Mortgage.Interest,
                     InitialDebt = Mortgage.InitialDebt,

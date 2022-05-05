@@ -10,7 +10,18 @@
             <Color x:Key="SecondaryColor">White</Color>
             <Color x:Key="BackgroundColor">#1d1d1d</Color>
             <Color x:Key="ElementBackgroundColor">#2a2a2a</Color>
+            <Color x:Key="SpanGreen">LightGreen</Color>
 
+            <Style TargetType="Span" x:Key="whiteSpan">
+                <Setter Property="TextColor" Value="{DynamicResource SecondaryColor}"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+            </Style>
+            
+            <Style TargetType="Span" x:Key="greenSpan">
+                <Setter Property="TextColor" Value="{DynamicResource SpanGreen}"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+            </Style>
+            
             <Style TargetType="Border">
                 <Setter Property="Stroke" Value="darkGrey"/>
                 <Setter Property="StrokeThickness" Value="2"/>
