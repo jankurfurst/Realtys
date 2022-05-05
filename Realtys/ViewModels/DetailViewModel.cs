@@ -11,8 +11,8 @@ namespace Realtys.ViewModels
         #endregion
 
         #region Properties
-        public RealEstate realEstate { get; set; }
-        public Mortgage mortgage { get; set; }
+        public RealEstate RealEstate { get; set; }
+        public Mortgage Mortgage { get; set; }
 
         public Command DeleteCommand => _DeleteCommand ??= new Command(ExecuteDeleteCommand);
 
@@ -22,7 +22,7 @@ namespace Realtys.ViewModels
         {
             get
             {
-                if (mortgage != null) return mortgage.Payment;
+                if (Mortgage != null) return Mortgage.Payment;
                 return 0;
             }
         }
@@ -30,17 +30,23 @@ namespace Realtys.ViewModels
         /// <summary>
         /// Roční růst vlastního jmění v Kč za rok
         /// </summary>
-        public double rocniRustVlastnihoJmeni => (double)((Int32.Parse(realEstate.MonthlyRent) - StredniHodnotaSplatkyUroku) * 12);
-        
-        /// <summary>
-        /// Pořizovací cena nemovitosti
-        /// </summary>
-        public double porizovaciCena
+        public double RocniRustVlastnihoJmeni
         {
             get
             {
-                if (mortgage == null) return Int32.Parse(realEstate.RealtyPrice);
-                return (Int32.Parse(realEstate.RealtyPrice) - mortgage.InitialDebt);
+                return (double)((Int32.Parse(RealEstate.MonthlyRent) - StredniHodnotaSplatkyUroku) * 12);
+            }
+        }
+
+        /// <summary>
+        /// Pořizovací cena nemovitosti
+        /// </summary>
+        public double PorizovaciCena
+        {
+            get
+            {
+                if (Mortgage == null) return Int32.Parse(RealEstate.RealtyPrice);
+                return (Int32.Parse(RealEstate.RealtyPrice) - Mortgage.InitialDebt);
             }
         }
 
@@ -58,25 +64,36 @@ namespace Realtys.ViewModels
         /// <summary>
         /// Hrubý výnos v % za rok
         /// </summary>
-        public double HrubyVynos => ((Int32.Parse(realEstate.MonthlyRent) * 12.00) / (Int32.Parse(realEstate.RealtyPrice)) *100);
+        public double HrubyVynos
+        {
+            get
+            {
+                return ((Int32.Parse(RealEstate.MonthlyRent) * 12.00) / (Int32.Parse(RealEstate.RealtyPrice)) * 100);
+            }
+        }
 
         private double VlastniZdroje
         {
             get
             {
-                double neobsazenost = (Int32.Parse(realEstate.MonthlyRent) * 12.00 * Double.Parse(realEstate.Vacancy) / 100.00);
+                double neobsazenost = (Int32.Parse(RealEstate.MonthlyRent) * 12.00 * Double.Parse(RealEstate.Vacancy) / 100.00);
                 double prvniRokMesNakladu =
-                    (Int32.Parse(realEstate.MonthlyExpenses) * 12.00
+                    (Int32.Parse(RealEstate.MonthlyExpenses) * 12.00
                     + neobsazenost
                     + StredniHodnotaSplatkyUroku * 12);
-                return prvniRokMesNakladu + porizovaciCena;
+                return prvniRokMesNakladu + PorizovaciCena;
             }
         }
 
         /// <summary>
         /// Roční návratnost investice
         /// </summary>
-        public double RocniNavratnost => ((Int32.Parse(realEstate.RealtyPrice) / (Int32.Parse(realEstate.MonthlyRent) * 12)));
+        public double RocniNavratnost {
+            get
+            {
+                return ((Int32.Parse(RealEstate.RealtyPrice) / (Int32.Parse(RealEstate.MonthlyRent) * 12)));
+            }
+        }
 
         /// <summary>
         /// Roční návratnost vlastních zdrojů v letech.
@@ -85,7 +102,7 @@ namespace Realtys.ViewModels
         {
             get
             {
-                return((double)(VlastniZdroje / ((double)(Int32.Parse(realEstate.MonthlyRent) - StredniHodnotaSplatkyUroku) * 12)));
+                return((double)(VlastniZdroje / ((double)(Int32.Parse(RealEstate.MonthlyRent) - StredniHodnotaSplatkyUroku) * 12)));
             }
         }
 
@@ -106,19 +123,19 @@ namespace Realtys.ViewModels
         #region Constructor
         public DetailViewModel(int id)
         {
-            realEstate = App.DbContext.RealEstates.FirstOrDefault(r => r.ID == id); 
-            mortgage = App.DbContext.Mortgages.FirstOrDefault(m => m.RealtyID == id);
+            RealEstate = App.DbContext.RealEstates.FirstOrDefault(r => r.ID == id); 
+            Mortgage = App.DbContext.Mortgages.FirstOrDefault(m => m.RealtyID == id);
 
-            if (mortgage != null)
+            if (Mortgage != null)
             {
-                double aktualniDluh = (double)mortgage.InitialDebt;
-                double mes_urok_sazba = Double.Parse(mortgage.Interest) / (12 * 100);
-                for (int i = 0; i <= (Int32.Parse(mortgage.ForYears) * 12); i++)
+                double aktualniDluh = (double)Mortgage.InitialDebt;
+                double mes_urok_sazba = Double.Parse(Mortgage.Interest) / (12 * 100);
+                for (int i = 0; i <= (Int32.Parse(Mortgage.ForYears) * 12); i++)
                 {
                     double urok = mes_urok_sazba * aktualniDluh;
                     double umor = Mes_splatka_hypo - urok;
                     
-                    if (i == Int32.Parse(realEstate.ForYears) / 2 * 12)
+                    if (i == Int32.Parse(RealEstate.ForYears) / 2 * 12)
                     {
                         StredniHodnotaSplatkyUroku = urok;
                         StredniHodnotaSplatkyJistiny = umor;
@@ -138,35 +155,35 @@ namespace Realtys.ViewModels
         #region Methods
         private async void ExecuteEditCommand()
         {
-            var status = await Shell.Current.DisplayAlert("Editace záznamu", $"Přejete si upravit záznam {this.realEstate.Name}?", "Upravit", "Zrušit");
+            var status = await Shell.Current.DisplayAlert("Editace záznamu", $"Přejete si upravit záznam {this.RealEstate.Name}?", "Upravit", "Zrušit");
             if (!status) return;
 
             var viewModel = new EditCreateViewModel()
             {
                 RealEstate = new()
                 {
-                    ID = realEstate.ID,
-                    Name = realEstate.Name,
-                    MonthlyExpenses = realEstate.MonthlyExpenses,
-                    MonthlyRent = realEstate.MonthlyRent,
-                    RealtyPrice = realEstate.RealtyPrice,
-                    Vacancy = realEstate.Vacancy,
-                    ForYears = realEstate.ForYears,
-                    MortgageUsage = realEstate.MortgageUsage
+                    ID = RealEstate.ID,
+                    Name = RealEstate.Name,
+                    MonthlyExpenses = RealEstate.MonthlyExpenses,
+                    MonthlyRent = RealEstate.MonthlyRent,
+                    RealtyPrice = RealEstate.RealtyPrice,
+                    Vacancy = RealEstate.Vacancy,
+                    ForYears = RealEstate.ForYears,
+                    MortgageUsage = RealEstate.MortgageUsage
                 },                
-                Mortgage = mortgage == null 
+                Mortgage = Mortgage == null 
                 ? new Mortgage()
                 : new() 
                 { 
-                    ID = mortgage.ID,
-                    Interest = mortgage.Interest,
-                    InitialDebt = mortgage.InitialDebt,
-                    Payment = mortgage.Payment,
-                    Share = mortgage.Share,
-                    ForYears = mortgage.ForYears,
-                    RealtyID = mortgage.RealtyID
+                    ID = Mortgage.ID,
+                    Interest = Mortgage.Interest,
+                    InitialDebt = Mortgage.InitialDebt,
+                    Payment = Mortgage.Payment,
+                    Share = Mortgage.Share,
+                    ForYears = Mortgage.ForYears,
+                    RealtyID = Mortgage.RealtyID
                 },
-                IsMortgageUsed = realEstate.MortgageUsage
+                IsMortgageUsed = RealEstate.MortgageUsage
             };
             await Shell.Current.Navigation.PushAsync(new EntryPage(viewModel));
 
@@ -175,10 +192,10 @@ namespace Realtys.ViewModels
 
         private async void ExecuteDeleteCommand()
         {
-            var status = await Shell.Current.DisplayAlert("Odstranění záznamu", $"Přejete si aby byl záznam {this.realEstate.Name} odstraněn?", "Odstranit", "Zrušit");
+            var status = await Shell.Current.DisplayAlert("Odstranění záznamu", $"Přejete si aby byl záznam {this.RealEstate.Name} odstraněn?", "Odstranit", "Zrušit");
             if (!status) return;
 
-            var r = this.realEstate;
+            var r = this.RealEstate;
             if (r != null)
             {
                 var re = App.DbContext.RealEstates.FirstOrDefault(rs => rs.ID == r.ID);

@@ -6,7 +6,7 @@
 
     <StackLayout  BackgroundColor="#1d1d1d">
         <Label Margin="10,10,0,0" 
-               Text="{Binding realEstate.Name}" 
+               Text="{Binding RealEstate.Name}" 
                FontSize="Large"
                HorizontalTextAlignment="Center"/>
         <Label x:Name="realtyDetail"
@@ -18,65 +18,65 @@
                 <FormattedString>
                     <FormattedString.Spans>
                         <Span Text="Hrubý výnos: "/>
-                        <Span Text="{Binding HrubyVynos, StringFormat='{0:F2}'}" />
-                        <Span Text=" %"/>
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding HrubyVynos, StringFormat='{0:F2}'}" />
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" %"/>
                         <Span Text="&#10;"/>
                         <Span Text="Návratnost investice v letech: "/>
-                        <Span Text="{Binding RocniNavratnost, StringFormat='{0:F2}'}" />
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding RocniNavratnost, StringFormat='{0:F2}'}" />
                         <Span Text="&#10;"/>
                         <Span Text="Cena nemovitosti: " />
-                        <Span Text="{Binding realEstate.RealtyPrice}" />
-                        <Span Text=" Kč&#10;"/>
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding RealEstate.RealtyPrice}" />
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" Kč&#10;"/>
                         <Span Text="Pořizovací cena: " />
-                        <Span Text="{Binding porizovaciCena}" />
-                        <Span Text=" Kč&#10;"/>
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding PorizovaciCena}" />
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" Kč&#10;"/>
                         <Span Text="Roční růst vlastního jmění: " />
-                        <Span Text="{Binding rocniRustVlastnihoJmeni, StringFormat='{0:F2}'}" />
-                        <Span Text=" Kč&#10;"/>
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding RocniRustVlastnihoJmeni, StringFormat='{0:F2}'}" />
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" Kč&#10;"/>
                         <Span Text="Návratnost investice vlastních zdrojů za 1. rok v letech: " />
-                        <Span Text="{Binding RocniNavratnostVlastnichZdroju, StringFormat='{0:F2}'}" />
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding RocniNavratnostVlastnichZdroju, StringFormat='{0:F2}'}" />
                         <Span Text="&#10;"/>
                         <Span Text="Roční zhodnocení vlastních zdrojů za 1. rok: " />
-                        <Span Text="{Binding RocniZhodnoceniVlastnichZdroju, StringFormat='{0:F2}'}" />
-                        <Span Text=" %" />
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding RocniZhodnoceniVlastnichZdroju, StringFormat='{0:F2}'}" />
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" %" />
                     </FormattedString.Spans>
                 </FormattedString>
             </Label.FormattedText>
         </Label>
         <Label Margin="10,0,0,0" 
-               IsVisible="{Binding realEstate.MortgageUsage}" 
-               Text="Úvěr:" 
+               IsVisible="{Binding RealEstate.MortgageUsage}" 
+               Text="Úvěr k nemovitosti:" 
                FontSize="Subtitle"/>
         <Label Margin="10"
                x:Name="mortgageDetail"
                VerticalOptions="Center" 
                HorizontalOptions="StartAndExpand" 
-               IsVisible="{Binding realEstate.MortgageUsage}"
+               IsVisible="{Binding RealEstate.MortgageUsage}"
                TextColor="{DynamicResource SecondaryColor}">
             <Label.FormattedText>
                 <FormattedString>
                     <FormattedString.Spans>
                         <Span Text="Počáteční dluh: " />
-                        <Span Text="{Binding mortgage.InitialDebt, StringFormat='{0:F2}'}" />
-                        <Span Text=" Kč&#10;"/>
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding Mortgage.InitialDebt, StringFormat='{0:F2}'}" />
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" Kč&#10;"/>
                         <Span Text="Počet let splácení úvěru: "/>
-                        <Span Text="{Binding mortgage.ForYears}"/>
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding Mortgage.ForYears}"/>
                         <Span Text="&#10;"/>
                         <Span Text="Roční úroková míra: "/>
-                        <Span Text="{Binding mortgage.Interest}" />
-                        <Span Text=" % &#10;"/>
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding Mortgage.Interest}" />
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" % &#10;"/>
                         <Span Text="Měsíční splátka: " />
-                        <Span Text="{Binding mortgage.Payment, StringFormat='{0:F2}'}" />
-                        <Span Text=" Kč&#10;"/>
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding Mortgage.Payment, StringFormat='{0:F2}'}" />
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" Kč&#10;"/>
                         <Span Text="Střední hodnota splátky úroku: " />
-                        <Span Text="{Binding StredniHodnotaSplatkyUroku, StringFormat='{0:F2}'}" />
-                        <Span Text=" Kč&#10;"/>
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding StredniHodnotaSplatkyUroku, StringFormat='{0:F2}'}" />
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" Kč&#10;"/>
                         <Span Text="Střední hodnota splátky jistiny (úmor): " />
-                        <Span Text="{Binding StredniHodnotaSplatkyJistiny, StringFormat='{0:F2}'}" />
-                        <Span Text=" Kč&#10;"/>
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding StredniHodnotaSplatkyJistiny, StringFormat='{0:F2}'}" />
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" Kč&#10;"/>
                         <Span Text="Podíl: " />
-                        <Span Text="{Binding mortgage.Share}" />
-                        <Span Text=" %" />
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text="{Binding Mortgage.Share}" />
+                        <Span BackgroundColor="Transparent" TextColor="LightGreen" Text=" %" />
                     </FormattedString.Spans>
                 </FormattedString>
             </Label.FormattedText>
