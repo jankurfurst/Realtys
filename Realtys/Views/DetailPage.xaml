@@ -7,7 +7,7 @@
 
     <ScrollView Padding="10,0,10,50" BackgroundColor="{DynamicResource BackgroundColor}">        
         <StackLayout  BackgroundColor="{DynamicResource BackgroundColor}">
-            <Label Margin="10,10,0,0" 
+            <Label Margin="0,0,0,0" 
                    Text="{Binding RealEstate.Name}" 
                    FontSize="Large"
                    HorizontalTextAlignment="Start"/>
@@ -29,7 +29,7 @@
                             <Span Style="{StaticResource greenSpan}" Text="{Binding CenaNemovitosti}" />
                             <Span Style="{StaticResource greenSpan}" Text=" Kč&#10;"/>
                             <Span Style="{StaticResource whiteSpan}" Text="Pořizovací cena: " />
-                            <Span Style="{StaticResource greenSpan}" Text="{Binding PorizovaciCena}" />
+                            <Span Style="{StaticResource greenSpan}" Text="{Binding PorizovaciCena, StringFormat='{0:F2}'}" />
                             <Span Style="{StaticResource greenSpan}" Text=" Kč&#10;"/>
                             <Span Style="{StaticResource whiteSpan}" Text="Měsíční nájem: " />
                             <Span Style="{StaticResource greenSpan}" Text="{Binding MesNajem}" />
@@ -50,11 +50,20 @@
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
+            
             <Label Text="Úprava měs. nájmu"
                    HorizontalOptions="Center"/>
             <Slider x:Name="rentSlider"
                     Value="{Binding MesNajem}"
                     Maximum="100000"
+                    Minimum="0"
+                    ThumbColor="{DynamicResource SecondaryColor}"
+                    MinimumTrackColor="{DynamicResource SecondaryColor}"/>
+            <Label Text="Úprava ceny nemovitosti"
+                   HorizontalOptions="Center"/>
+            <Slider x:Name="priceSlider"
+                    Maximum="{Binding RealEstate.RealtyPrice}"
+                    Value="{Binding CenaNemovitosti}"
                     Minimum="0"
                     ThumbColor="{DynamicResource SecondaryColor}"
                     MinimumTrackColor="{DynamicResource SecondaryColor}"/>
@@ -67,6 +76,7 @@
                     Margin="0,0,0,30"
                     ThumbColor="{DynamicResource SecondaryColor}"
                     MinimumTrackColor="{DynamicResource SecondaryColor}"/>
+
             <Label Margin="10,0,0,0" 
                    IsVisible="{Binding RealEstate.MortgageUsage}" 
                    Text="Úvěr k nemovitosti:" 
@@ -80,31 +90,44 @@
                 <Label.FormattedText>
                     <FormattedString>
                         <FormattedString.Spans>
-                            <Span Text="Počáteční dluh: " />
+                            <Span Style="{StaticResource whiteSpan}" Text="Počáteční dluh: " />
                             <Span Style="{StaticResource greenSpan}" Text="{Binding PocatecniDluh, StringFormat='{0:F2}'}" />
                             <Span Style="{StaticResource greenSpan}" Text=" Kč&#10;"/>
-                            <Span Text="Počet let splácení úvěru: "/>
+                            <Span Style="{StaticResource whiteSpan}" Text="Počet let splácení úvěru: "/>
                             <Span Style="{StaticResource greenSpan}" Text="{Binding PocetLetSplaceni}"/>
                             <Span Text="&#10;"/>
-                            <Span Text="Roční úroková míra: "/>
-                            <Span Style="{StaticResource greenSpan}" Text="{Binding RocniUrokovaSazba}" />
+                            <Span Style="{StaticResource whiteSpan}" Text="Roční úroková míra: "/>
+                            <Span Style="{StaticResource greenSpan}" Text="{Binding RocniUrokovaSazba, StringFormat='{0:F1}'}" />
                             <Span Style="{StaticResource greenSpan}" Text=" % &#10;"/>
-                            <Span Text="Měsíční splátka: " />
+                            <Span Style="{StaticResource whiteSpan}" Text="Měsíční splátka: " />
                             <Span Style="{StaticResource greenSpan}" Text="{Binding SplatkaUveru, StringFormat='{0:F2}'}" />
                             <Span Style="{StaticResource greenSpan}" Text=" Kč&#10;"/>
-                            <Span Text="Střední hodnota splátky úroku: " />
+                            <Span Style="{StaticResource whiteSpan}" Text="Střední hodnota splátky úroku: " />
                             <Span Style="{StaticResource greenSpan}" Text="{Binding StredniHodnotaSplatkyUroku, StringFormat='{0:F2}'}" />
                             <Span Style="{StaticResource greenSpan}" Text=" Kč&#10;"/>
-                            <Span Text="Střední hodnota splátky jistiny (úmor): " />
+                            <Span Style="{StaticResource whiteSpan}" Text="Střední hodnota splátky jistiny (úmor): " />
                             <Span Style="{StaticResource greenSpan}" Text="{Binding StredniHodnotaSplatkyJistiny, StringFormat='{0:F2}'}" />
                             <Span Style="{StaticResource greenSpan}" Text=" Kč&#10;"/>
-                            <Span Text="Podíl z ceny nemovitosti: " />
+                            <Span Style="{StaticResource whiteSpan}" Text="Podíl z ceny nemovitosti: " />
                             <Span Style="{StaticResource greenSpan}" Text="{Binding PodilZCeny}" />
                             <Span Style="{StaticResource greenSpan}" Text=" %" />
                         </FormattedString.Spans>
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
+
+            <Label Text="Úprava roční úrokové vazby"
+                   HorizontalOptions="Center"
+                   IsVisible="{Binding RealEstate.MortgageUsage}"/>
+            <Slider x:Name="interestSlider"
+                    Value="{Binding RocniUrokovaSazbaSliderEdited}"
+                    Maximum="50"
+                    Minimum="0"
+                    Margin="0,0,0,30"
+                    ThumbColor="{DynamicResource SecondaryColor}"
+                    MinimumTrackColor="{DynamicResource SecondaryColor}"
+                    IsVisible="{Binding RealEstate.MortgageUsage}"/>
+
             <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto">
                 <Button Text="Reset Sliders"
                         Grid.Row="0"

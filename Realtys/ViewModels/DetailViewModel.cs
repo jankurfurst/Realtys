@@ -13,8 +13,8 @@ namespace Realtys.ViewModels
         private int cenaNemovitosti;
         private int mesNajem;
         private int mesNaklady;
-        private double neobsazenost;
-        private int pocetLetDrzeni;
+        private double pocatecniDluh;
+        private double rocniUrokovaSazba;
 
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
@@ -24,7 +24,30 @@ namespace Realtys.ViewModels
         public Mortgage Mortgage { get; set; }
 
         // Properties pro zobrazení údajů nemovitosti
-        public int CenaNemovitosti { get => cenaNemovitosti; set => cenaNemovitosti = value; }
+        public int CenaNemovitosti
+        {
+            get => cenaNemovitosti; set
+            {
+                cenaNemovitosti = value;
+                OnPropertyChanged(nameof(CenaNemovitosti));
+                OnPropertyChanged(nameof(PorizovaciCena));
+                OnPropertyChanged(nameof(RocniRustVlastnihoJmeni));
+                OnPropertyChanged(nameof(HrubyVynos));
+                OnPropertyChanged(nameof(RocniNavratnostVlastnichZdroju));
+                OnPropertyChanged(nameof(RocniZhodnoceniVlastnichZdroju));
+                OnPropertyChanged(nameof(RocniNavratnost));
+                if (Mortgage != null)
+                {
+                    PocatecniDluhSliderEdited = value;
+                    SplatkaUveru = CountPayment(RocniUrokovaSazba);
+                    CountMiddleValues();
+                    OnPropertyChanged(nameof(StredniHodnotaSplatkyJistiny));
+                    OnPropertyChanged(nameof(StredniHodnotaSplatkyUroku));
+                    OnPropertyChanged(nameof(SplatkaUveru));
+                }
+
+            }
+        }
         public int MesNajem
         {
             get => mesNajem;
@@ -53,14 +76,46 @@ namespace Realtys.ViewModels
                 OnPropertyChanged(nameof(RocniNavratnost));
             }
         }
-        public double Neobsazenost { get => neobsazenost; set => neobsazenost = value; }
-        public int PocetLetDrzeni { get => pocetLetDrzeni; set => pocetLetDrzeni = value; }
+        public double Neobsazenost { get; set; }
+        public int PocetLetDrzeni { get; set; }
 
         //Properties pro zobrazení údajů úvěru
-        public double RocniUrokovaSazba { get; set; }
+        public double RocniUrokovaSazba { get => rocniUrokovaSazba; set { rocniUrokovaSazba = value; OnPropertyChanged(nameof(RocniUrokovaSazba)); OnPropertyChanged(nameof(RocniUrokovaSazbaSliderEdited)); } }
+        public double RocniUrokovaSazbaSliderEdited
+        {
+            get => rocniUrokovaSazba;
+            set
+            {
+                rocniUrokovaSazba = value;
+                PocatecniDluhSliderEdited = cenaNemovitosti;
+                SplatkaUveru = CountPayment(value);
+                CountMiddleValues();
+                OnPropertyChanged(nameof(RocniUrokovaSazba));
+                OnPropertyChanged(nameof(StredniHodnotaSplatkyJistiny));
+                OnPropertyChanged(nameof(StredniHodnotaSplatkyUroku));
+                OnPropertyChanged(nameof(SplatkaUveru));
+                OnPropertyChanged(nameof(RocniRustVlastnihoJmeni));
+                OnPropertyChanged(nameof(RocniNavratnostVlastnichZdroju));
+                OnPropertyChanged(nameof(RocniZhodnoceniVlastnichZdroju));
+            }
+        }
         public double PodilZCeny { get; set; }
         public int PocetLetSplaceni { get; set; }
         public double PocatecniDluh { get; set; }
+        public double PocatecniDluhSliderEdited
+        {
+            get => pocatecniDluh;
+            set
+            {
+                if (Mortgage == null) pocatecniDluh = 0;
+                else
+                {
+                    value *= PodilZCeny / 100;
+                    pocatecniDluh = value;
+                    OnPropertyChanged(nameof(PocatecniDluh));
+                }
+            }
+        }
         public double SplatkaUveru { get; set; }
 
 
@@ -172,7 +227,7 @@ namespace Realtys.ViewModels
         {
             RealEstate = App.DbContext.RealEstates.FirstOrDefault(r => r.ID == id);
             Mortgage = App.DbContext.Mortgages.FirstOrDefault(m => m.RealtyID == id);
-            
+
             CenaNemovitosti = Int32.Parse(RealEstate.RealtyPrice);
             MesNajem = Int32.Parse(RealEstate.MonthlyRent);
             MesNaklady = Int32.Parse(RealEstate.MonthlyExpenses);
@@ -186,34 +241,46 @@ namespace Realtys.ViewModels
                 PocetLetSplaceni = Int32.Parse(Mortgage.ForYears);
                 PocatecniDluh = Mortgage.InitialDebt;
                 SplatkaUveru = Mortgage.Payment;
-
-                double aktualniDluh = PocatecniDluh;
-                double mes_urok_sazba = RocniUrokovaSazba / (12 * 100);
-                for (int i = 0; i <= (PocetLetSplaceni * 12); i++)
-                {
-                    double urok = mes_urok_sazba * aktualniDluh;
-                    double umor = SplatkaUveru - urok;
-
-                    if (i == PocetLetDrzeni / 2 * 12)
-                    {
-                        StredniHodnotaSplatkyUroku = urok;
-                        StredniHodnotaSplatkyJistiny = umor;
-                        break;
-                    }
-                    aktualniDluh -= umor;
-                }
+                CountMiddleValues();
             }
-            else
-            {
-                StredniHodnotaSplatkyUroku = 0;
-                StredniHodnotaSplatkyJistiny = 0;
-            }
-
 
         }
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Výpočet splátky
+        /// </summary>
+        private double CountPayment(double urok_sazba)
+        {
+            int pocetMesicu = PocetLetSplaceni * 12;
+            double urokova_mira = (urok_sazba / 100) / 12;
+
+            double v = 1 / (1 + urokova_mira);
+            return ((urokova_mira * PocatecniDluh) / (1 - Math.Pow(v, pocetMesicu)));
+        }
+
+        /// <summary>
+        /// Výpočet středních hodnot splátek úroku a jistiny
+        /// </summary>
+        private void CountMiddleValues()
+        {
+            double aktualniDluh = PocatecniDluh;
+            double mes_urok_sazba = RocniUrokovaSazba / (12 * 100);
+            for (int i = 0; i <= (PocetLetSplaceni * 12); i++)
+            {
+                double urok = mes_urok_sazba * aktualniDluh;
+                double umor = SplatkaUveru - urok;
+
+                if (i == PocetLetDrzeni / 2 * 12)
+                {
+                    StredniHodnotaSplatkyUroku = urok;
+                    StredniHodnotaSplatkyJistiny = umor;
+                    break;
+                }
+                aktualniDluh -= umor;
+            }
+        }
 
         /// <summary>
         /// Metoda pro použití OnPropertyChanged
@@ -233,6 +300,11 @@ namespace Realtys.ViewModels
         {
             MesNajem = Int32.Parse(RealEstate.MonthlyRent);
             MesNaklady = Int32.Parse(RealEstate.MonthlyExpenses);
+            CenaNemovitosti = Int32.Parse(RealEstate.RealtyPrice);
+            if(Mortgage != null)
+            {
+                RocniUrokovaSazba = Double.Parse(Mortgage.Interest);
+            }
         }
 
         private async void ExecuteEditCommand()
