@@ -184,6 +184,9 @@ namespace Realtys.ViewModels
             }
         }
 
+        /// <summary>
+        /// Investované vlastní zdroje
+        /// </summary>
         private double VlastniZdroje
         {
             get
