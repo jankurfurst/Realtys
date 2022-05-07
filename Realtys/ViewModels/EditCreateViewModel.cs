@@ -130,9 +130,13 @@ namespace Realtys.ViewModels
             var result = (RealEstate.ID == 0)
                 ? createRealtyValidation.Validate(this.RealEstate)
                 : editRealtyValidation.Validate(this.RealEstate);
-            
+
+            var mortResult = mortgageValidation.Validate(Mortgage);
+
+            var check = (mortResult.IsValid == IsMortgageUsed);
+
             //Ověření validních vstupů
-            if (result.IsValid && !IsMortgageUsed)
+            if (result.IsValid && check)
             {
                 EditCreateErrors = string.Empty;
 
@@ -172,8 +176,7 @@ namespace Realtys.ViewModels
             //Save Mortgage to DB if used
             if (IsMortgageUsed)
             {
-                var mortResult = mortgageValidation.Validate(Mortgage);
-
+     
                 //Ověření validních vstupů
                 if (mortResult.IsValid && result.IsValid)
                 {
