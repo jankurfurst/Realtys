@@ -132,7 +132,7 @@ namespace Realtys.ViewModels
                 : editRealtyValidation.Validate(this.RealEstate);
             
             //Ověření validních vstupů
-            if (result.IsValid)
+            if (result.IsValid && !IsMortgageUsed)
             {
                 EditCreateErrors = string.Empty;
 
@@ -160,7 +160,7 @@ namespace Realtys.ViewModels
 
             }
             //Přiřazení error zpráv, pokud vznikly errory při validaci vstupů pro nemovitost
-            else
+            else if (!result.IsValid)
             {
                 EditCreateErrors = EditCreateErrors + "VALIDACE NEMOVITOSTI:\n";
                 foreach (var error in result.Errors)
