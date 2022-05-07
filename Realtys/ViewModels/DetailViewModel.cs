@@ -41,9 +41,12 @@ namespace Realtys.ViewModels
                     PocatecniDluhSliderEdited = value;
                     SplatkaUveru = CountPayment(RocniUrokovaSazba);
                     CountMiddleValues();
+
+                    OnPropertyChanged(nameof(SplatkaUveru));
+                    OnPropertyChanged(nameof(PocatecniDluhSliderEdited));
+                    OnPropertyChanged(nameof(PocatecniDluh));
                     OnPropertyChanged(nameof(StredniHodnotaSplatkyJistiny));
                     OnPropertyChanged(nameof(StredniHodnotaSplatkyUroku));
-                    OnPropertyChanged(nameof(SplatkaUveru));
                 }
 
             }
@@ -80,7 +83,16 @@ namespace Realtys.ViewModels
         public int PocetLetDrzeni { get; set; }
 
         //Properties pro zobrazení údajů úvěru
-        public double RocniUrokovaSazba { get => rocniUrokovaSazba; set { rocniUrokovaSazba = value; OnPropertyChanged(nameof(RocniUrokovaSazba)); OnPropertyChanged(nameof(RocniUrokovaSazbaSliderEdited)); } }
+        public double RocniUrokovaSazba
+        {
+            get => rocniUrokovaSazba;
+
+            set
+            {
+                rocniUrokovaSazba = value; OnPropertyChanged(nameof(RocniUrokovaSazba)); OnPropertyChanged(nameof(RocniUrokovaSazbaSliderEdited
+            ));
+            }
+        }
         public double RocniUrokovaSazbaSliderEdited
         {
             get => rocniUrokovaSazba;
@@ -101,7 +113,7 @@ namespace Realtys.ViewModels
         }
         public double PodilZCeny { get; set; }
         public int PocetLetSplaceni { get; set; }
-        public double PocatecniDluh { get; set; }
+        public double PocatecniDluh { get => pocatecniDluh; set => pocatecniDluh = value; }
         public double PocatecniDluhSliderEdited
         {
             get => pocatecniDluh;
