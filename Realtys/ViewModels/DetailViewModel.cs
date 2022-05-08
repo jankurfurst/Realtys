@@ -36,6 +36,9 @@ namespace Realtys.ViewModels
                 OnPropertyChanged(nameof(RocniNavratnostVlastnichZdroju));
                 OnPropertyChanged(nameof(RocniZhodnoceniVlastnichZdroju));
                 OnPropertyChanged(nameof(RocniNavratnost));
+                OnPropertyChanged(nameof(ChartColumns));
+                OnPropertyChanged(nameof(ChartConstant));
+
                 if (Mortgage != null)
                 {
                     PocatecniDluhSliderEdited = value;
@@ -63,6 +66,8 @@ namespace Realtys.ViewModels
                 OnPropertyChanged(nameof(RocniNavratnostVlastnichZdroju));
                 OnPropertyChanged(nameof(RocniZhodnoceniVlastnichZdroju));
                 OnPropertyChanged(nameof(RocniNavratnost));
+                OnPropertyChanged(nameof(ChartColumns));
+                OnPropertyChanged(nameof(ChartConstant));
             }
         }
         public int MesNaklady
@@ -77,6 +82,8 @@ namespace Realtys.ViewModels
                 OnPropertyChanged(nameof(RocniNavratnostVlastnichZdroju));
                 OnPropertyChanged(nameof(RocniZhodnoceniVlastnichZdroju));
                 OnPropertyChanged(nameof(RocniNavratnost));
+                OnPropertyChanged(nameof(ChartColumns));
+                OnPropertyChanged(nameof(ChartConstant));
             }
         }
         public double Neobsazenost { get; set; }
@@ -89,8 +96,11 @@ namespace Realtys.ViewModels
 
             set
             {
-                rocniUrokovaSazba = value; OnPropertyChanged(nameof(RocniUrokovaSazba)); OnPropertyChanged(nameof(RocniUrokovaSazbaSliderEdited
-            ));
+                rocniUrokovaSazba = value; 
+                OnPropertyChanged(nameof(RocniUrokovaSazba)); 
+                OnPropertyChanged(nameof(RocniUrokovaSazbaSliderEdited));
+                OnPropertyChanged(nameof(ChartColumns));
+                OnPropertyChanged(nameof(ChartConstant));
             }
         }
         public double RocniUrokovaSazbaSliderEdited
@@ -109,6 +119,8 @@ namespace Realtys.ViewModels
                 OnPropertyChanged(nameof(RocniRustVlastnihoJmeni));
                 OnPropertyChanged(nameof(RocniNavratnostVlastnichZdroju));
                 OnPropertyChanged(nameof(RocniZhodnoceniVlastnichZdroju));
+                OnPropertyChanged(nameof(ChartColumns));
+                OnPropertyChanged(nameof(ChartConstant));
             }
         }
         public double PodilZCeny { get; set; }
@@ -138,6 +150,51 @@ namespace Realtys.ViewModels
 
         public Command ResetCommand => _ResetCommand ??= new Command(ExecuteResetCommand);
 
+        /// <summary>
+        /// Měnící se data pto použití v grafu
+        /// </summary>
+        public List<ChartModel> ChartColumns
+        {
+            get
+            {
+                var list = new List<ChartModel>();
+
+                for (int i = 0; i <= RocniNavratnostVlastnichZdroju + 1; i++)
+                {
+                    var model = new ChartModel()
+                    {
+                        Year = i,
+                        Value = RocniRustVlastnihoJmeni * i
+                    };
+                    list.Add(model);
+                }
+
+                return list;
+            }
+        }
+
+        /// <summary>
+        /// Konstantní data pro použítí v grafu
+        /// </summary>
+        public List<ChartModel> ChartConstant
+        {
+            get
+            {
+                var list = new List<ChartModel>();
+
+                for (int i = 0; i < ChartColumns.Count; i++)
+                {
+                    var model = new ChartModel()
+                    {
+                        Year = i,
+                        Value = VlastniZdroje
+                    };
+                    list.Add(model);
+                }
+
+                return list;
+            }
+        }
 
         /// <summary>
         /// Roční růst vlastního jmění v Kč za rok
@@ -201,7 +258,7 @@ namespace Realtys.ViewModels
         }
 
         /// <summary>
-        /// Roční návratnost investice
+        /// Hrubá roční návratnost investice
         /// </summary>
         public double RocniNavratnost
         {
@@ -219,7 +276,7 @@ namespace Realtys.ViewModels
         {
             get
             {
-                return ((double)(VlastniZdroje / ((double)(MesNajem - StredniHodnotaSplatkyUroku) * 12)));
+                return VlastniZdroje / RocniRustVlastnihoJmeni;
             }
         }
 
@@ -263,6 +320,7 @@ namespace Realtys.ViewModels
         #endregion
 
         #region Methods
+
         /// <summary>
         /// Výpočet splátky
         /// </summary>

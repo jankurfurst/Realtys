@@ -3,6 +3,7 @@ using Realtys.Database;
 using Realtys.Models;
 using Realtys.ViewModels;
 using Realtys.Views;
+using Syncfusion.Maui.Core.Hosting;
 
 namespace Realtys;
 
@@ -13,7 +14,7 @@ public static class MauiProgram
 			Environment.GetFolderPath
 				(
 					Environment.SpecialFolder.LocalApplicationData
-				), 
+				),
 			"Realtys.db"
 		);
 
@@ -22,6 +23,7 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
+			.ConfigureSyncfusionCore()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
