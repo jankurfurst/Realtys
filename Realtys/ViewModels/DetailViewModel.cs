@@ -51,6 +51,7 @@ namespace Realtys.ViewModels
                     OnPropertyChanged(nameof(StredniHodnotaSplatkyJistiny));
                     OnPropertyChanged(nameof(StredniHodnotaSplatkyUroku));
                 }
+                OnPropertyChanged(nameof(PorizovaciCena));
 
             }
         }
@@ -159,7 +160,7 @@ namespace Realtys.ViewModels
             {
                 var list = new List<ChartModel>();
 
-                for (int i = 0; i <= RocniNavratnostVlastnichZdroju + 1; i++)
+                for (int i = 0; i <= Math.Abs(RocniNavratnostVlastnichZdroju) + 1; i++)
                 {
                     var model = new ChartModel()
                     {
@@ -182,7 +183,7 @@ namespace Realtys.ViewModels
             {
                 var list = new List<ChartModel>();
 
-                for (int i = 0; i < ChartColumns.Count; i++)
+                for (int i = 0; i <= Math.Abs(RocniNavratnostVlastnichZdroju) + 1; i++)
                 {
                     var model = new ChartModel()
                     {

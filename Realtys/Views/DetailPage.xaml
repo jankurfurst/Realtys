@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+             xmlns:sliders="clr-namespace:Syncfusion.Maui.Sliders;assembly=Syncfusion.Maui.Sliders"
              x:Class="Realtys.Views.DetailPage"
              Title="Detail">
 
@@ -54,29 +55,70 @@
             
             <Label Text="Úprava měs. nájmu"
                    HorizontalOptions="Center"/>
-            <Slider x:Name="rentSlider"
-                    Value="{Binding MesNajem}"
-                    Maximum="100000"
-                    Minimum="0"
-                    ThumbColor="{DynamicResource SecondaryColor}"
-                    MinimumTrackColor="{DynamicResource SecondaryColor}"/>
+            <sliders:SfSlider x:Name="rentSlider"
+                              Minimum="0" 
+		                      Maximum="100000"
+		                      Value="{Binding MesNajem}" 
+		                      NumberFormat="0' Kč" 
+                              ShowTicks="True"
+                              MinorTicksPerInterval="9"
+		                      ShowLabels="True"
+		                      Interval="10000"
+                              StepSize="100">
+                <sliders:SfSlider.LabelStyle>
+                    <sliders:SliderLabelStyle ActiveTextColor="{StaticResource SecondaryColor}" 
+                                              InactiveTextColor="{StaticResource SecondaryColor}" 
+                                              ActiveFontFamily="OpenSansRegular" 
+				                              InactiveFontFamily="OpenSansRegular" 
+				                              ActiveFontSize="16" 
+				                              InactiveFontSize="16" />
+                </sliders:SfSlider.LabelStyle>
+            </sliders:SfSlider>
+
             <Label Text="Úprava ceny nemovitosti"
                    HorizontalOptions="Center"/>
-            <Slider x:Name="priceSlider"
-                    Maximum="{Binding RealEstate.RealtyPrice}"
-                    Value="{Binding CenaNemovitosti}"
-                    Minimum="0"
-                    ThumbColor="{DynamicResource SecondaryColor}"
-                    MinimumTrackColor="{DynamicResource SecondaryColor}"/>
+            <sliders:SfSlider x:Name="priceSlider"
+                              Minimum="0" 
+		                      Maximum="{Binding RealEstate.RealtyPrice}"
+		                      Value="{Binding CenaNemovitosti}" 
+		                      NumberFormat="0' Kč" 
+                              ShowTicks="True"
+                              MinorTicksPerInterval="3"
+		                      ShowLabels="True"
+		                      Interval="200000"
+                              StepSize="50000">
+                <sliders:SfSlider.LabelStyle>
+                    <sliders:SliderLabelStyle ActiveTextColor="{StaticResource SecondaryColor}" 
+                                              InactiveTextColor="{StaticResource SecondaryColor}" 
+                                              ActiveFontFamily="OpenSansRegular" 
+				                              InactiveFontFamily="OpenSansRegular" 
+				                              ActiveFontSize="16" 
+				                              InactiveFontSize="16"/>
+                </sliders:SfSlider.LabelStyle>
+            </sliders:SfSlider>
+
             <Label Text="Úprava měs. nákladů"
-                   HorizontalOptions="Center"/>
-            <Slider x:Name="expensesSlider"
-                    Value="{Binding MesNaklady}"
-                    Maximum="20000"
-                    Minimum="0"
-                    Margin="0,0,0,30"
-                    ThumbColor="{DynamicResource SecondaryColor}"
-                    MinimumTrackColor="{DynamicResource SecondaryColor}"/>
+                   HorizontalOptions="Center"/>            
+            <sliders:SfSlider x:Name="expensesSlider"
+                              Minimum="0" 
+		                      Maximum="20000" 
+                              Margin="0,0,0,30"
+		                      Value="{Binding MesNaklady}" 
+		                      NumberFormat="0' Kč" 
+                              ShowTicks="True"
+                              MinorTicksPerInterval="9"
+		                      ShowLabels="True"
+		                      Interval="2000"
+                              StepSize="100">
+                <sliders:SfSlider.LabelStyle>
+                    <sliders:SliderLabelStyle ActiveTextColor="{StaticResource SecondaryColor}" 
+                                              InactiveTextColor="{StaticResource SecondaryColor}" 
+                                              ActiveFontFamily="OpenSansRegular" 
+				                              InactiveFontFamily="OpenSansRegular" 
+				                              ActiveFontSize="16" 
+				                              InactiveFontSize="16" />
+                </sliders:SfSlider.LabelStyle>
+            </sliders:SfSlider>
 
             <Label Margin="10,0,0,0" 
                    IsVisible="{Binding RealEstate.MortgageUsage}" 
@@ -120,14 +162,27 @@
             <Label Text="Úprava roční úrokové vazby"
                    HorizontalOptions="Center"
                    IsVisible="{Binding RealEstate.MortgageUsage}"/>
-            <Slider x:Name="interestSlider"
-                    Value="{Binding RocniUrokovaSazbaSliderEdited}"
-                    Maximum="50"
-                    Minimum="0"
-                    Margin="0,0,0,30"
-                    ThumbColor="{DynamicResource SecondaryColor}"
-                    MinimumTrackColor="{DynamicResource SecondaryColor}"
-                    IsVisible="{Binding RealEstate.MortgageUsage}"/>
+            <sliders:SfSlider x:Name="interestSlider"
+                              Minimum="0" 
+		                      Maximum="20" 
+		                      Value="{Binding RocniUrokovaSazbaSliderEdited}" 
+		                      NumberFormat="0'%" 
+                              ShowTicks="True"
+                              MinorTicksPerInterval="10"
+		                      ShowLabels="True"
+		                      Interval="1"
+                              StepSize="0.1"
+                              IsVisible="{Binding RealEstate.MortgageUsage}">
+                <sliders:SfSlider.LabelStyle>
+                    <sliders:SliderLabelStyle ActiveTextColor="{StaticResource SecondaryColor}" 
+                                              InactiveTextColor="{StaticResource SecondaryColor}" 
+                                              ActiveFontFamily="OpenSansRegular" 
+				                              InactiveFontFamily="OpenSansRegular" 
+				                              ActiveFontSize="16" 
+				                              InactiveFontSize="16" />
+                </sliders:SfSlider.LabelStyle>
+            </sliders:SfSlider>
+
 
             <chart:SfCartesianChart Scale="0.9">
                 <chart:SfCartesianChart.XAxes>
@@ -154,7 +209,7 @@
                 </chart:SfCartesianChart.XAxes>
 
                 <chart:SfCartesianChart.YAxes>
-                    <chart:NumericalAxis Interval="{Binding RocniRustVlastnihoJmeni}">
+                    <chart:NumericalAxis >
 
                         <chart:NumericalAxis.Title>
                             <chart:ChartAxisTitle TextColor="{StaticResource SecondaryColor}" 
