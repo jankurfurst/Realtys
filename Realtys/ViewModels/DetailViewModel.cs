@@ -301,17 +301,17 @@ namespace Realtys.ViewModels
             RealEstate = App.DbContext.RealEstates.FirstOrDefault(r => r.ID == id);
             Mortgage = App.DbContext.Mortgages.FirstOrDefault(m => m.RealtyID == id);
 
-            CenaNemovitosti = Int32.Parse(RealEstate.RealtyPrice);
-            MesNajem = Int32.Parse(RealEstate.MonthlyRent);
-            MesNaklady = Int32.Parse(RealEstate.MonthlyExpenses);
-            Neobsazenost = Double.Parse(RealEstate.Vacancy);
-            PocetLetDrzeni = Int32.Parse(RealEstate.ForYears);
+            CenaNemovitosti = (int)RealEstate.RealtyPrice;
+            MesNajem = (int)RealEstate.MonthlyRent;
+            MesNaklady = (int)RealEstate.MonthlyExpenses;
+            Neobsazenost = (double)RealEstate.Vacancy;
+            PocetLetDrzeni = (int)RealEstate.ForYears;
 
             if (Mortgage != null)
             {
-                RocniUrokovaSazba = Double.Parse(Mortgage.Interest);
-                PodilZCeny = Double.Parse(Mortgage.Share);
-                PocetLetSplaceni = Int32.Parse(Mortgage.ForYears);
+                RocniUrokovaSazba = (double)Mortgage.Interest;
+                PodilZCeny = (double)Mortgage.Share;
+                PocetLetSplaceni = (int)Mortgage.ForYears;
                 PocatecniDluh = Mortgage.InitialDebt;
                 SplatkaUveru = Mortgage.Payment;
                 CountMiddleValues();
@@ -372,12 +372,12 @@ namespace Realtys.ViewModels
 
         private void ExecuteResetCommand()
         {
-            MesNajem = Int32.Parse(RealEstate.MonthlyRent);
-            MesNaklady = Int32.Parse(RealEstate.MonthlyExpenses);
-            CenaNemovitosti = Int32.Parse(RealEstate.RealtyPrice);
+            MesNajem = (int)RealEstate.MonthlyRent;
+            MesNaklady = (int)RealEstate.MonthlyExpenses;
+            CenaNemovitosti = (int)RealEstate.RealtyPrice;
             if(Mortgage != null)
             {
-                RocniUrokovaSazba = Double.Parse(Mortgage.Interest);
+                RocniUrokovaSazba = (double)Mortgage.Interest;
             }
         }
 

@@ -182,10 +182,10 @@ namespace Realtys.ViewModels
                 {
                     var mortgage = DbContext.Mortgages.FirstOrDefault(_m => _m.RealtyID == this.RealEstate.ID);
 
-                    double urok_sazba = Double.Parse(this.Mortgage.Interest);// %
-                    double podil = Double.Parse(this.Mortgage.Share);// %
-                    double pocatecniDluh = Int32.Parse(this.RealEstate.RealtyPrice) * (podil / 100.0);
-                    int pocetLet = Int32.Parse(this.Mortgage.ForYears);
+                    double urok_sazba = (double)this.Mortgage.Interest;// %
+                    double podil = (double)this.Mortgage.Share;// %
+                    double pocatecniDluh = (double)(this.RealEstate.RealtyPrice * (podil / 100.0));
+                    int pocetLet = (int)this.Mortgage.ForYears;
 
                     int pocetMesicu = pocetLet * 12;
                     double urokova_mira = (urok_sazba / 100) / 12;
@@ -196,10 +196,10 @@ namespace Realtys.ViewModels
                     //Editace již existujícího záznamu
                     if (mortgage != null)
                     {
-                        mortgage.Interest = urok_sazba.ToString();
-                        mortgage.Share = podil.ToString();
+                        mortgage.Interest = urok_sazba;
+                        mortgage.Share = podil;
                         mortgage.InitialDebt = pocatecniDluh;
-                        mortgage.ForYears = pocetLet.ToString();
+                        mortgage.ForYears = pocetLet;
                         mortgage.Payment = splatka;
 
                         await DbContext.SaveChangesAsync();

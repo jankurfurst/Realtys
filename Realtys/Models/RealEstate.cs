@@ -11,17 +11,6 @@ namespace Realtys.Models
     [Table(nameof(RealEstate))]
     public class RealEstate
     {
-        [NotMapped]
-        private int? monthlyExpenses;
-        [NotMapped]
-        private int? monthlyRent;
-        [NotMapped]
-        private int? realtyPrice;
-        [NotMapped]
-        private double? vacancy;
-        [NotMapped]
-        private int? forYears;
-
         /// <summary>
         /// ID nemovitosti. Primární klíč do databáze.
         /// </summary>
@@ -40,70 +29,30 @@ namespace Realtys.Models
         /// Měsíční náklady na nemovitost.
         /// </summary>
         [Required]
-        public string MonthlyExpenses
-        {
-            get => monthlyExpenses.ToString();
-            set
-            {
-                if (Int32.TryParse(value, out int i)) monthlyExpenses = i;
-                else monthlyExpenses = null;
-            }
-        }
+        public int? MonthlyExpenses { get; set; }
 
         /// <summary>
         /// Mesíční nájem z nemovitosti.
         /// </summary>
         [Required]
-        public string MonthlyRent
-        {
-            get => monthlyRent.ToString();
-            set
-            {
-                if (Int32.TryParse(value, out int i)) monthlyRent = i;
-                else monthlyRent = null;
-            }
-        }
+        public int? MonthlyRent { get; set; }
         /// <summary>
         /// Cena nemovitosti.
         /// </summary>
         [Required]
-        public string RealtyPrice
-        {
-            get => realtyPrice.ToString();
-            set
-            {
-                if (Int32.TryParse(value, out int i)) realtyPrice = i;
-                else realtyPrice = null;
-            }
-        }
+        public int? RealtyPrice { get; set; }
 
         /// <summary>
         /// Neobsazenost nemovitosti za první rok v %.
         /// </summary>
         [Required]
-        public string Vacancy
-        {
-            get => vacancy.ToString();
-            set
-            {
-                if (Double.TryParse(value, out double i)) vacancy = i;
-                else vacancy = null;
-            }
-        }
+        public double? Vacancy { get; set; }
 
         /// <summary>
         /// Na jak dlouho bude nemovitost držena.
         /// </summary>
         [Required]
-        public string ForYears
-        {
-            get => forYears.ToString();
-            set
-            {                
-                if (Int32.TryParse(value, out int i)) forYears = i;
-                else forYears = null;
-            }
-        }
+        public int? ForYears { get; set; }
 
         /// <summary>
         /// Použití úvěru.
@@ -112,7 +61,5 @@ namespace Realtys.Models
         /// </summary>
         [Required]
         public bool MortgageUsage { get; set; }
-
-
     }
 }

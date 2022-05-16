@@ -1,8 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:convert="clr-namespace:Realtys.Converters"
              x:Class="Realtys.Views.EntryPage">
     
+    <ContentPage.Resources>
+        <convert:NullIntToStringConverer x:Key="intToString" />
+        <convert:NullDoubleToStringConverter x:Key="doubleToString"/>
+    </ContentPage.Resources>
 
     <ScrollView BackgroundColor="{DynamicResource BackgroundColor}">
         <StackLayout Margin="10">
@@ -20,35 +25,35 @@
             <Label Text="Cena nemovitosti: "/>
             <Entry Keyboard="Numeric" 
                    Placeholder="Cena nemovitosti"
-                   Text="{Binding RealEstate.RealtyPrice}"
+                   Text="{Binding RealEstate.RealtyPrice, Converter={StaticResource intToString}}"
                    HeightRequest="50"
                    x:Name="priceEntry"/>
 
             <Label Text="Měsíční nájem (očištěn od fondu oprav): "/>
             <Entry Keyboard="Numeric"
                    Placeholder="Měsíční nájem"
-                   Text= "{Binding RealEstate.MonthlyRent}"
+                   Text= "{Binding RealEstate.MonthlyRent, Converter={StaticResource intToString}}"
                    HeightRequest="50"
                    x:Name="rentEntry"/>
             
             <Label Text="Měsíční náklady"/>
             <Entry Keyboard="Numeric"
                    Placeholder="Měsíční náklady"
-                   Text="{Binding RealEstate.MonthlyExpenses}"
+                   Text="{Binding RealEstate.MonthlyExpenses, Converter={StaticResource intToString}}"
                    HeightRequest="50"
                    x:Name="expensesEntry"/>
 
             <Label Text="Počet let držení nemovitosti: "/>
             <Entry Keyboard="Numeric"
                    Placeholder="Počet let držení nemovitosti"
-                   Text="{Binding RealEstate.ForYears}"
+                   Text="{Binding RealEstate.ForYears, Converter={StaticResource intToString}}"
                    HeightRequest="50"
                    x:Name="realtyForYearsEntry"/>
             
             <Label Text="Neobsazenost (v %): "/>
             <Entry Keyboard="Numeric"
                    Placeholder="Neobsazenost (v %)"
-                   Text="{Binding RealEstate.Vacancy}"
+                   Text="{Binding RealEstate.Vacancy, Converter={StaticResource doubleToString}}"
                    HeightRequest="50"
                    x:Name="vacancyEntry"/>
             <Grid ColumnDefinitions="110,auto,*">
@@ -72,21 +77,21 @@
                        Keyboard="Numeric"
                        Grid.Row="2"
                        Placeholder="Roční úroková míra v %"
-                       Text="{Binding Mortgage.Interest}"
+                       Text="{Binding Mortgage.Interest, Converter={StaticResource doubleToString}}"
                        HeightRequest="50"/>
                 <Label Text="Podíl z ceny nemovitosti v %" Grid.Row="3"/>
                 <Entry x:Name="shareEntry"
                        Keyboard="Numeric"
                        Grid.Row="4"
                        Placeholder="Podíl z ceny nemovitosti v %"
-                       Text="{Binding Mortgage.Share}"
+                       Text="{Binding Mortgage.Share, Converter={StaticResource doubleToString}}"
                        HeightRequest="50"/>
                 <Label Text="Počet let" Grid.Row="5"/>
                 <Entry x:Name="forYearsEntry"
                        Keyboard="Numeric"
                        Grid.Row="6"
                        Placeholder="Počet let"
-                       Text="{Binding Mortgage.ForYears}"
+                       Text="{Binding Mortgage.ForYears, Converter={StaticResource intToString}}"
                        HeightRequest="50"/>
             </Grid>
 

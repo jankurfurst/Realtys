@@ -9,13 +9,6 @@ namespace Realtys.Models
     [Table(nameof(Mortgage))]
     public class Mortgage
     {
-        [NotMapped]
-        private int? forYears;
-        [NotMapped]
-        private double? share;
-        [NotMapped]
-        private double? interest;
-
         /// <summary>
         /// ID úvěru.
         /// </summary>
@@ -26,29 +19,13 @@ namespace Realtys.Models
         /// Roční úroková sazba úvěru.
         /// </summary>
         [Required]
-        public string Interest
-        {
-            get => interest.ToString();
-            set
-            {
-                if(Double.TryParse(value, out double i)) interest = i;
-                else interest = null;
-            }
-        }
+        public double? Interest { get; set; }
 
         /// <summary>
         /// Podíl z ceny nemovitosti, pokrytý úvěrem
         /// </summary>
         [Required]
-        public string Share
-        {
-            get => share.ToString();
-            set
-            {
-                if (Double.TryParse(value, out double i)) share = i;
-                else share = null;
-            }
-        }
+        public double? Share { get; set; }
 
         /// <summary>
         /// Počáteční dluh.
@@ -60,15 +37,7 @@ namespace Realtys.Models
         /// Počet let splatnosti úvěru.
         /// </summary>
         [Required]
-        public string ForYears
-        {
-            get => forYears.ToString();
-            set
-            {
-                if (Int32.TryParse(value, out int i)) forYears = i;
-                else forYears = null;
-            }
-        }
+        public int? ForYears { get; set; }
 
         /// <summary>
         /// Splátka úvěru.

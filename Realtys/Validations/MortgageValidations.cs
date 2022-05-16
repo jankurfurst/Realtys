@@ -13,46 +13,19 @@ namespace Realtys.Validations
         public MortgageValidations()
         {
             //Pravidlo pro Roční úroková sazba
-            RuleFor(x => x.Interest).Custom((value, context) =>
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    context.AddFailure("Roční úroková sazba je povinný údaj.");
-                }
-                else
-                {
-                    if (!Double.TryParse(value, out double i) || i < 1 || i > 100) 
-                        context.AddFailure("Roční úroková sazba musí být v rozmezí 1-100.");
-                }
-            });
+            RuleFor(x => x.Interest)
+                .NotEmpty().WithMessage("Roční úroková sazba je povinný údaj.")
+                .InclusiveBetween(1, 100).WithMessage("Roční úroková sazba musí být v rozmezí 1-100.");
 
             //Pravidlo pro Podíl z ceny nemovitosti
-            RuleFor(x => x.Share).Custom((value, context) =>
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    context.AddFailure("Podíl z ceny nemovitosti je povinný údaj.");
-                }
-                else
-                {
-                    if (!Double.TryParse(value, out double i) || i < 1 || i > 100)
-                        context.AddFailure("Podíl z ceny nemovitosti musí být v rozmezí 1-100.");
-                }
-            });
+            RuleFor(x => x.Share)
+                .NotEmpty().WithMessage("Podíl z ceny nemovitosti je povinný údaj.")
+                .InclusiveBetween(1,100).WithMessage("Podíl z ceny nemovitosti musí být v rozmezí 1-100.");
 
             //Pravidlo pro Počet let splácení úvěru
-            RuleFor(x => x.ForYears).Custom((value, context) =>
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    context.AddFailure("Počet let splácení úvěru je povinný údaj.");
-                }
-                else
-                {
-                    if (!Int32.TryParse(value, out int i) || i < 0)
-                        context.AddFailure("Počet let splácení úvěru musí být > 0.");
-                }
-            });
+            RuleFor(x => x.ForYears)
+                .NotEmpty().WithMessage("Počet let splácení úvěru je povinný údaj.")
+                .GreaterThan(0).WithMessage("Počet let splácení úvěru musí být > 0.");
 
         }
     }

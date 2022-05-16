@@ -35,7 +35,7 @@ namespace Realtys.Database
         {
             double urok_sazba = 3;//%
             double podil = 80.0;
-            double pocatecniDluh = (double)(Int32.Parse(r.RealtyPrice) * (podil / 100.0));
+            double pocatecniDluh = (double)r.RealtyPrice * (podil / 100.0);
             int pocetLet = 30;
 
             int pocetMesicu = pocetLet * 12;
@@ -49,10 +49,10 @@ namespace Realtys.Database
 
             Mortgage m = new()
             {
-                Interest = urok_sazba.ToString(),
-                Share = podil.ToString(),
+                Interest = (int?)urok_sazba,
+                Share = podil,
                 InitialDebt = pocatecniDluh,
-                ForYears = pocetLet.ToString(),
+                ForYears = pocetLet,
                 Payment = splatka,
                 RealtyID = r.ID
         };
@@ -75,11 +75,11 @@ namespace Realtys.Database
             RealEstate r1 = new()
             {
                 Name = "Chata - zelená střecha na svahu",
-                MonthlyExpenses = naklady.ToString(),
-                MonthlyRent = najem.ToString(),
-                RealtyPrice = cena.ToString(),
-                Vacancy = neobsazenost.ToString(),
-                ForYears = pocetLet.ToString(),
+                MonthlyExpenses = naklady,
+                MonthlyRent = najem,
+                RealtyPrice = cena,
+                Vacancy = neobsazenost,
+                ForYears = pocetLet,
                 MortgageUsage = false
 
 
@@ -87,11 +87,11 @@ namespace Realtys.Database
             RealEstate r2 = new()
             {
                 Name = "Byt - ulice Mokrá 773, Praha",
-                MonthlyExpenses = naklady.ToString(),
-                MonthlyRent = najem.ToString(),
-                RealtyPrice = cena.ToString(),
-                Vacancy = neobsazenost.ToString(),
-                ForYears= pocetLet.ToString(),
+                MonthlyExpenses = naklady,
+                MonthlyRent = najem,
+                RealtyPrice = cena,
+                Vacancy = neobsazenost,
+                ForYears= pocetLet,
                 MortgageUsage = true
 
             };
